@@ -48,18 +48,56 @@ calculator.init = function (data) {
         },
     });
 
-	$('#btnBack').on('click', function(){
-		$("#searchResult3").css({ "transform": 'translateX(-200%)', 'transition':'.3s'});
-	});
+	$("#btnBack").on("click", function () {
+        $("#searchResult3").css({ transform: "translateX(-200%)", transition: ".3s" });
+    });
 
-	$('.btnTop').on('click', function(){
-		$(".footPopup").toggleClass('on');
-	});
+    $(".btnTop").on("click", function () {
+        $(".footPopup").toggleClass("on");
+    });
 
-	$('.btnTop').on('touchstart', function(){
-		$(".footPopup").toggleClass('on');
-	});
+    $(".btnTop").on("touchstart", function () {
+        $(".footPopup").toggleClass("on");
+    });
 
+	$("#btnSaveHistory").on("click", function () {
+        if ("localStorage" in window) {
+			
+            if (localStorage.getItem("loanData") != null) {
+                var localArray = JSON.parse(localStorage.getItem("loanData"));
+            } else {
+                var localArray = [];
+            }
+
+            calculator.loanData.monthly = "";
+            localArray.push(calculator.loanData);
+            localStorage.setItem("loanData", JSON.stringify(localArray));
+            console.log(localStorage);
+
+        } else {
+            alert("localStorage가 지원되지 않습니다.");
+        }
+    });
+
+	$("#btnReCalculator").on("click", function () {
+		$('.footPopup .titH3').text('History')
+		$('.footPopup .inner').html('대출내역이 존재하지 않습니다.');
+
+		if ("localStorage" in window) {
+			
+            if (localStorage.getItem("loanData") != null) {
+                var loanData = JSON.parse(localStorage.getItem("loanData"));
+				var html = '';
+				$(loanData).each(function (index, elem) {
+					html += `<div class="loan${index + 1}">${elem.loanMoney}</div>`
+				});
+				$('.footPopup .inner').html(html);
+			}
+
+        } else {
+            alert("localStorage가 지원되지 않습니다.");
+        }
+    });
 	
 };
 
@@ -83,7 +121,8 @@ calculator.event.fn_next = function () {
  */
 calculator.event.fn_calculation = function () {
     var loanResult = calculator.locAction.calculation();
-	console.log(loanResult);
+	calculator.loanData = loanResult;
+	console.log(calculator.loanData);
 
 	// setTimeout(() => {
 	// 	new Chart(document.getElementById("openedCanvas"), {
