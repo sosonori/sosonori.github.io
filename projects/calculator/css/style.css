@@ -1,0 +1,59 @@
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 300;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 400;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 500;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 700;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}
+html, body{font-size: 10px;font-family: 'Noto Sans KR' !important}
+body{background-color: #111;}
+section{ max-width: 375px;padding:30px; margin: 0 auto; background-color: #f9fbfc;}
+/* input{display:block;min-width: 315px; height:60px; padding: 0 20px; background:#fff;border:1px solid #dde0e2;box-sizing:border-box;border-radius:12px; font-size: 1.6rem !important;} */
+input{padding-right: 45px !important;}
+
+label{color: #9e9eab; font-size: 1.4rem;}
+label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !important;}
+
+.btnArea{margin: 20px 0;}
+.btn_d{display:block;min-width: 315px; height:60px;background-color: #322e54;color: #fff; box-sizing:border-box;border-radius:12px;}
+
+
+.popup{display: block; position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; padding-left: 32px; padding-right: 32px; background-color: #02034A; z-index: 9999;}
+
+#btnBack{position: absolute; top: 16px; left:32px; display: block; width: 24px; height: 24px; background: url(../images/icons-back-light.svg) center center no-repeat;}
+#btnFilter{position: absolute; top: 16px; right:32px; display: block; width: 24px; height: 24px; background: url(../images/icons-light-filter.svg) center center no-repeat;}
+
+#searchResult3{transform: translateX(-200%); transition: .3s;}
+
+.topSummary{margin-top: 40px;}
+.label{font-size: 16px; color: #676893; font-weight: 300; letter-spacing: -1px;}
+#sum7{color: #fff; font-size: 3rem; font-weight: 700;}
+
+.ul1{margin-top: 24px; display: table; width: 100%; padding: 16px 0; background-color: rgba(0, 0, 0, 0.3); border-radius: 16px;}
+.ul1 li{display: table-cell;}
+.ul1 li span{display: block; text-align: center;}
+.ul1 .tit{color: #676893; font-size: 1.2rem; font-weight: 300;}
+.ul1 .val{color: #fff; font-size: 1.3rem; font-weight: 400; margin-top: 4px;}
+.ul1 .val.em{color: #FFD93B;}
+
+.ul2{margin-top: 24px;}
+.ul2 li{overflow: hidden; margin-top: 8px;}
+.ul2 .tit{float: left; color: #676893; font-size: 1.6rem; font-weight: 300;}
+.ul2 .val{float: right; color: #fff; font-size: 1.8rem; font-weight: 500; text-align: right;}
+.ul2 .val.em{color: #FFD93B;}
+
+.footArea{position: relative; height: 56px; margin-top: 24px;}
+.footArea #btnBookmark{position: absolute; top: 0; left:0; display: block; width: 56px; height: 56px; background:#676893 url(../images/icons-heart-red.svg) center center no-repeat; border-radius: 16px;}
+.footArea #btnReCalculator{position: absolute; top: 0; left: 64px; width: calc(100% - 64px); height: 56px; background:#676893; border-radius: 16px; color: #fff; font-size: 1.8rem; font-weight: 500;}
+
+.footPopup{position: fixed; bottom: 0;left: 0; width: 100%; height: 200px; padding-left: 32px; padding-right: 32px; background: transparent linear-gradient(180deg, #FFFFFF 0%, #F7F7FA 100%) 0% 0% no-repeat padding-box; border-radius: 40px 40px 0px 0px; transition: .3s;}
+.footPopup.on{height: calc(100% - 160px);}
+.footPopup .inner{overflow: auto; max-height: 200px;}
+.footPopup.on .inner{max-height: calc(100% - 100px);}
+.footPopup .btnTop{position: absolute; top: 0; left: 0; width: 100%; height: 32px; background-color: transparent;}
+.footPopup .btnTop::before{position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); content: ''; width: 56px; height: 4px; background-color: #d0d0d0; border-radius: 2px;}
+
+.footPopup .titH3{ margin-top: 32px; padding-top: 16px; font-size: 2rem; color: #02034A; font-weight: 600; letter-spacing: -1px;}
+
+/* .tableX{width: 400px;} */
+.tableX th{ color: #02034A;}
+.tableX th, .tableX td{padding: 4px 2px; white-space: nowrap; font-size: 1.3rem;}
