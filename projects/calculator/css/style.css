@@ -26,7 +26,8 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 .topSummary{margin-top: 40px;}
 .label{font-size: 16px; color: #676893; font-weight: 300; letter-spacing: -1px;}
-#sum7{color: #fff; font-size: 3rem; font-weight: 700;}
+#sum7{display: block; color: #fff; font-size: 3rem; font-weight: 700;}
+#sum8{display: block; color: #fff; font-size: 1.5rem; opacity: .7; margin-top: 4px;}
 
 .ul1{margin-top: 24px; display: table; width: 100%; padding: 16px 0; background-color: rgba(0, 0, 0, 0.3); border-radius: 16px;}
 .ul1 li{display: table-cell;}
@@ -37,8 +38,8 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 .ul2{margin-top: 24px;}
 .ul2 li{overflow: hidden; margin-top: 8px;}
-.ul2 .tit{float: left; color: #676893; font-size: 1.6rem; font-weight: 300;}
-.ul2 .val{float: right; color: #fff; font-size: 1.8rem; font-weight: 500; text-align: right;}
+.ul2 .tit{float: left; color: #676893; font-size: 1.3rem; font-weight: 300;}
+.ul2 .val{float: right; color: #fff; font-size: 1.5rem; font-weight: 500; text-align: right;}
 .ul2 .val.em{color: #FFD93B;}
 
 .footArea{position: relative; height: 56px; margin-top: 24px;}
@@ -49,11 +50,30 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 .footPopup.on{height: calc(100% - 160px);}
 .footPopup .inner{overflow: auto; max-height: 200px;}
 .footPopup.on .inner{max-height: calc(100% - 100px);}
-.footPopup .btnTop{position: absolute; top: 0; left: 0; width: 100%; height: 32px; background-color: transparent;}
+.footPopup .btnTop{position: absolute; top: 0; left: 0; width: 100%; height: 40px; background-color: transparent;}
 .footPopup .btnTop::before{position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); content: ''; width: 56px; height: 4px; background-color: #d0d0d0; border-radius: 2px;}
 
-.footPopup .titH3{ margin-top: 32px; padding-top: 16px; font-size: 2rem; color: #02034A; font-weight: 600; letter-spacing: -1px;}
+.footPopup .titH3{ margin-top: 40px; margin-bottom: 8px; font-size: 1.8rem; color: #02034A; font-weight: 600; letter-spacing: -1px;}
+
+.loanHistory{margin-top: 10px;}
+.loanHistory li{min-height: 40px; padding-top: 15px; padding-bottom: 15px; letter-spacing: -0.5px; border-bottom: 1px solid #eee;;}
+.loanHistory .info{position: relative; padding-left: 51px;}
+.loanHistory .loanMoney{line-height: 1; font-size: 1.5rem; color: #02034A; font-weight: 600;}
+.loanHistory .date{margin-top: 8px; height: 14px; line-height: 14px; font-size: 1.2rem; color: #888;}
+.loanHistory .method{position: absolute; top: 0; left: 0; width: 36px; height: 36px; background: #ffdb28 url(../images/icon_won_white.png) center center no-repeat; background-size: 22px; border-radius: 12px; text-indent: -9999px;}
+.loanHistory .loansDate{position: absolute; bottom: 0; right: 0; font-size: 1.2rem; color: #888;}
+.loanHistory .rates{position: absolute; top: -2px; right: 0; font-size: 1.8rem; font-weight: 900; line-height: 1;}
 
 /* .tableX{width: 400px;} */
 .tableX th{ color: #02034A;}
-.tableX th, .tableX td{padding: 4px 2px; white-space: nowrap; font-size: 1.3rem;}
+.tableX th, .tableX td{padding: 4px 8px; background-color: #fff; white-space: nowrap; font-size: 1.3rem; z-index: 10;}
+
+.tableX.fixed{table-layout: auto; margin-top: 0; border-top: 0;}
+.tableX.fixed thead{ position: sticky; top: 0; z-index: 20;}
+.tableX.fixed thead th{background-color: #f8f8f8; border-top: 1px solid #333;}
+.tableX.fixed tbody{position: relative; z-index: 10;}
+.tableX.fixed tr{white-space: nowrap;}
+.tableX.fixed tr th:first-child,
+.tableX.fixed tr td:first-child{position: sticky; left: 0; background-color: #f8f8f8; z-index: 20;}
+.tableX.fixed tr th:first-child::after,
+.tableX.fixed tr td:first-child::after{display: block; content: ''; position: absolute; top: 0; right: -1px; height: 100%;border-right: 1px solid #e0e0e0;}

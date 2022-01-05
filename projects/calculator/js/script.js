@@ -69,10 +69,11 @@ calculator.init = function (data) {
                 var localArray = [];
             }
 
+			//console.log(localArray);
             calculator.loanData.monthly = "";
+			calculator.loanData.loanId = ComUtil.string.getCurrDateTime();
             localArray.push(calculator.loanData);
             localStorage.setItem("loanData", JSON.stringify(localArray));
-            console.log(localStorage);
 
         } else {
             alert("localStorage가 지원되지 않습니다.");
@@ -89,9 +90,18 @@ calculator.init = function (data) {
                 var loanData = JSON.parse(localStorage.getItem("loanData"));
 				var html = '';
 				$(loanData).each(function (index, elem) {
-					html += `<div class="loan${index + 1}">${elem.loanMoney}</div>`
+					html += `
+					<li data-index="${index}">
+						<div class="info">
+							<div class="loanMoney">${ComUtil.mask.addComma(Math.floor(elem.loanMoney))}원</div>
+							<div class="date">${elem.loanId.substring(0,4)}.${elem.loanId.substring(4,6)}.${elem.loanId.substring(6,8)} ${elem.loanId.substring(8,10)}:${elem.loanId.substring(10,12)}</div>
+							<div class="method">${elem.method}</div>
+							<div class="loansDate">${elem.loansDate}개월</div>
+							<div class="rates">${(elem.rates * 100).toFixed(1)}%</div>
+						</div>
+					</li>`;
 				});
-				$('.footPopup .inner').html(html);
+				$('.footPopup .inner').addClass('loanHistory').html(html);
 			}
 
         } else {
@@ -100,6 +110,34 @@ calculator.init = function (data) {
     });
 	
 };
+
+function numberFormat(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function numberToKorean(number){
+    var inputNumber  = number < 0 ? false : number;
+    var unitWords    = ['', '만 ', '억 ', '조 ', '경 '];
+    var splitUnit    = 10000;
+    var splitCount   = unitWords.length;
+    var resultArray  = [];
+    var resultString = '';
+
+    for (var i = 0; i < splitCount; i++){
+        var unitResult = (inputNumber % Math.pow(splitUnit, i + 1)) / Math.pow(splitUnit, i);
+        unitResult = Math.floor(unitResult);
+        if (unitResult > 0){
+            resultArray[i] = unitResult;
+        }
+    }
+
+    for (var i = 0; i < resultArray.length; i++){
+        if(!resultArray[i]) continue;
+        resultString = String(numberFormat(resultArray[i])) + unitWords[i] + resultString;
+    }
+
+    return resultString;
+}
 
 /**
  * 이벤트 정의 영역
@@ -158,8 +196,9 @@ calculator.event.fn_calculation = function () {
  */
 calculator.locAction.calcLoanInterest = function (method, loanMoney, rates, loansDate, period) {
   var CALC_LOAN_INTEREST_TYPES = {
-    0: "원리금 균등 상환",
-    1: "원금 균등 상환",
+    0: "원리금균등상환",
+    1: "원금균등상환",
+    2: "만기일시상환",
   };
 
   var __spreadArray =
@@ -221,6 +260,15 @@ calculator.locAction.calcLoanInterest = function (method, loanMoney, rates, loan
       return __spreadArray(__spreadArray([], a), [result]);
     }, []);
   }
+
+  // 만기일시
+  if (method === 2) {
+	  obj.totalInterest = ((obj.loanMoney * obj.rates) / 12) * obj.loansDate; // 대출 이자
+	  obj.totalRepay = obj.loanMoney + obj.totalInterest;
+	  return obj;
+	  console.log(obj);
+  }
+
   obj.totalInterest =
     (_a = obj.monthly) === null || _a === void 0
       ? void 0
@@ -279,6 +327,7 @@ calculator.locAction.calculation = function () {
   $("#sum5").html(ComUtil.mask.addComma(Math.floor(loanResult.totalInterest)) + "원");
   $("#sum6").html(ComUtil.mask.addComma(Math.floor(loanResult.totalRepay)) + "원");
   $("#sum7").html(ComUtil.mask.addComma(Math.floor(loanResult.totalRepay)) + "원");
+  $("#sum8").html(numberToKorean(loanResult.totalRepay) + "원");
   return loanResult;
 };
 

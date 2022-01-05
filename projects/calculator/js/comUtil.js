@@ -420,8 +420,25 @@ ComUtil.string.getCurrDate = function(tok) {
 	var fullYear = currDate.getFullYear();
 	var month = ComUtil.string.lpad(currDate.getMonth() + 1, 2, '0');
 	var date = ComUtil.string.lpad(currDate.getDate(), 2, '0');
+	console.log(currDate.getHours(), currDate.getMinutes(), currDate.getSeconds())
 	return fullYear + tok + month + tok + date;
 }
+
+/**
+ * 현재일시를 반환한다.
+ */
+ComUtil.string.getCurrDateTime = function(tok) {
+	var currDate = new Date();
+	var fullYear = currDate.getFullYear();
+	var month = ComUtil.string.lpad(currDate.getMonth() + 1, 2, '0');
+	var date = ComUtil.string.lpad(currDate.getDate(), 2, '0');
+	var hours = ComUtil.string.lpad(currDate.getHours(), 2, '0');
+	var minutes = ComUtil.string.lpad(currDate.getMinutes(), 2, '0');
+	var seconds = ComUtil.string.lpad(currDate.getSeconds(), 2, '0');
+	return fullYear + month + date + hours + minutes + seconds;
+}
+
+
 
 /**
  * 해당일자 기준으로 년월일을 + 또는 - 하여 반환한다.
