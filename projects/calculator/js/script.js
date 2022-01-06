@@ -64,16 +64,30 @@ calculator.init = function (data) {
         if ("localStorage" in window) {
 			
             if (localStorage.getItem("loanData") != null) {
-                var localArray = JSON.parse(localStorage.getItem("loanData"));
+				var newDiff = `${calculator.loanData.method}/${calculator.loanData.loanMoney}/${calculator.loanData.loansDate}/${calculator.loanData.rates}`;
+				var isDiff = true;
+				var localArray = JSON.parse(localStorage.getItem("loanData"));
+				$(localArray).each(function (i, e) {
+					if (e.diff == newDiff) {
+						ux.toast('동일한 대출 내역이 있습니다.');
+						isDiff = false;
+						setTimeout(() => { getHistory() }, 1800);
+						return false;
+					}
+				});
             } else {
                 var localArray = [];
             }
 
-			//console.log(localArray);
-            calculator.loanData.monthly = "";
-			calculator.loanData.loanId = ComUtil.string.getCurrDateTime();
-            localArray.push(calculator.loanData);
-            localStorage.setItem("loanData", JSON.stringify(localArray));
+            if(isDiff == true) {
+				calculator.loanData.monthly = "";
+				calculator.loanData.loanId = ComUtil.string.getCurrDateTime();
+				calculator.loanData.diff = `${calculator.loanData.method}/${calculator.loanData.loanMoney}/${calculator.loanData.loansDate}/${calculator.loanData.rates}`;
+				localArray.push(calculator.loanData);
+				localStorage.setItem("loanData", JSON.stringify(localArray));
+
+				ux.toast('대출 내역이 저장되었습니다.');
+			}
 
         } else {
             alert("localStorage가 지원되지 않습니다.");
@@ -81,9 +95,10 @@ calculator.init = function (data) {
     });
 
 	$("#btnReCalculator").on("click", function () {
-		$('.footPopup .titH3').text('History')
-		$('.footPopup .inner').html('대출내역이 존재하지 않습니다.');
+		$('#btnBack').trigger('click');
+	});
 
+	function getHistory() {
 		if ("localStorage" in window) {
 			
             if (localStorage.getItem("loanData") != null) {
@@ -107,7 +122,7 @@ calculator.init = function (data) {
         } else {
             alert("localStorage가 지원되지 않습니다.");
         }
-    });
+    };
 	
 };
 
