@@ -261,14 +261,6 @@ calculator.locAction.calcLoanInterest = function (method, loanMoney, rates, loan
     }, []);
   }
 
-  // 만기일시
-  if (method === 2) {
-	  obj.totalInterest = ((obj.loanMoney * obj.rates) / 12) * obj.loansDate; // 대출 이자
-	  obj.totalRepay = obj.loanMoney + obj.totalInterest;
-	  return obj;
-	  console.log(obj);
-  }
-
   obj.totalInterest =
     (_a = obj.monthly) === null || _a === void 0
       ? void 0
@@ -280,7 +272,34 @@ calculator.locAction.calcLoanInterest = function (method, loanMoney, rates, loan
       ? void 0
       : _b.reduce(function (a, c) {
           return a + c.repayment || 0;
-        }, 0); // 총상환금액
+        }, 0); // 총상환금액 
+
+  // 만기일시
+  if (method === 2) {
+    var _interest = 0;
+    obj.monthly = __spreadArray([], Array(loansDate)).reduce(function (a, _, i) {
+      var _a, _b, _c;
+      var interest = Math.floor(((_b = (_a = a[i - 1]) === null || _a === void 0 ? void 0 : _a.balance) !== null && _b !== void 0 ? _b : loanMoney) * (rates / 12)); // 대출 이자
+      _interest = interest;
+      var payment = 0; // 납입원금
+      var repayment = payment + interest; // 월상환금
+      // var balance = obj.loanMoney; // 대출잔금
+      var balance = (((_c = a[i - 1]) === null || _c === void 0 ? void 0 : _c.balance) || loanMoney) - repayment + interest; // 대출잔금
+      var result = {
+        round: i + 1,
+        payment: payment,
+        interest: interest,
+        repayment: repayment,
+        balance: balance > 0 ? balance : 0,
+      };
+      return __spreadArray(__spreadArray([], a), [result]);
+    }, []);
+
+    obj.totalInterest = _interest * obj.loansDate; // 대출 이자
+	  obj.totalRepay = obj.loanMoney + obj.totalInterest;
+  }
+
+  
   return obj;
 };
 

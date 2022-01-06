@@ -18,7 +18,7 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 
 .popup{display: block; position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; padding-left: 32px; padding-right: 32px; background-color: #02034A; z-index: 9999;}
-
+.popup{opacity: .3;}
 #btnBack{position: absolute; top: 16px; left:32px; display: block; width: 24px; height: 24px; background: url(../images/icons-back-light.svg) center center no-repeat;}
 #btnFilter{position: absolute; top: 16px; right:32px; display: block; width: 24px; height: 24px; background: url(../images/icons-light-filter.svg) center center no-repeat;}
 

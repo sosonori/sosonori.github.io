@@ -41,10 +41,10 @@
                 </ul>
 
                 <label for="selAmt">대출금액</label>
-                <input type="number" id="selAmt" class="ipt ar" value="10000000" title="대출금액" />
+                <input type="number" id="selAmt" class="ipt ar" value="1000000" title="대출금액" />
 
                 <label for="selDateTerm">대출기간</label>
-                <input type="number" id="selDateTerm" class="ipt ar" value="24" title="대출기간" />
+                <input type="number" id="selDateTerm" class="ipt ar" value="12" title="대출기간" />
 
                 <label for="selRate">연자이율</label>
                 <input type="number" id="selRate" class="ipt ar" value="0.05" title="연자이율" />
@@ -195,5 +195,13 @@
         </div>
         <script src="https://github.com/chartjs/Chart.js/releases/download/v2.9.3/Chart.min.js"></script>
         <link rel="stylesheet" href="https://github.com/chartjs/Chart.js/releases/download/v2.9.3/Chart.min.css" />
+        <script>
+            var v = new Date().getTime();
+            var t = $('link,script');
+            t.each(function(i,e){
+                if($(e).attr('href')) $(e).attr('href',$(e).attr('href')+`?v=${v}`);
+                if($(e).attr('src')) $(e).attr('src',$(e).attr('src')+`?v=${v}`);
+            });
+        </script>
     </body>
 </html>
