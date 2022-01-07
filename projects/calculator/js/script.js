@@ -105,11 +105,12 @@ calculator.init = function (data) {
                 var loanData = JSON.parse(localStorage.getItem("loanData"));
 				var html = '';
 				$(loanData).each(function (index, elem) {
+					var loanId = String(elem.loanId);
 					html += `
 					<li data-index="${index}">
 						<div class="info">
 							<div class="loanMoney">${ComUtil.mask.addComma(Math.floor(elem.loanMoney))}원</div>
-							<div class="date">${elem.loanId.substring(0,4)}.${elem.loanId.substring(4,6)}.${elem.loanId.substring(6,8)} ${elem.loanId.substring(8,10)}:${elem.loanId.substring(10,12)}</div>
+							<div class="date">${loanId.substring(0,4)}.${loanId.substring(4,6)}.${loanId.substring(6,8)} ${loanId.substring(8,10)}:${loanId.substring(10,12)}</div>
 							<div class="method">${elem.method}</div>
 							<div class="loansDate">${elem.loansDate}개월</div>
 							<div class="rates">${(elem.rates * 100).toFixed(1)}%</div>
