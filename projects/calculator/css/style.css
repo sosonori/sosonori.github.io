@@ -10,6 +10,8 @@
 
 html, body{font-size: 10px; font-family:'NanumSquare','Noto Sans KR',san-serif; font-weight: 400; /* overscroll-behavior: contain; */}
 body{background-color: #111;}
+
+#content{position: relative; width: 375px; margin: 0 auto;}
 section{ max-width: 375px; height: 100vh; padding:30px; margin: 0 auto; background-color: #f9fbfc;}
 /* input{display:block;min-width: 315px; height:60px; padding: 0 20px; background:#fff;border:1px solid #dde0e2;box-sizing:border-box;border-radius:12px; font-size: 1.6rem !important;} */
 input{padding-right: 45px !important;}
@@ -21,11 +23,14 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 .btn_d{display:block;min-width: 315px; height:60px;background-color: #322e54;color: #fff; box-sizing:border-box;border-radius:12px;}
 
 
-.popup{display: block; position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; padding-left: 32px; padding-right: 32px; background-color: #02034A; z-index: 9999;}
+.popup{display: block; position: fixed; top: 0; left: 50%; transform: translateX(-50%); }
 #btnBack{position: absolute; top: 16px; left:32px; display: block; width: 24px; height: 24px; background: url(../images/icons-back-light.svg) center center no-repeat;}
 #btnFilter{position: absolute; top: 16px; right:32px; display: block; width: 24px; height: 24px; background: url(../images/icons-light-filter.svg) center center no-repeat;}
 
-#searchResult3{transform: translateX(-200%); transition: .3s;}
+/*.loanRateResult{transform: translateX(0); transition: .3s;}*/
+.loanRateResult{ position: absolute; left: 0; top: 0; width: 100%; transform: translate(0, 10%); padding-left: 32px; padding-right: 32px; background-color: #02034A; opacity: 0; z-index: -1; transition: opacity .3s;}
+.loanRateResult.on{transform: translate(0, 0);; transition: .3s; opacity: 1; z-index: 9999}
+
 
 .topSummary{margin-top: 40px;}
 .label{font-size: 16px; color: #676893; font-weight: 300; letter-spacing: -1px;}
@@ -47,7 +52,7 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 .footArea{position: relative; height: 56px; margin-top: 24px;}
 .footArea #btnSaveHistory{position: absolute; top: 0; left:0; display: block; width: 56px; height: 56px; background:#676893 url(../images/icons-heart-red.svg) center center no-repeat; border-radius: 16px;}
-.footArea #btnReCalculator{position: absolute; top: 0; left: 64px; width: calc(100% - 64px); height: 56px; background:#676893; border-radius: 16px; color: #fff; font-size: 1.8rem; font-weight: 500;}
+.footArea #btnReCalculate{position: absolute; top: 0; left: 64px; width: calc(100% - 64px); height: 56px; background:#676893; border-radius: 16px; color: #fff; font-size: 1.8rem; font-weight: 500;}
 
 .footPopup{position: fixed; bottom: 0;left: 0; width: 100%; height: 200px; padding-left: 32px; padding-right: 32px; background: transparent linear-gradient(180deg, #FFFFFF 0%, #F7F7FA 100%) 0% 0% no-repeat padding-box; border-radius: 40px 40px 0px 0px; transition: .3s;}
 .footPopup.on{height: calc(100% - 160px);}

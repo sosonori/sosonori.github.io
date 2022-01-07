@@ -14,7 +14,7 @@
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
 		<!-- <script src="./js/chart.js"></script> -->
 		<script src="./js/ux.js"></script>
-		<script src="./js/script.js"></script>
+		<script src="./js/calculator.js"></script>
 		<link rel="stylesheet" type="text/css" href="./css/reset.css" />
 		<link rel="stylesheet" type="text/css" href="./css/common.css" />
 		<link rel="stylesheet" type="text/css" href="./css/style.css" />
@@ -81,11 +81,11 @@
 		</tbody>
 	</table> -->
 				<div class="btnArea">
-					<button type="button" class="btn_d" id="calculation">Calculate</button>
+					<button type="button" class="btn_d" id="btnCalculate">Calculate</button>
 				</div>
 			</section>
 
-			<section id="searchResult3" class="popup">
+			<section id="loanRateResult" class="loanRateResult">
 				<div class="topArea">
 					<button type="button" id="btnBack" title="뒤로가기"></button>
 					<button type="button" id="btnFilter" title="필터"></button>
@@ -131,11 +131,11 @@
 
 				<div class="footArea">
 					<button type="button" id="btnSaveHistory" title="대출내역 저장하기"></button>
-					<button type="button" id="btnReCalculator" title="다시 계산하기">다시 계산하기</button>
+					<button type="button" id="btnReCalculate" title="다시 계산하기">다시 계산하기</button>
 				</div>
 
 				<div class="footPopup">
-					<h3 class="titH3">월별 상환금액</h3>
+					<h3 class="titH3" id="loanDetailTitle">월별 상환금액</h3>
 					<button type="button" class="btnTop"></button>
 					<div class="inner">
 						<table class="tableX fixed" data-title="월별 납입금액">
