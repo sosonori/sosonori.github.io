@@ -5,6 +5,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<title>Calculate</title>
+		<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" href="./css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="./css/common.css" />
+		<link rel="stylesheet" type="text/css" href="./css/style.css" />
 		<script src="./js/jquery-3.4.1.min.js"></script>
 		<script src="./js/sysComm.js"></script>
 		<script src="./js/pageReadyInit.js"></script>
@@ -15,13 +19,45 @@
 		<!-- <script src="./js/chart.js"></script> -->
 		<script src="./js/ux.js"></script>
 		<script src="./js/calculator.js"></script>
-		<link rel="stylesheet" type="text/css" href="./css/reset.css" />
-		<link rel="stylesheet" type="text/css" href="./css/common.css" />
-		<link rel="stylesheet" type="text/css" href="./css/style.css" />
-		<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
 	</head>
 	<body>
 		<div id="content">
+			<!--<div id="selectBankPopup" class="modalPopup">
+				<div class="titArea">
+					<h3 class="titH3">은행 선택</h3>
+					<p class="desc">대출 이자 계산 내역을 표기 시 사용됩니다.</p>
+				</div>
+				<ul class="bankList">
+					<li><button type="button" class="btnBank" data-bank="default" aria-selected="true">선택안함</button></li>
+					<li><button type="button" class="btnBank" data-bank="kbbank">KB국민</button></li>
+					<li><button type="button" class="btnBank" data-bank="shinhan">신한</button></li>
+					<li><button type="button" class="btnBank" data-bank="keb">하나</button></li>
+					<li><button type="button" class="btnBank" data-bank="wooribank">우리</button></li>
+					<li><button type="button" class="btnBank" data-bank="nhbank">농협</button></li>
+					<li><button type="button" class="btnBank" data-bank="ibk">기업</button></li>
+					<li><button type="button" class="btnBank" data-bank="kdb">산업</button></li>
+					<li><button type="button" class="btnBank" data-bank="kakaobank">카카오뱅크</button></li>
+					<li><button type="button" class="btnBank" data-bank="tossbank">토스뱅크</button></li>
+					<li><button type="button" class="btnBank" data-bank="kbank">케이뱅크</button></li>
+					<li><button type="button" class="btnBank" data-bank="scbank">SC제일</button></li>
+					<li><button type="button" class="btnBank" data-bank="citi">한국씨티</button></li>
+					<li><button type="button" class="btnBank" data-bank="jeju">제주</button></li>
+					<li><button type="button" class="btnBank" data-bank="bnk">부산</button></li>
+					<li><button type="button" class="btnBank" data-bank="kjbank">광주</button></li>
+					<li><button type="button" class="btnBank" data-bank="dgb">대구</button></li>
+					<li><button type="button" class="btnBank" data-bank="bnk2">경남</button></li>
+					<li><button type="button" class="btnBank" data-bank="jbbank">전북</button></li>
+					<li><button type="button" class="btnBank" data-bank="fsb">저축</button></li>
+					<li><button type="button" class="btnBank" data-bank="epost">우체국</button></li>
+					<li><button type="button" class="btnBank" data-bank="kfcc">새마을금고</button></li>
+					<li><button type="button" class="btnBank" data-bank="cu">신협</button></li>
+					<li><button type="button" class="btnBank" data-bank="sh">수협</button></li>
+					<li><button type="button" class="btnBank" data-bank="nfcf">산림조합</button></li>
+				</ul>
+				<button type="button" class="btnClose" title="취소하기"></button>
+				<button type="button" class="btnConfirm" title="확인">확인</button>
+			</div>-->
+
 			<section>
 				<div class="titArea">
 					<h1 class="titH1">Calculate</h1>
@@ -50,91 +86,60 @@
 				<label for="selRate">연자이율</label>
 				<input type="number" id="selRate" class="ipt ar" value="0.05" title="연자이율" />
 
-				<!-- <table class="tableY formTbl">
-		<colgroup>
-		<col style="width: 185px" />
-		<col style="width: auto" />
-		<col style="width: 185px" />
-		<col style="width: auto" />
-		</colgroup>
-		<tbody>
-		<tr>
-			<td class="th">상환방법</td>
-			<td>
-			
-			</td>
-			<td class="th">대출금</td>
-			<td>
-			
-			</td>
-		</tr>
-		<tr>
-			<td class="th">기간</td>
-			<td>
-			
-			</td>
-			<td class="th">금리</td>
-			<td>
-			
-			</td>
-		</tr>
-		</tbody>
-	</table> -->
 				<div class="btnArea">
 					<button type="button" class="btn_d" id="btnCalculate">Calculate</button>
 				</div>
 			</section>
 
 			<section id="loanRateResult" class="loanRateResult">
-				<div class="topArea">
+				<div class="lrr_head">
 					<button type="button" id="btnBack" title="뒤로가기"></button>
 					<button type="button" id="btnFilter" title="필터"></button>
 				</div>
+				<div class="lrr_body">
+					<div class="summary ac easeOutCubic">
+						<span class="label">총 상환금액</span>
+						<span id="sum7"></span>
+						<span id="sum8"></span>
+					</div>
 
-				<!-- <canvas id="doughnut-chart"></canvas> -->
-				<!-- <canvas id="openedCanvas"></canvas> -->
-				<div class="topSummary ac">
-					<span class="label">총 상환금액</span>
-					<span id="sum7"></span>
-					<span id="sum8"></span>
+					<ul class="info1 easeOutCubic">
+						<li>
+							<span class="tit">상환방식</span>
+							<span class="val" id="sum1"></span>
+						</li>
+						<li>
+							<span class="tit">대출기간</span>
+							<span class="val" id="sum3"></span>
+						</li>
+						<li>
+							<span class="tit">연자이율</span>
+							<span class="val" id="sum4"></span>
+						</li>
+					</ul>
+
+					<ul class="info2 easeOutCubic">
+						<li>
+							<span class="tit">대출원금</span>
+							<span class="val" id="sum2"></span>
+						</li>
+						<li>
+							<span class="tit">총대출이자</span>
+							<span class="val em" id="sum5"></span>
+						</li>
+						<li>
+							<span class="tit">총상환금액</span>
+							<span class="val" id="sum6"></span>
+						</li>
+					</ul>
+
+					<div class="btnArea">
+						<button type="button" id="btnSaveHistory" class="easeOutCubic po1" title="대출내역 저장하기"></button>
+						<button type="button" id="btnReCalculate" class="easeOutCubic po2" title="다시 계산하기">다시 계산하기</button>
+					</div>
 				</div>
 
-				<ul class="ul1">
-					<li>
-						<span class="tit">상환방식</span>
-						<span class="val" id="sum1"></span>
-					</li>
-					<li>
-						<span class="tit">대출기간</span>
-						<span class="val" id="sum3"></span>
-					</li>
-					<li>
-						<span class="tit">연자이율</span>
-						<span class="val" id="sum4"></span>
-					</li>
-				</ul>
-
-				<ul class="ul2">
-					<li>
-						<span class="tit">대출원금</span>
-						<span class="val" id="sum2"></span>
-					</li>
-					<li>
-						<span class="tit">총대출이자</span>
-						<span class="val em" id="sum5"></span>
-					</li>
-					<li>
-						<span class="tit">총상환금액</span>
-						<span class="val" id="sum6"></span>
-					</li>
-				</ul>
-
-				<div class="footArea">
-					<button type="button" id="btnSaveHistory" title="대출내역 저장하기"></button>
-					<button type="button" id="btnReCalculate" title="다시 계산하기">다시 계산하기</button>
-				</div>
-
-				<div class="footPopup">
+				<div class="lrr_foot easeOutCubic po3">
 					<h3 class="titH3" id="loanDetailTitle">월별 상환금액</h3>
 					<button type="button" class="btnTop"></button>
 					<div class="inner">

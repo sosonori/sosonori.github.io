@@ -17,15 +17,19 @@ calculator.init = function (data) {
 
 calculator.variable = {
 	loanResult: null,
-
+	localLoanData: [],
 }
 
 calculator.bind = function () {
 	$('#btnBack').on('click', calculator.event.loanRateResult); // 뒤로가기
 	$('#btnReCalculate').on('click', calculator.event.loanRateResult); // 다시 계산하기
 	$('#btnCalculate').on('click', calculator.event.calculateLoanRate); // 월납입금 예상조회 버튼
-	$('.btnTop').on('click touchstart', calculator.event.footPopup); // 하단 레이어 팝업
+	$('.btnTop').on('click touchstart', calculator.event.lrr_foot); // 하단 레이어 팝업
 	$('#btnSaveHistory').on('click', calculator.event.saveLoanHistory); // 대출내역 저장하기
+	
+	$('#selectBankPopup .btnBank').on('click', calculator.event.selectBank); // 은행 선택
+	$('#selectBankPopup .btnConfirm').on('click', calculator.event.selectBankConfirm); // 은행 선택 확인
+	$('#selectBankPopup .btnClose').on('click', calculator.event.selectBankClose); // 은행 선택 팝업 닫기
 };
 
 calculator.event = {
@@ -58,7 +62,7 @@ calculator.event = {
 
 		// calcLoanInterest(상환방법(0: 원리금, 1: 원금), 대출원금, 이자율, 납입기간(월), 거치기간(월));
 		calculator.variable.loanResult = calculator.locAction.calcLoanInterest(vRepaymentMethod, vSelAmt, vSelRate, vSelDateTerm, 0);
-		calculator.loanData = calculator.variable.loanResult;
+		calculator.tempData = calculator.variable.loanResult;
 
 		calculator.locAction.drawLoanDetail(); // 상세정보 그리기
 		calculator.locAction.drawLoanInfo(repaymentMethod, vSelAmt, vSelDateTerm, vSelRate, calculator.variable.loanResult); // 요약정보 그리기
@@ -73,8 +77,8 @@ calculator.event = {
 			$('.loanRateResult').addClass('on');
 		}
 	},
-	footPopup: function () {
-		$('.footPopup').toggleClass('on');
+	lrr_foot: function () {
+		$('.lrr_foot').toggleClass('on');
 	},
 	saveLoanHistory: function () {
 		if ('localStorage' in window) {
@@ -82,8 +86,8 @@ calculator.event = {
 			if (localStorage.getItem('loanData') != null) {
 				var newDiff = `${calculator.variable.loanResult.method}/${calculator.variable.loanResult.loanMoney}/${calculator.variable.loanResult.loansDate}/${calculator.variable.loanResult.rates}`;
 
-				var localArray = JSON.parse(localStorage.getItem('loanData'));
-				$(localArray).each(function (i, e) {
+				calculator.variable.localLoanData = JSON.parse(localStorage.getItem('loanData'));
+				$(calculator.variable.localLoanData).each(function (i, e) {
 					if (e.diff == newDiff) {
 						ux.toast('동일한 대출 내역이 있습니다.');
 						isDiff = false;
@@ -98,21 +102,48 @@ calculator.event = {
 			}
 
 			if (isDiff == true) {
-				calculator.loanData.monthly = '';
-				calculator.loanData.loanId = ComUtil.string.getCurrDateTime();
-				calculator.loanData.diff = `${calculator.loanData.method}/${calculator.loanData.loanMoney}/${calculator.loanData.loansDate}/${calculator.loanData.rates}`;
-				localArray.push(calculator.loanData);
-				localStorage.setItem('loanData', JSON.stringify(localArray));
-
-				ux.toast('대출 내역이 저장되었습니다.');
+				calculator.locAction.drawSelectBankPopup();
+				calculator.bind();
 			}
 		} else {
 			alert('localStorage가 지원되지 않습니다.');
 		}
 	},
-	name4: function () {},
-	name5: function () {},
-	name6: function () {},
+
+	/**
+	 * 은행 선택
+	 */
+	selectBank: function () {
+		$('.btnBank[aria-selected="true"]').attr('aria-selected', false);
+		$(this).attr('aria-selected', true);
+	},
+
+	/**
+	 * 은행 선택 확인
+	 */
+	selectBankConfirm: function () {
+		var bankId = $('.btnBank[aria-selected="true"]').attr('data-bank');
+		var bankName = $('.btnBank[aria-selected="true"]').text();
+
+		calculator.tempData.monthly = '';
+		calculator.tempData.bankId = bankId;
+		calculator.tempData.bankName = bankName;
+		calculator.tempData.loanId = ComUtil.string.getCurrDateTime();
+		calculator.tempData.diff = `${calculator.tempData.method}/${calculator.tempData.loanMoney}/${calculator.tempData.loansDate}/${calculator.tempData.rates}`;
+		calculator.variable.localLoanData.push(calculator.tempData);
+		localStorage.setItem('loanData', JSON.stringify(calculator.variable.localLoanData));
+
+		calculator.event.selectBankClose();
+
+		ux.toast('대출 내역이 저장되었습니다.');
+	},
+
+	/**
+	 * 은행 선택 팝업 닫기
+	 */
+	selectBankClose: function () {
+		$('#selectBankPopup').hide();
+	},
 	name7: function () {},
 	name8: function () {},
 };
@@ -171,11 +202,11 @@ calculator.locAction = {
 				</tr>
 			</thead>
 			<tbody id="tbody">${tbody}</tbody>
-		</table>`
+		</table>`;
 
 		// 월별 납입금액 세팅
 		$('#loanDetailTitle').html('월별 상환금액');
-		$('.footPopup .inner').html(html);
+		$('.lrr_foot .inner').html(html);
 	},
 
 	/**
@@ -319,19 +350,77 @@ calculator.locAction = {
 						<div class="info">
 							<div class="loanMoney">${ComUtil.mask.addComma(Math.floor(elem.loanMoney))}원</div>
 							<div class="date">${loanId.substring(0, 4)}.${loanId.substring(4, 6)}.${loanId.substring(6, 8)} ${loanId.substring(8, 10)}:${loanId.substring(10, 12)}</div>
-							<div class="method">${elem.method}</div>
+							<div class="method" data-bank="${elem.bankId}" data-name="${elem.bankName}">${elem.method}</div>
 							<div class="loansDate">${elem.loansDate}개월</div>
 							<div class="rates">${(elem.rates * 100).toFixed(1)}%</div>
 						</div>
 					</li>`;
 				});
 
-				$('.footPopup .titH3').text('대출계산 내역');
-				$('.footPopup .inner').addClass('loanHistory').html(html);
+				$('.lrr_foot .titH3').text('대출계산 내역');
+				$('.lrr_foot .inner').addClass('loanHistory').html(html);
 			}
 		} else {
 			alert('localStorage가 지원되지 않습니다.');
 		}
+	},
+
+	/**
+	 * 은행 선택 팝업
+	 */
+	drawSelectBankPopup: function () {
+
+		if ($('#selectBankPopup').length > 0) {
+			$('#selectBankPopup').show();
+			return false;
+		}
+
+		var bankArr = [
+			{ id: 'default', name: '선택안함' },
+			{ id: 'kbbank', name: 'KB국민' },
+			{ id: 'shinhan', name: '신한' },
+			{ id: 'keb', name: '하나' },
+			{ id: 'wooribank', name: '우리' },
+			{ id: 'nhbank', name: '농협' },
+			{ id: 'ibk', name: '기업' },
+			{ id: 'kdb', name: '산업' },
+			{ id: 'kakaobank', name: '카카오뱅크' },
+			{ id: 'tossbank', name: '토스뱅크' },
+			{ id: 'kbank', name: '케이뱅크' },
+			{ id: 'scbank', name: 'SC제일' },
+			{ id: 'citi', name: '한국씨티' },
+			{ id: 'jeju', name: '제주' },
+			{ id: 'bnk', name: '부산' },
+			{ id: 'kjbank', name: '광주' },
+			{ id: 'dgb', name: '대구' },
+			{ id: 'bnk2', name: '경남' },
+			{ id: 'jbbank', name: '전북' },
+			{ id: 'fsb', name: '저축' },
+			{ id: 'epost', name: '우체국' },
+			{ id: 'kfcc', name: '새마을금고' },
+			{ id: 'cu', name: '신협' },
+			{ id: 'sh', name: '수협' },
+			{ id: 'nfcf', name: '산림조합' },
+		];
+
+		var list = '';
+		$(bankArr).each(function (index, bank) {
+			var selected = index == 0 ? true : false;
+			list += `<li><button type="button" class="btnBank" data-bank="${bank.id}" aria-selected="${selected}">${bank.name}</button></li>`;
+		});
+
+		var html =`
+		<div id="selectBankPopup" class="modalPopup">
+			<div class="titArea">
+				<h3 class="titH3">은행 선택</h3>
+				<p class="desc">대출 이자 계산 내역을 표기 시 사용됩니다.</p>
+			</div>
+			<ul class="bankList">${list}</ul>
+			<button type="button" class="btnClose" title="취소하기"></button>
+			<button type="button" class="btnConfirm" title="확인">확인</button>
+		</div>`;
+
+		$('body').append(html);
 	},
 
 	/**

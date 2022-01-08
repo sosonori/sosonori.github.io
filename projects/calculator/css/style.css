@@ -6,7 +6,7 @@
 /*@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}*/
 
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
-
+/* Nanumsquare Font-Weight: 300, 400, 700, 800 */
 
 html, body{font-size: 10px; font-family:'NanumSquare','Noto Sans KR',san-serif; font-weight: 400; /* overscroll-behavior: contain; */}
 body{background-color: #111;}
@@ -15,6 +15,7 @@ body{background-color: #111;}
 section{ max-width: 375px; height: 100vh; padding:30px; margin: 0 auto; background-color: #f9fbfc;}
 /* input{display:block;min-width: 315px; height:60px; padding: 0 20px; background:#fff;border:1px solid #dde0e2;box-sizing:border-box;border-radius:12px; font-size: 1.6rem !important;} */
 input{padding-right: 45px !important;}
+[class^='titH']{font-weight: 800 !important;}
 
 label{color: #9e9eab; font-size: 1.4rem;}
 label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !important;}
@@ -27,50 +28,92 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 #btnBack{position: absolute; top: 16px; left:32px; display: block; width: 24px; height: 24px; background: url(../images/icons-back-light.svg) center center no-repeat;}
 #btnFilter{position: absolute; top: 16px; right:32px; display: block; width: 24px; height: 24px; background: url(../images/icons-light-filter.svg) center center no-repeat;}
 
-/*.loanRateResult{transform: translateX(0); transition: .3s;}*/
-.loanRateResult{ position: absolute; left: 0; top: 0; width: 100%; transform: translate(0, 10%); padding-left: 32px; padding-right: 32px; background-color: #02034A; opacity: 0; z-index: -1; transition: opacity .3s;}
-.loanRateResult.on{transform: translate(0, 0);; transition: .3s; opacity: 1; z-index: 9999}
+/* 대출 계산 결과 */
+.loanRateResult{ position: absolute; left: 0; top: 0; width: 100%; transform: translate(0, 0); padding-left: 32px; padding-right: 32px; background-color: #02034A; opacity: 0; z-index: -1;}
+.loanRateResult.on{opacity: 1; z-index: 9999}
+.loanRateResult .easeOutCubic{transform: translate(0, 40px); opacity: 1;}
+.loanRateResult .easeOutCubic.po3{transform: translate(0, 260px);}
+.loanRateResult.on .easeOutCubic{transform: translate(0, 0); opacity: 1; transition:transform .4s;}
+.loanRateResult.on .easeOutCubic.po1{transition-delay: .15s;}
+.loanRateResult.on .easeOutCubic.po2{transition-delay: .2s;}
+.loanRateResult.on .easeOutCubic.po3{transition-delay: .4s;}
 
+.lrr_head {position: absolute; top: 0; left: 0; width: 100%; }
+.lrr_body{position: relative; margin-top: 40px;}
+.lrr_body .info1{margin-top: 24px; display: table; width: 100%; padding: 16px 0; background-color: rgba(0, 0, 0, 0.3); border-radius: 16px;}
+.lrr_body .info1 li{display: table-cell;}
+.lrr_body .info1 li span{display: block; text-align: center;}
+.lrr_body .info1 .tit{color: #676893; font-size: 1.2rem; font-weight: 300;}
+.lrr_body .info1 .val{color: #fff; font-size: 1.3rem; font-weight: 400; margin-top: 4px;}
+.lrr_body .info1 .val.em{color: #FFD93B;}
+.lrr_body .info2{margin-top: 24px;}
+.lrr_body .info2 li{overflow: hidden; margin-top: 8px;}
+.lrr_body .info2 .tit{float: left; color: #676893; font-size: 1.3rem; font-weight: 300;}
+.lrr_body .info2 .val{float: right; color: #fff; font-size: 1.5rem; font-weight: 500; text-align: right;}
+.lrr_body .info2 .val.em{color: #FFD93B;}
+.lrr_body .label{font-size: 16px; color: #676893; font-weight: 300; letter-spacing: -1px;}
+.lrr_body #sum7{display: block; color: #fff; font-size: 3rem; font-weight: 700;}
+.lrr_body #sum8{display: block; color: #fff; font-size: 1.5rem; opacity: .7; margin-top: 4px;}
+.lrr_body .btnArea{position: relative; height: 56px; margin-top: 24px; background-color: transparent;}
+.lrr_body .btnArea #btnSaveHistory{position: absolute; top: 0; left:0; display: block; width: 56px; height: 56px; background:#676893 url(../images/icons-heart-red.svg) center center no-repeat; border-radius: 16px;}
+.lrr_body .btnArea #btnReCalculate{position: absolute; top: 0; left: 64px; width: calc(100% - 64px); height: 56px; background:#676893; border-radius: 16px; color: #fff; font-size: 1.8rem; font-weight: 500;}
+.lrr_foot{position: fixed; bottom: 0;left: 0; width: 100%; height: 260px; padding-left: 32px; padding-right: 32px; background: transparent linear-gradient(180deg, #FFFFFF 0%, #F7F7FA 100%) 0% 0% no-repeat padding-box; border-radius: 40px 40px 0px 0px; transition: .3s;}
+.lrr_foot .titH3{ margin-top: 40px; margin-bottom: 8px; font-size: 1.8rem; color: #02034A; font-weight: 600; letter-spacing: -1px;}
+.lrr_foot.on{height: calc(100% - 160px);}
+.lrr_foot .inner{overflow: auto; max-height: 200px;}
+.lrr_foot.on .inner{max-height: calc(100% - 100px);}
+.lrr_foot .btnTop{position: absolute; top: 0; left: 0; width: 100%; height: 40px; background-color: transparent;}
+.lrr_foot .btnTop::before{position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); content: ''; width: 56px; height: 4px; background-color: #d0d0d0; border-radius: 2px;}
 
-.topSummary{margin-top: 40px;}
-.label{font-size: 16px; color: #676893; font-weight: 300; letter-spacing: -1px;}
-#sum7{display: block; color: #fff; font-size: 3rem; font-weight: 700;}
-#sum8{display: block; color: #fff; font-size: 1.5rem; opacity: .7; margin-top: 4px;}
+.modalPopup{position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 80%; background-color: #fff; border-radius: 24px; z-index: 9999;}
+.modalPopup .titArea{padding: 0 20px;}
+.modalPopup .desc{ margin-top: 4px; font-size: 1.2rem; color: #888;}
+.btnClose{position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; display: block; z-index: 9999;}
+.btnClose::before{position: absolute; top: 50%; left: 50%; display: block; content: ''; width: 24px; height: 1.2px; background-color: #000; transform:translate(-50%,-50%) rotate(45deg);}
+.btnClose::after{position: absolute; top: 50%; left: 50%; display: block; content: ''; width: 1.2px; height: 24px; background-color: #000; transform:translate(-50%,-50%) rotate(45deg);}
+.modalPopup .btnConfirm{position: absolute; bottom: 20px; left: 20px; right: 20px; display: block; width: calc(100% - 40px); height: 48px;background:#676893;border-radius: 12px;color: #fff;font-size: 1.4rem;font-weight: 500;}
 
-.ul1{margin-top: 24px; display: table; width: 100%; padding: 16px 0; background-color: rgba(0, 0, 0, 0.3); border-radius: 16px;}
-.ul1 li{display: table-cell;}
-.ul1 li span{display: block; text-align: center;}
-.ul1 .tit{color: #676893; font-size: 1.2rem; font-weight: 300;}
-.ul1 .val{color: #fff; font-size: 1.3rem; font-weight: 400; margin-top: 4px;}
-.ul1 .val.em{color: #FFD93B;}
-
-.ul2{margin-top: 24px;}
-.ul2 li{overflow: hidden; margin-top: 8px;}
-.ul2 .tit{float: left; color: #676893; font-size: 1.3rem; font-weight: 300;}
-.ul2 .val{float: right; color: #fff; font-size: 1.5rem; font-weight: 500; text-align: right;}
-.ul2 .val.em{color: #FFD93B;}
-
-.footArea{position: relative; height: 56px; margin-top: 24px;}
-.footArea #btnSaveHistory{position: absolute; top: 0; left:0; display: block; width: 56px; height: 56px; background:#676893 url(../images/icons-heart-red.svg) center center no-repeat; border-radius: 16px;}
-.footArea #btnReCalculate{position: absolute; top: 0; left: 64px; width: calc(100% - 64px); height: 56px; background:#676893; border-radius: 16px; color: #fff; font-size: 1.8rem; font-weight: 500;}
-
-.footPopup{position: fixed; bottom: 0;left: 0; width: 100%; height: 200px; padding-left: 32px; padding-right: 32px; background: transparent linear-gradient(180deg, #FFFFFF 0%, #F7F7FA 100%) 0% 0% no-repeat padding-box; border-radius: 40px 40px 0px 0px; transition: .3s;}
-.footPopup.on{height: calc(100% - 160px);}
-.footPopup .inner{overflow: auto; max-height: 200px;}
-.footPopup.on .inner{max-height: calc(100% - 100px);}
-.footPopup .btnTop{position: absolute; top: 0; left: 0; width: 100%; height: 40px; background-color: transparent;}
-.footPopup .btnTop::before{position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); content: ''; width: 56px; height: 4px; background-color: #d0d0d0; border-radius: 2px;}
-
-.footPopup .titH3{ margin-top: 40px; margin-bottom: 8px; font-size: 1.8rem; color: #02034A; font-weight: 600; letter-spacing: -1px;}
+.bankList{ margin-top: 20px; height: calc(100% - 120px); padding: 0 20px 60px; overflow:auto;}
+.bankList li{margin-bottom: 4px;}
+.bankList li .btnBank{position: relative; width: 100%; height: 48px; padding-left:50px; line-height: 48px; font-size: 1.4rem; text-align: left; border-radius: 8px;}
+.bankList li .btnBank::before{position: absolute; left: 10px; top: 50%; transform: translateY(-50%); display: block;width: 32px; height: 32px; margin-bottom: 4px; content: ''; background-size: 100%; background-repeat: no-repeat; border-radius: 50%; overflow: hidden;}
+.bankList li .btnBank[aria-selected="true"] {box-shadow: 0 4px 24px 0 rgb(0 0 0 / 10%); font-weight: 700;}
+[data-bank="default"]::before{background-image: url('../images/bank/icon_default.png'); background-size: 20px !important; background-position: center; background-color: #ffdb28;}
+[data-bank="bnk"]::before{background-image: url('../images/bank/icon_bnk.png');}
+[data-bank="bnk2"]::before{background-image: url('../images/bank/icon_bnk2.png');}
+[data-bank="citi"]::before{background-image: url('../images/bank/icon_citi.png');}
+[data-bank="cu"]::before{background-image: url('../images/bank/icon_cu.png');}
+[data-bank="dgb"]::before{background-image: url('../images/bank/icon_dgb.png');}
+[data-bank="epost"]::before{background-image: url('../images/bank/icon_epost.png');}
+[data-bank="fsb"]::before{background-image: url('../images/bank/icon_fsb.png');}
+[data-bank="ibk"]::before{background-image: url('../images/bank/icon_ibk.png');}
+[data-bank="jbbank"]::before{background-image: url('../images/bank/icon_jbbank.png');}
+[data-bank="jeju"]::before{background-image: url('../images/bank/icon_jeju.png');}
+[data-bank="kakaobank"]::before{background-image: url('../images/bank/icon_kakaobank.png');}
+[data-bank="kbank"]::before{background-image: url('../images/bank/icon_kbank.png');}
+[data-bank="kbbank"]::before{background-image: url('../images/bank/icon_kbbank.png');}
+[data-bank="kdb"]::before{background-image: url('../images/bank/icon_kdb.png');}
+[data-bank="keb"]::before{background-image: url('../images/bank/icon_keb.png');}
+[data-bank="kfcc"]::before{background-image: url('../images/bank/icon_kfcc.png');}
+[data-bank="kjbank"]::before{background-image: url('../images/bank/icon_kjbank.png');}
+[data-bank="nfcf"]::before{background-image: url('../images/bank/icon_nfcf.png');}
+[data-bank="nhbank"]::before{background-image: url('../images/bank/icon_nhbank.png');}
+[data-bank="scbank"]::before{background-image: url('../images/bank/icon_scbank.png');}
+[data-bank="sh"]::before{background-image: url('../images/bank/icon_sh.png');}
+[data-bank="shinhan"]::before{background-image: url('../images/bank/icon_shinhan.png');}
+[data-bank="tossbank"]::before{background-image: url('../images/bank/icon_tossbank.png');}
+[data-bank="wooribank"]::before{background-image: url('../images/bank/icon_wooribank.png');}
 
 .loanHistory{margin-top: 10px;}
 .loanHistory li{min-height: 40px; padding-top: 15px; padding-bottom: 15px; letter-spacing: -0.5px; border-bottom: 1px solid #eee;;}
-.loanHistory .info{position: relative; padding-left: 51px;}
+.loanHistory .info{position: relative; padding-left: 48px;}
 .loanHistory .loanMoney{line-height: 1; font-size: 1.5rem; color: #02034A; font-weight: 600;}
 .loanHistory .date{margin-top: 8px; height: 14px; line-height: 14px; font-size: 1.2rem; color: #888;}
-.loanHistory .method{position: absolute; top: 0; left: 0; width: 36px; height: 36px; background: #ffdb28 url(../images/icon_won_white.png) center center no-repeat; background-size: 22px; border-radius: 12px; text-indent: -9999px;}
+/*.loanHistory .method{position: absolute; top: 0; left: 0; width: 36px; height: 36px; background: #ffdb28 url(../images/icon_won_white.png) center center no-repeat; background-size: 22px; border-radius: 12px; text-indent: -9999px;}*/
 .loanHistory .loansDate{position: absolute; bottom: 0; right: 0; font-size: 1.2rem; color: #888;}
 .loanHistory .rates{position: absolute; top: -2px; right: 0; font-size: 1.8rem; font-weight: 900; line-height: 1;}
+.loanHistory [data-bank]{position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 32px; height: 32px;text-indent: -9999px;}
+.loanHistory [data-bank]::before{position: absolute; top: 0; left: 0; display: block;width: 32px; height: 32px; content: ''; background-size: 100%; background-repeat: no-repeat; border-radius: 50%;}
 
 /* .tableX{width: 400px;} */
 .tableX th{ color: #02034A;}
