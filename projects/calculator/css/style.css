@@ -25,8 +25,11 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 
 .popup{display: block; position: fixed; top: 0; left: 50%; transform: translateX(-50%); }
-#btnBack{position: absolute; top: 16px; left:32px; display: block; width: 24px; height: 24px; background: url(../images/icons-back-light.svg) center center no-repeat;}
-#btnFilter{position: absolute; top: 16px; right:32px; display: block; width: 24px; height: 24px; background: url(../images/icons-light-filter.svg) center center no-repeat;}
+#btnBack{position: absolute; top: 16px; left:32px; display: block; width: 24px; height: 24px; background: url(../images/svg/icons-light-back.svg) center center no-repeat;}
+#btnFilter{position: absolute; top: 16px; right:32px; display: block; width: 24px; height: 24px; background: url(../images/svg/icons-light-filter.svg) center center no-repeat;}
+#btnHistory{position: absolute; top: 16px; right:32px; display: block; width: 24px; height: 24px; background: url(../images/svg/icons-light-history.svg) center center no-repeat;}
+#btnHistory .notification{position: absolute; top: -2px; right: -2px; transform: scale(0); width: 12px; height: 12px;background-color:#ffdb28; border-radius: 50%; font-size: 0; text-indent: -9999px; opacity: 0;}
+#btnHistory .notification[aria-live="polite"]{ opacity: 1; transform: scale(1); transition:transform .3s; transition-timing-function: cubic-bezier(0.2, 0.6, 0.3, 1.8) !important; transition-delay: .5s; border: 3px solid #02034A;}
 
 /* 대출 계산 결과 */
 .loanRateResult{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform: translate(0, 0); padding-left: 32px; padding-right: 32px; background-color: #02034A; opacity: 0; z-index: -1;}
@@ -45,12 +48,12 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 .lrr_body .info1 li span{display: block; text-align: center;}
 .lrr_body .info1 .tit{color: #676893; font-size: 1.2rem; font-weight: 300;}
 .lrr_body .info1 .val{color: #fff; font-size: 1.3rem; font-weight: 400; margin-top: 4px;}
-.lrr_body .info1 .val.em{color: #FFD93B;}
+.lrr_body .info1 .val.em{color: #ffdb28;}
 .lrr_body .info2{margin-top: 24px;}
 .lrr_body .info2 li{overflow: hidden; margin-top: 8px;}
 .lrr_body .info2 .tit{float: left; color: #676893; font-size: 1.3rem; font-weight: 300;}
 .lrr_body .info2 .val{float: right; color: #fff; font-size: 1.5rem; font-weight: 500; text-align: right;}
-.lrr_body .info2 .val.em{color: #FFD93B;}
+.lrr_body .info2 .val.em{color: #ffdb28;}
 .lrr_body .label{font-size: 16px; color: #676893; font-weight: 300; letter-spacing: -1px;}
 .lrr_body #sum7{display: block; color: #fff; font-size: 3rem; font-weight: 700;}
 .lrr_body #sum8{display: block; color: #fff; font-size: 1.5rem; opacity: .7; margin-top: 4px;}
@@ -106,12 +109,12 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 .loanHistory{margin-top: 10px;}
 .loanHistory li{min-height: 40px; padding-top: 15px; padding-bottom: 15px; letter-spacing: -0.5px; border-bottom: 1px solid #eee;;}
-.loanHistory .info{position: relative; padding-left: 48px;}
-.loanHistory .loanMoney{line-height: 1; font-size: 1.5rem; color: #02034A; font-weight: 600;}
-.loanHistory .date{margin-top: 8px; height: 14px; line-height: 14px; font-size: 1.2rem; color: #888;}
-/*.loanHistory .method{position: absolute; top: 0; left: 0; width: 36px; height: 36px; background: #ffdb28 url(../images/icon_won_white.png) center center no-repeat; background-size: 22px; border-radius: 12px; text-indent: -9999px;}*/
-.loanHistory .loansDate{position: absolute; bottom: 0; right: 0; font-size: 1.2rem; color: #888;}
-.loanHistory .rates{position: absolute; top: -2px; right: 0; font-size: 1.8rem; font-weight: 900; line-height: 1;}
+.loanHistory .info{position: relative; padding-left: 48px; overflow: hidden;}
+.loanHistory .loanMoney{margin-top: 16px; line-height: 1; font-size: 1.6rem; color: #222; font-weight: 600;}
+.loanHistory .totalInterest{margin-top: 8px; height: 14px; line-height: 14px; font-size: 1.4rem; color: #fc5858;}
+.loanHistory .method{position: absolute; top: 0; left: 48px; height: 14px; line-height: 14px; font-size: 1.2rem; color: #888;}
+.loanHistory .loansDate{position: absolute; top: 0; right: 0; height: 14px; line-height: 14px; font-size: 1.2rem; color: #888;}
+.loanHistory .rates{position: absolute; bottom: 2px; right: 0; font-size: 1.6rem; font-weight: 700; line-height: 1;}
 .loanHistory [data-bank]{position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 32px; height: 32px;text-indent: -9999px;}
 .loanHistory [data-bank]::before{position: absolute; top: 0; left: 0; display: block;width: 32px; height: 32px; content: ''; background-size: 100%; background-repeat: no-repeat; border-radius: 50%;}
 

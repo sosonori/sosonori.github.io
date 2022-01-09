@@ -76,6 +76,8 @@ calculator.event = {
 		} else {
 			$('.loanRateResult').addClass('on');
 		}
+		// 새로운 대출내역 알림 초기화
+		$('.notification').attr({ 'aria-live': 'off', 'aria-hidden': false });
 	},
 	lrr_foot: function () {
 		$('.lrr_foot').toggleClass('on');
@@ -135,6 +137,9 @@ calculator.event = {
 		calculator.event.selectBankClose();
 
 		ux.toast('대출 내역이 저장되었습니다.');
+
+		// 새로운 대출내역 알림
+		$('.notification').attr({ 'aria-live': 'polite', 'aria-hidden': true });
 	},
 
 	/**
@@ -340,24 +345,39 @@ calculator.locAction = {
 		if ('localStorage' in window) {
 			if (localStorage.getItem('loanData') != null) {
 				var loanData = JSON.parse(localStorage.getItem('loanData'));
+				console.log(loanData);
 				var html = '';
-
+//<div class="date">${loanId.substring(0, 4)}.${loanId.substring(4, 6)}.${loanId.substring(6, 8)} ${loanId.substring(8, 10)}:${loanId.substring(10, 12)}</div>
 				$(loanData).each(function (index, elem) {
 					var loanId = String(elem.loanId);
 					html += `
-					<li data-index="${index}">
+					<li class="loanHistoryItem" data-index="${index}" data-id="${elem.loanId}" data-diff=${elem.diff}>
 						<div class="info">
-							<div class="loanMoney">${ComUtil.mask.addComma(Math.floor(elem.loanMoney))}원</div>
-							<div class="date">${loanId.substring(0, 4)}.${loanId.substring(4, 6)}.${loanId.substring(6, 8)} ${loanId.substring(8, 10)}:${loanId.substring(10, 12)}</div>
-							<div class="method" data-bank="${elem.bankId}" data-name="${elem.bankName}">${elem.method}</div>
-							<div class="loansDate">${elem.loansDate}개월</div>
-							<div class="rates">${(elem.rates * 100).toFixed(1)}%</div>
+							<div class="bank" data-bank="${elem.bankId}" data-name="${elem.bankName}">${elem.method}</div>
+							<div class="loanMoney"><span class="blind">대출원금</span>${ComUtil.mask.addComma(Math.floor(elem.loanMoney))}원</div>
+							<div class="totalInterest"><span class="blind">총대출이자</span>${ComUtil.mask.addComma(Math.floor(elem.totalInterest))}원</div>
+							<div class="method"><span class="blind">상환방식</span>${elem.method}</div>
+							<div class="loansDate"><span class="blind">대출기간</span>${elem.loansDate}개월</div>
+							<div class="rates"><span class="blind">연이자율</span>${(elem.rates * 100).toFixed(1)}%</div>
 						</div>
 					</li>`;
 				});
 
 				$('.lrr_foot .titH3').text('대출계산 내역');
 				$('.lrr_foot .inner').addClass('loanHistory').html(html);
+
+				// 선택된 대출계산 내역 삭제
+				$('.loanHistoryItem').on('click', function(){
+					var loanId = $(this).attr('data-id');
+					$(calculator.variable.localLoanData).each(function (index, elem) {
+						if(elem.loanId == loanId){
+							calculator.variable.localLoanData.splice(index,1);
+							console.log(calculator.variable.localLoanData);
+						}
+					});
+					localStorage.setItem('loanData', JSON.stringify(calculator.variable.localLoanData));
+					$(this).remove();
+				});
 			}
 		} else {
 			alert('localStorage가 지원되지 않습니다.');
