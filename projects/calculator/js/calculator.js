@@ -177,12 +177,12 @@ calculator.locAction = {
 		var tbody = '';
 		$(calculator.variable.loanResult.monthly).each(function (index, item) {
 			tbody += `
-			<tr>
-				<td>${ComUtil.mask.addComma(Math.floor(item.round))}</td>
-				<td>${ComUtil.mask.addComma(Math.floor(item.repayment))}</td>
-				<td>${ComUtil.mask.addComma(Math.floor(item.interest))}</td>
-				<td>${ComUtil.mask.addComma(Math.floor(item.payment))}</td>
-				<td>${ComUtil.mask.addComma(Math.floor(item.balance))}</td>
+			<tr tabindex="0">
+				<td tabindex="0">${ComUtil.mask.addComma(Math.floor(item.round))}</td>
+				<td tabindex="0">${ComUtil.mask.addComma(Math.floor(item.repayment))}</td>
+				<td tabindex="0">${ComUtil.mask.addComma(Math.floor(item.interest))}</td>
+				<td tabindex="0">${ComUtil.mask.addComma(Math.floor(item.payment))}</td>
+				<td tabindex="0">${ComUtil.mask.addComma(Math.floor(item.balance))}</td>
 			</tr>`;
 		});
 
@@ -211,6 +211,13 @@ calculator.locAction = {
 		// 월별 납입금액 세팅
 		$('#loanDetailTitle').html('월별 상환금액');
 		$('.lrr_foot .inner').html(html);
+
+		$('.tableX.fixed td').on('focusin', function(){
+			$(this).parent('tr').addClass('highlight');
+		});
+		$('.tableX.fixed td').on('focusout', function(){
+			$(this).parent('tr').removeClass('highlight');
+		});
 	},
 
 	/**

@@ -5,6 +5,6 @@ const ux = {
 		elem.attr('class', 'toast').html(msg);
 		$('body').append(elem);
 		setTimeout(() => { elem.addClass('on') }, 300);
-		setTimeout(() => { elem.remove() }, 1500);
+		setTimeout(() => { elem.remove() }, 3000);
 	},
 };
