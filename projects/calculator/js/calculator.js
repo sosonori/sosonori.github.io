@@ -26,6 +26,7 @@ calculator.bind = function () {
 	$('#btnCalculate').on('click', calculator.event.calculateLoanRate); // 월납입금 예상조회 버튼
 	$('.btnTop').on('click touchstart', calculator.event.lrr_foot); // 하단 레이어 팝업
 	$('#btnSaveHistory').on('click', calculator.event.saveLoanHistory); // 대출내역 저장하기
+	$('#btnHistory').on('click', calculator.locAction.drawLoanHistory); // 대출내역 바로가기
 	
 	$('#selectBankPopup .btnBank').on('click', calculator.event.selectBank); // 은행 선택
 	$('#selectBankPopup .btnConfirm').on('click', calculator.event.selectBankConfirm); // 은행 선택 확인
@@ -94,7 +95,7 @@ calculator.event = {
 						ux.toast('동일한 대출 내역이 있습니다.');
 						isDiff = false;
 						setTimeout(() => {
-							calculator.locAction.drawLoanHistory();
+							calculator.locAction.drawLoanHistory('1');
 						}, 1000);
 						return false;
 					}
@@ -177,7 +178,7 @@ calculator.locAction = {
 		var tbody = '';
 		$(calculator.variable.loanResult.monthly).each(function (index, item) {
 			tbody += `
-			<tr tabindex="0">
+			<tr data-row="${index + 1}">
 				<td tabindex="0">${ComUtil.mask.addComma(Math.floor(item.round))}</td>
 				<td tabindex="0">${ComUtil.mask.addComma(Math.floor(item.repayment))}</td>
 				<td tabindex="0">${ComUtil.mask.addComma(Math.floor(item.interest))}</td>
@@ -347,14 +348,14 @@ calculator.locAction = {
 
 	/**
 	 * 대출계산 내역 화면 그리기
+	 * @param {string} viewMode '1: 팝업', '2: 페이지'
 	 */
-	drawLoanHistory: function () {
+	drawLoanHistory: function (viewMode) {
 		if ('localStorage' in window) {
 			if (localStorage.getItem('loanData') != null) {
 				var loanData = JSON.parse(localStorage.getItem('loanData'));
 				console.log(loanData);
 				var html = '';
-//<div class="date">${loanId.substring(0, 4)}.${loanId.substring(4, 6)}.${loanId.substring(6, 8)} ${loanId.substring(8, 10)}:${loanId.substring(10, 12)}</div>
 				$(loanData).each(function (index, elem) {
 					var loanId = String(elem.loanId);
 					html += `
@@ -370,11 +371,23 @@ calculator.locAction = {
 					</li>`;
 				});
 
-				$('.lrr_foot .titH3').text('대출계산 내역');
-				$('.lrr_foot .inner').addClass('loanHistory').html(html);
+				if (viewMode == 1) {
+					console.log('팝업');
+					$('.lrr_foot .titH3').text('대출계산 내역');
+					$('.lrr_foot .inner').addClass('loanHistory').html(html);
+					return false;
+				} else if ($(this).attr('data-mode') == '2') {
+					console.log('페이지');
+					$('section').hide();
+					$('#loanHistoryPage .titH3').html(`대출계산 내역 <span class="cnt">(${loanData.length})</span>`);
+					$('#loanHistoryPage .inner').html(html);
+					$('#loanHistoryPage').show();
+				}
+
+				
 
 				// 선택된 대출계산 내역 삭제
-				$('.loanHistoryItem').on('click', function(){
+				/*$('.loanHistoryItem').on('click', function(){
 					var loanId = $(this).attr('data-id');
 					$(calculator.variable.localLoanData).each(function (index, elem) {
 						if(elem.loanId == loanId){
@@ -384,7 +397,7 @@ calculator.locAction = {
 					});
 					localStorage.setItem('loanData', JSON.stringify(calculator.variable.localLoanData));
 					$(this).remove();
-				});
+				});*/
 			}
 		} else {
 			alert('localStorage가 지원되지 않습니다.');

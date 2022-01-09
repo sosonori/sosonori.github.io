@@ -9,7 +9,7 @@
 /* Nanumsquare Font-Weight: 300, 400, 700, 800 */
 
 html, body{font-size: 10px; font-family:'NanumSquare','Noto Sans KR',san-serif; font-weight: 400; /* overscroll-behavior: contain; */}
-body{background-color: #111;}
+body{background-color: #fff;}
 
 #content{position: relative; height: 100vh; margin: 0 auto;}
 section{ height: 100%; padding:30px; margin: 0 auto; background-color: #f9fbfc;}
@@ -25,10 +25,10 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 
 .popup{display: block; position: fixed; top: 0; left: 50%; transform: translateX(-50%); }
-#btnBack{position: absolute; top: 16px; left:32px; display: block; width: 24px; height: 24px; background: url(../images/svg/icons-light-back.svg) center center no-repeat;}
+#btnBack{position: absolute; top: 16px; left:16px; display: block; width: 40px; height: 40px; background: url(../images/svg/icons-light-back.svg) center center no-repeat;}
 #btnFilter{position: absolute; top: 16px; right:32px; display: block; width: 24px; height: 24px; background: url(../images/svg/icons-light-filter.svg) center center no-repeat;}
-#btnHistory{position: absolute; top: 16px; right:32px; display: block; width: 24px; height: 24px; background: url(../images/svg/icons-light-history.svg) center center no-repeat;}
-#btnHistory .notification{position: absolute; top: -2px; right: -2px; transform: scale(0); width: 12px; height: 12px;background-color:#ffdb28; border-radius: 50%; font-size: 0; text-indent: -9999px; opacity: 0;}
+#btnHistory{position: absolute; top: 16px; right:16px; display: block; width: 40px; height: 40px; background: url(../images/svg/icons-light-history.svg) center center no-repeat;}
+#btnHistory .notification{position: absolute; top: 6px; right: 6px; transform: scale(0); width: 12px; height: 12px;background-color:#ffdb28; border-radius: 50%; font-size: 0; text-indent: -9999px; opacity: 0;}
 #btnHistory .notification[aria-live="polite"]{ opacity: 1; transform: scale(1); transition:transform .3s; transition-timing-function: cubic-bezier(0.2, 0.6, 0.3, 1.8) !important; transition-delay: .5s; border: 3px solid #02034A;}
 
 /* 대출 계산 결과 */
@@ -108,7 +108,7 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 [data-bank="wooribank"]::before{background-image: url('../images/bank/icon_wooribank.png');}
 
 .loanHistory{margin-top: 10px;}
-.loanHistory li{min-height: 40px; padding-top: 15px; padding-bottom: 15px; letter-spacing: -0.5px; border-bottom: 1px solid #eee;;}
+.loanHistory li{min-height: 40px; padding-top: 15px; padding-bottom: 15px; letter-spacing: -0.5px; border-bottom: 1px solid #eee;}
 .loanHistory .info{position: relative; padding-left: 48px; overflow: hidden;}
 .loanHistory .loanMoney{margin-top: 16px; line-height: 1; font-size: 1.6rem; color: #222; font-weight: 600;}
 .loanHistory .totalInterest{margin-top: 8px; height: 14px; line-height: 14px; font-size: 1.4rem; color: #e80163;}
@@ -117,6 +117,11 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 .loanHistory .rates{position: absolute; bottom: 2px; right: 0; font-size: 1.6rem; font-weight: 700; line-height: 1;}
 .loanHistory [data-bank]{position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 32px; height: 32px;text-indent: -9999px;}
 .loanHistory [data-bank]::before{position: absolute; top: 0; left: 0; display: block;width: 32px; height: 32px; content: ''; background-size: 100%; background-repeat: no-repeat; border-radius: 50%;}
+
+.loanHistoryPage{position: absolute;left: 0;bottom: 0;right: 0;height: calc(100vh - 100px);border-top-left-radius: 40px;border-top-right-radius: 40px;margin: 0;padding: 30px 0;background-color: rgb(236 240 248 / 50%);z-index: 100;}
+.loanHistoryPage .titH3{padding: 0 20px;}
+.loanHistoryPage .inner{height: calc(100% - 13px);padding: 20px;overflow: auto;}
+.loanHistoryPage .inner li{padding: 20px 25px; background-color: #fff; border-bottom:0; border-radius: 24px; box-shadow: 0 4px 16px 0 rgb(0 0 0 / 10%); margin-bottom: 12px;}
 
 /* .tableX{width: 400px;} */
 .tableX th{ color: #02034A;}
