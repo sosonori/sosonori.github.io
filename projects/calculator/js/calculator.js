@@ -103,7 +103,6 @@ calculator.event = {
 
 			if (isDiff == true) {
 				calculator.locAction.drawSelectBankPopup();
-				calculator.bind();
 			}
 		} else {
 			alert('localStorage가 지원되지 않습니다.');
@@ -421,6 +420,10 @@ calculator.locAction = {
 		</div>`;
 
 		$('body').append(html);
+
+		$('#selectBankPopup .btnBank').on('click', calculator.event.selectBank); // 은행 선택
+		$('#selectBankPopup .btnConfirm').on('click', calculator.event.selectBankConfirm); // 은행 선택 확인
+		$('#selectBankPopup .btnClose').on('click', calculator.event.selectBankClose); // 은행 선택 팝업 닫기
 	},
 
 	/**
