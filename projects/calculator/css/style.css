@@ -11,8 +11,8 @@
 html, body{font-size: 10px; font-family:'NanumSquare','Noto Sans KR',san-serif; font-weight: 400; /* overscroll-behavior: contain; */}
 body{background-color: #fff;}
 
-#content{position: relative; height: 100vh; margin: 0 auto;}
-section{ height: 100%; padding:30px; margin: 0 auto; background-color: #f9fbfc;}
+#content{position: relative; height: 100vh; margin: 0 auto; overflow: hidden;}
+section{ height: 100%; padding:30px; margin: 0 auto; background-color: #f9fbfc; background-color: #fff;}
 /* input{display:block;min-width: 315px; height:60px; padding: 0 20px; background:#fff;border:1px solid #dde0e2;box-sizing:border-box;border-radius:12px; font-size: 1.6rem !important;} */
 input{padding-right: 45px !important;}
 [class^='titH']{font-weight: 800 !important;}
@@ -21,11 +21,11 @@ label{color: #9e9eab; font-size: 1.4rem;}
 label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !important;}
 
 .btnArea{margin: 20px 0;}
-.btn_d{display:block;min-width: 315px; height:60px;background-color: #322e54;color: #fff; box-sizing:border-box;border-radius:12px;}
+.btn_d{display:block;min-width: 315px; height:60px;background-color: #02034A;color: #fff; box-sizing:border-box;border-radius:12px;}
 
 
 .popup{display: block; position: fixed; top: 0; left: 50%; transform: translateX(-50%); }
-#btnBack{position: absolute; top: 16px; left:16px; display: block; width: 40px; height: 40px; background: url(../images/svg/icons-light-back.svg) center center no-repeat;}
+.btnHistoryBack{position: absolute; top: 16px; left:16px; display: block; width: 40px; height: 40px; background: url(../images/svg/icons-light-back.svg) center center no-repeat;}
 #btnFilter{position: absolute; top: 16px; right:32px; display: block; width: 24px; height: 24px; background: url(../images/svg/icons-light-filter.svg) center center no-repeat;}
 #btnHistory{position: absolute; top: 16px; right:16px; display: block; width: 40px; height: 40px; background: url(../images/svg/icons-light-history.svg) center center no-repeat;}
 #btnHistory .notification{position: absolute; top: 6px; right: 6px; transform: scale(0); width: 12px; height: 12px;background-color:#ffdb28; border-radius: 50%; font-size: 0; text-indent: -9999px; opacity: 0;}
@@ -144,3 +144,12 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 .toast{position: fixed; left: 50%; bottom: 30px; opacity: 0; transform: translate(-50%, 50%); display: inline-block; min-width: 240px; height: 36px; line-height: 36px; background-color: rgba(0, 0, 0, 0.75); border-radius: 18px; font-size: 1.4rem; color: #fff; text-align: center; z-index: 9999;}
 .toast.on{opacity: 1; transform: translate(-50%, -50%); transition: transform .3s, opacity .3s;}
+
+
+/* component */
+.componentHead{}
+.componentBody{height: 100%;}
+.componentFoot{}
+
+.componentView[aria-hidden='true'] {display: none;}
+.componentView[aria-hidden='false'] {display: block;}

@@ -21,7 +21,7 @@ calculator.variable = {
 }
 
 calculator.bind = function () {
-	$('#btnBack').on('click', calculator.event.loanRateResult); // 뒤로가기
+	$('.btnHistoryBack').on('click', calculator.event.loanRateResult); // 뒤로가기
 	$('#btnReCalculate').on('click', calculator.event.loanRateResult); // 다시 계산하기
 	$('#btnCalculate').on('click', calculator.event.calculateLoanRate); // 월납입금 예상조회 버튼
 	$('.btnTop').on('click touchstart', calculator.event.lrr_foot); // 하단 레이어 팝업
@@ -62,7 +62,7 @@ calculator.event = {
 		var vSelRate = Number(selRate); // 금리
 
 		// calcLoanInterest(상환방법(0: 원리금, 1: 원금), 대출원금, 이자율, 납입기간(월), 거치기간(월));
-		calculator.variable.loanResult = calculator.locAction.calcLoanInterest(vRepaymentMethod, vSelAmt, vSelRate, vSelDateTerm, 0);
+		calculator.variable.loanResult = calculator.locAction.calcLoanInterest(vRepaymentMethod, vSelAmt, vSelRate, vSelDateTerm, 12);
 		calculator.tempData = calculator.variable.loanResult;
 
 		calculator.locAction.drawLoanDetail(); // 상세정보 그리기
@@ -382,6 +382,7 @@ calculator.locAction = {
 					$('#loanHistoryPage .titH3').html(`대출계산 내역 <span class="cnt">(${loanData.length})</span>`);
 					$('#loanHistoryPage .inner').html(html);
 					$('#loanHistoryPage').show();
+					$('#loanHistoryPage').attr('data-hidden',false);
 				}
 
 				
