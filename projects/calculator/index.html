@@ -1,207 +1,191 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-        <title>Calculate</title>
-        <script src="./js/jquery-3.4.1.min.js"></script>
-        <script src="./js/sysComm.js"></script>
-        <script src="./js/pageReadyInit.js"></script>
-        <script src="./js/comUtil.js"></script>
-        <script src="./js/cmnUtil.js"></script>
-        <script src="./js/ui.front.js"></script>
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
-        <!-- <script src="./js/chart.js"></script> -->
-        <script src="./js/script.js"></script>
-        <link rel="stylesheet" type="text/css" href="./css/reset.css" />
-        <link rel="stylesheet" type="text/css" href="./css/common.css" />
-        <link rel="stylesheet" type="text/css" href="./css/style.css" />
-        <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
-    </head>
-    <body>
-        <div id="content">
-            <section>
-                <div class="titArea">
-                    <h1 class="titH1">Calculate</h1>
-                </div>
-                <ul class="iptGroup iptBtn">
-                    <li>
-                        <input name="repaymentMethod" class="ipt" id="rdo1_1" type="radio" value="0" title="원리금균등" checked="" />
-                        <label for="rdo1_1">원리금균등</label>
-                    </li>
-                    <li>
-                        <input name="repaymentMethod" class="ipt" id="rdo1_2" type="radio" value="1" title="원금균등" />
-                        <label for="rdo1_2">원금균등</label>
-                    </li>
-                    <li>
-                        <input name="repaymentMethod" class="ipt" id="rdo1_3" type="radio" value="2" title="만기일시" />
-                        <label for="rdo1_3">만기일시</label>
-                    </li>
-                </ul>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<title>Calculate</title>
+		<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" href="./css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="./css/common.css" />
+		<link rel="stylesheet" type="text/css" href="./css/style.css" />
+		<script src="./js/jquery-3.4.1.min.js"></script>
+		<script src="./js/sysComm.js"></script>
+		<script src="./js/pageReadyInit.js"></script>
+		<script src="./js/comUtil.js"></script>
+		<script src="./js/cmnUtil.js"></script>
+		<script src="./js/ui.front.js"></script>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
+		<!-- <script src="./js/chart.js"></script> -->
+		<script src="./js/ux.js"></script>
+		<script src="./js/calculator.js"></script>
+	</head>
+	<body>
+		<div id="content">
+			<!--<div id="selectBankPopup" class="modalPopup">
+				<div class="titArea">
+					<h3 class="titH3">은행 선택</h3>
+					<p class="desc">대출 이자 계산 내역을 표기 시 사용됩니다.</p>
+				</div>
+				<ul class="bankList">
+					<li><button type="button" class="btnBank" data-bank="default" aria-selected="true">선택안함</button></li>
+					<li><button type="button" class="btnBank" data-bank="kbbank">KB국민</button></li>
+					<li><button type="button" class="btnBank" data-bank="shinhan">신한</button></li>
+					<li><button type="button" class="btnBank" data-bank="keb">하나</button></li>
+					<li><button type="button" class="btnBank" data-bank="wooribank">우리</button></li>
+					<li><button type="button" class="btnBank" data-bank="nhbank">농협</button></li>
+					<li><button type="button" class="btnBank" data-bank="ibk">기업</button></li>
+					<li><button type="button" class="btnBank" data-bank="kdb">산업</button></li>
+					<li><button type="button" class="btnBank" data-bank="kakaobank">카카오뱅크</button></li>
+					<li><button type="button" class="btnBank" data-bank="tossbank">토스뱅크</button></li>
+					<li><button type="button" class="btnBank" data-bank="kbank">케이뱅크</button></li>
+					<li><button type="button" class="btnBank" data-bank="scbank">SC제일</button></li>
+					<li><button type="button" class="btnBank" data-bank="citi">한국씨티</button></li>
+					<li><button type="button" class="btnBank" data-bank="jeju">제주</button></li>
+					<li><button type="button" class="btnBank" data-bank="bnk">부산</button></li>
+					<li><button type="button" class="btnBank" data-bank="kjbank">광주</button></li>
+					<li><button type="button" class="btnBank" data-bank="dgb">대구</button></li>
+					<li><button type="button" class="btnBank" data-bank="bnk2">경남</button></li>
+					<li><button type="button" class="btnBank" data-bank="jbbank">전북</button></li>
+					<li><button type="button" class="btnBank" data-bank="fsb">저축</button></li>
+					<li><button type="button" class="btnBank" data-bank="epost">우체국</button></li>
+					<li><button type="button" class="btnBank" data-bank="kfcc">새마을금고</button></li>
+					<li><button type="button" class="btnBank" data-bank="cu">신협</button></li>
+					<li><button type="button" class="btnBank" data-bank="sh">수협</button></li>
+					<li><button type="button" class="btnBank" data-bank="nfcf">산림조합</button></li>
+				</ul>
+				<button type="button" class="btnClose" title="취소하기"></button>
+				<button type="button" class="btnConfirm" title="확인">확인</button>
+			</div>-->
 
-                <label for="selAmt">대출금액</label>
-                <input type="number" id="selAmt" class="ipt ar" value="1000000" title="대출금액" />
+			<section>
+				<div class="titArea">
+					<h1 class="titH1">Calculate</h1>
+				</div>
+				<ul class="iptGroup iptBtn">
+					<li>
+						<input name="repaymentMethod" class="ipt" id="rdo1_1" type="radio" value="0" title="원리금균등" checked="" />
+						<label for="rdo1_1">원리금균등</label>
+					</li>
+					<li>
+						<input name="repaymentMethod" class="ipt" id="rdo1_2" type="radio" value="1" title="원금균등" />
+						<label for="rdo1_2">원금균등</label>
+					</li>
+					<li>
+						<input name="repaymentMethod" class="ipt" id="rdo1_3" type="radio" value="2" title="만기일시" />
+						<label for="rdo1_3">만기일시</label>
+					</li>
+				</ul>
 
-                <label for="selDateTerm">대출기간</label>
-                <input type="number" id="selDateTerm" class="ipt ar" value="12" title="대출기간" />
+				<label for="selAmt">대출금액</label>
+				<input type="number" id="selAmt" class="ipt ar" value="1000000" title="대출금액" />
 
-                <label for="selRate">연자이율</label>
-                <input type="number" id="selRate" class="ipt ar" value="0.05" title="연자이율" />
+				<label for="selDateTerm">대출기간</label>
+				<input type="number" id="selDateTerm" class="ipt ar" value="12" title="대출기간" />
 
-                <!-- <table class="tableY formTbl">
-		<colgroup>
-		<col style="width: 185px" />
-		<col style="width: auto" />
-		<col style="width: 185px" />
-		<col style="width: auto" />
-		</colgroup>
-		<tbody>
-		<tr>
-			<td class="th">상환방법</td>
-			<td>
-			
-			</td>
-			<td class="th">대출금</td>
-			<td>
-			
-			</td>
-		</tr>
-		<tr>
-			<td class="th">기간</td>
-			<td>
-			
-			</td>
-			<td class="th">금리</td>
-			<td>
-			
-			</td>
-		</tr>
-		</tbody>
-	</table> -->
-                <div class="btnArea">
-                    <button type="button" class="btn_d" id="calculation">Calculate</button>
-                </div>
-            </section>
+				<label for="selRate">연자이율</label>
+				<input type="number" id="selRate" class="ipt ar" value="0.05" title="연자이율" />
 
-            <section id="searchResult3" class="popup">
-                <div class="topArea">
-                    <button type="button" id="btnBack" title="뒤로가기"></button>
-                    <button type="button" id="btnFilter" title="필터"></button>
-                </div>
+				<div class="btnArea">
+					<button type="button" class="btn_d" id="btnCalculate">Calculate</button>
+				</div>
+			</section>
 
-                <!-- <canvas id="doughnut-chart"></canvas> -->
-                <!-- <canvas id="openedCanvas"></canvas> -->
-                <div class="topSummary ac">
-                    <span class="label">총 상환금액</span>
-                    <span id="sum7"></span>
-                    <span id="sum8"></span>
-                </div>
+			<section id="loanRateResult" class="loanRateResult">
+				<div class="lrr_head">
+					<button type="button" id="btnBack" title="뒤로가기"></button>
+					<button type="button" id="btnHistory" data-mode="2" title="대출내역조회">
+						<span class="notification easeOutCubic" aria-live="off" aria-hidden="false">새로운 대출내역 알림</span>
+					</button>
+					<!--<button type="button" id="btnFilter" title="필터"></button>-->
+				</div>
+				<div class="lrr_body">
+					<div class="summary ac easeOutCubic">
+						<span class="label">총 상환금액</span>
+						<span id="sum7"></span>
+						<span id="sum8"></span>
+					</div>
 
-                <ul class="ul1">
-                    <li>
-                        <span class="tit">상환방식</span>
-                        <span class="val" id="sum1"></span>
-                    </li>
-                    <li>
-                        <span class="tit">대출기간</span>
-                        <span class="val" id="sum3"></span>
-                    </li>
-                    <li>
-                        <span class="tit">연자이율</span>
-                        <span class="val" id="sum4"></span>
-                    </li>
-                </ul>
+					<ul class="info1 easeOutCubic">
+						<li>
+							<span class="tit">상환방식</span>
+							<span class="val" id="sum1"></span>
+						</li>
+						<li>
+							<span class="tit">대출기간</span>
+							<span class="val" id="sum3"></span>
+						</li>
+						<li>
+							<span class="tit">연자이율</span>
+							<span class="val" id="sum4"></span>
+						</li>
+					</ul>
 
-                <ul class="ul2">
-                    <li>
-                        <span class="tit">대출원금</span>
-                        <span class="val" id="sum2"></span>
-                    </li>
-                    <li>
-                        <span class="tit">총대출이자</span>
-                        <span class="val em" id="sum5"></span>
-                    </li>
-                    <li>
-                        <span class="tit">총상환금액</span>
-                        <span class="val" id="sum6"></span>
-                    </li>
-                </ul>
+					<ul class="info2 easeOutCubic">
+						<li>
+							<span class="tit">대출원금</span>
+							<span class="val" id="sum2"></span>
+						</li>
+						<li>
+							<span class="tit">총대출이자</span>
+							<span class="val em" id="sum5"></span>
+						</li>
+						<li>
+							<span class="tit">총상환금액</span>
+							<span class="val" id="sum6"></span>
+						</li>
+					</ul>
 
-                <div class="footArea">
-                    <button type="button" id="btnSaveHistory" title="대출내역 저장하기"></button>
-                    <button type="button" id="btnReCalculator" title="다시 계산하기">다시 계산하기</button>
-                </div>
+					<div class="btnArea">
+						<button type="button" id="btnSaveHistory" class="easeOutCubic po1" title="대출내역 저장하기"></button>
+						<button type="button" id="btnReCalculate" class="easeOutCubic po2" title="다시 계산하기">다시 계산하기</button>
+					</div>
+				</div>
 
-                <div class="footPopup">
-                    <h3 class="titH3">월별 상환금액</h3>
-                    <button type="button" class="btnTop"></button>
-                    <div class="inner">
-                        <table class="tableX fixed" data-title="월별 납입금액">
-                            <caption>
-                                월별 납입금액 - 등으로 구성되어 있습니다.
-                            </caption>
-                            <colgroup>
-                                <col style="width: 36px" />
-                                <col style="width: auto" />
-                                <col style="width: auto" />
-                                <col style="width: auto" />
-                                <col style="width: auto" />
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th scope="col">회차</th>
-                                    <th scope="col">상환금</th>
-                                    <th scope="col">이자</th>
-                                    <th scope="col">납부원금</th>
-                                    <th scope="col">상환후 예정잔액</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
+				<div class="lrr_foot easeOutCubic po3">
+					<h3 class="titH3" id="loanDetailTitle">월별 상환금액</h3>
+					<button type="button" class="btnTop"></button>
+					<div class="inner">
+						<table class="tableX fixed" data-title="월별 납입금액">
+							<caption>
+								월별 납입금액 - 등으로 구성되어 있습니다.
+							</caption>
+							<colgroup>
+								<col style="width: 36px" />
+								<col style="width: auto" />
+								<col style="width: auto" />
+								<col style="width: auto" />
+								<col style="width: auto" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col">회차</th>
+									<th scope="col">상환금</th>
+									<th scope="col">이자</th>
+									<th scope="col">납부원금</th>
+									<th scope="col">상환후 예정잔액</th>
+								</tr>
+							</thead>
+							<tbody id="tbody"></tbody>
+						</table>
+					</div>
+				</div>
+			</section>
 
-            <section id="searchResult" style="display: none">
-                <div class="titArea">
-                    <h2 class="titH2">조회결과</h2>
-                </div>
-
-                <div class="titArea mt50">
-                    <h2 class="titH2">월별 납입금액</h2>
-                    <p class="desc fr">(단위 : 원)</p>
-                </div>
-                <!-- <table class="tableX" data-title="월별 납입금액">
-		<caption>
-		월별 납입금액 - 등으로 구성되어 있습니다.
-		</caption>
-		<colgroup>
-		<col style="width: auto" span="5" />
-		</colgroup>
-		<thead>
-		<tr>
-			<th scope="col">회차</th>
-			<th scope="col">상환금</th>
-			<th scope="col">이자</th>
-			<th scope="col">납부원금</th>
-			<th scope="col">상환후 예정잔액</th>
-		</tr>
-		</thead>
-		<tbody id="tbody"></tbody>
-	</table> -->
-                <p class="txtList_remark">초회차(1회차) 할부금은 고객님의 결제일에 따라 변동될 수 있습니다.</p>
-            </section>
-        </div>
-        <script src="https://github.com/chartjs/Chart.js/releases/download/v2.9.3/Chart.min.js"></script>
-        <link rel="stylesheet" href="https://github.com/chartjs/Chart.js/releases/download/v2.9.3/Chart.min.css" />
-        <script>
-            var v = new Date().getTime();
-            var t = $('link,script');
-            t.each(function(i,e){
-                if($(e).attr('href')) $(e).attr('href',$(e).attr('href')+`?v=${v}`);
-                if($(e).attr('src')) $(e).attr('src',$(e).attr('src')+`?v=${v}`);
-            });
-        </script>
-    </body>
+			<section id="loanHistoryPage" class="loanHistoryPage loanHistory" style="display: none">
+				<h3 class="titH3"></h3>
+				<div class="inner"></div>
+			</section>
+		</div>
+		<script src="https://github.com/chartjs/Chart.js/releases/download/v2.9.3/Chart.min.js"></script>
+		<link rel="stylesheet" href="https://github.com/chartjs/Chart.js/releases/download/v2.9.3/Chart.min.css" />
+		<script>
+			var v = new Date().getTime();
+			var t = $('link,script');
+			t.each(function (i, e) {
+				if ($(e).attr('href')) $(e).attr('href', $(e).attr('href') + `?v=${v}`);
+				if ($(e).attr('src')) $(e).attr('src', $(e).attr('src') + `?v=${v}`);
+			});
+		</script>
+	</body>
 </html>
