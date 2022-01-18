@@ -179,8 +179,13 @@
 
 			window.onpopstate = (history) => {
 				console.log(history);
-				const component = $(`.componentView[data-component="${history.state.route}"]`);
-				renderHTML(component, history.state.route);
+				if(history.state == null) {
+					alert('종료?');
+				} else {
+					const component = $(`.componentView[data-component="${history.state.route}"]`);
+					renderHTML(component, history.state.route);	
+				}
+
 			};
 
 			/*var v = new Date().getTime();
