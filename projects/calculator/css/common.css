@@ -17,7 +17,8 @@ hr {height:13px; border-top:1px solid #e0e0e0; border-bottom:1px solid #e0e0e0; 
 
 .blind {font-size:0.1rem; line-height:0.2em; letter-spacing:-0.7em;}
 
-.waBtn, .iptBtn li, .iptGroup label, button, a {-webkit-tap-highlight-color: rgba(0,0,0,0.2)} /* button, a 임시 문제 없으면 유지 */
+.waBtn, .iptBtn li, .iptGroup label, button, a {-webkit-tap-highlight-color: transparent} 
+/* button, a 임시 문제 없으면 유지 */
 
 /*================================================ Text ================================================*/
 /* 텍스트 사이즈 */

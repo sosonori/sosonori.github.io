@@ -31,95 +31,39 @@
 				</ul>-->
 				<!-- 대출 이자 계산기 -->
 				<section class="componentView" data-component="/projects/calculator" aria-hidden="false">
-					<!--<div class="titArea">
+					<div class="titArea">
 						<h1 class="titH1" style="font-weight: 400 !important; font-size: 28px">
 							<em>연이율</em>님,<br />
 							안녕하세요!
 						</h1>
-					</div>-->
-					<div class="calcForm">
-						<div class="row mt0">
-							<label for="selAmt">대출금액</label>
-							<span id="selAmtText"></span>
-							<input type="text" id="selAmt" class="ipt" tabindex="1" value="" data-unit="만원" title="대출금액" readonly />
-						</div>
-
-						<div class="row">
-							<label for="selDateTerm">대출기간</label>
-							<span id="selDateTermText"></span>
-							<input type="text" id="selDateTerm" class="ipt" tabindex="2" value="" data-unit="개월" title="대출기간" />
-						</div>
-
-						<div class="row">
-							<label for="selRate">연자이율</label>
-							<span id="selRateText"></span>
-							<input type="text" id="selRate" class="ipt" tabindex="3" value="" data-unit="%" title="연자이율" />
-						</div>
-
-						<label>상환방법</label>
-						<div class="row iptButtonWrap">
-							<ul class="iptGroup iptButton">
-								<li>
-									<input name="repaymentMethod" class="ipt" tabindex="4" id="rdo1_1" type="radio" value="0" title="원리금균등" checked="" />
-									<label for="rdo1_1">원리금균등</label>
-								</li>
-								<li>
-									<input name="repaymentMethod" class="ipt" tabindex="4" id="rdo1_2" type="radio" value="1" title="원금균등" />
-									<label for="rdo1_2">원금균등</label>
-								</li>
-								<li>
-									<input name="repaymentMethod" class="ipt" tabindex="4" id="rdo1_3" type="radio" value="2" title="만기일시" />
-									<label for="rdo1_3">만기일시</label>
-								</li>
-							</ul>
-						</div>
 					</div>
-					<div class="keypadWrap">
-						<ul class="keypadQuick type1">
-							<li><button type="button" value="10000">1억</button></li>
-							<li><button type="button" value="5000">5000만</button></li>
-							<li><button type="button" value="1000">1000만</button></li>
-							<li><button type="button" value="500">500만</button></li>
-							<li><button type="button" value="100">100만</button></li>
-						</ul>
-						<ul class="keypadQuick type2">
-							<li><button type="button" value="360">30년</button></li>
-							<li><button type="button" value="120">10년</button></li>
-							<li><button type="button" value="60">5년</button></li>
-							<li><button type="button" value="12">12개월</button></li>
-							<li><button type="button" value="6">6개월</button></li>
-							<li><button type="button" value="1">1개월</button></li>
-						</ul>
-						<ul class="keypadQuick type3">
-							<li><button type="button" value="20">20%</button></li>
-							<li><button type="button" value="10">10%</button></li>
-							<li><button type="button" value="5">5%</button></li>
-							<li><button type="button" value="3">3%</button></li>
-							<li><button type="button" value="2">2%</button></li>
-							<li><button type="button" value="1">1%</button></li>
-						</ul>
-						<ul class="keypad">
-							<li><button type="button" value="1">1</button></li>
-							<li><button type="button" value="2">2</button></li>
-							<li><button type="button" value="3">3</button></li>
-							<li><button type="button" value="4">4</button></li>
-							<li><button type="button" value="5">5</button></li>
-							<li><button type="button" value="6">6</button></li>
-							<li><button type="button" value="7">7</button></li>
-							<li><button type="button" value="8">8</button></li>
-							<li><button type="button" value="9">9</button></li>
-							<li><button type="button" value=".">.</button></li>
-							<li><button type="button" value="0">0</button></li>
-							<li><button type="button" value="del">X</button></li>
-						</ul>
-						<div class="btnArea sticky">
-							<button type="button" id="btnCalculate" class="btn_d routeLink" data-id="1" data-route="/projects/calculator/result">다음</button>
-						</div>
-					</div>
+					<ul class="iptGroup iptBtn">
+						<li>
+							<input name="repaymentMethod" class="ipt" id="rdo1_1" type="radio" value="0" title="원리금균등" checked="" />
+							<label for="rdo1_1">원리금균등</label>
+						</li>
+						<li>
+							<input name="repaymentMethod" class="ipt" id="rdo1_2" type="radio" value="1" title="원금균등" />
+							<label for="rdo1_2">원금균등</label>
+						</li>
+						<li>
+							<input name="repaymentMethod" class="ipt" id="rdo1_3" type="radio" value="2" title="만기일시" />
+							<label for="rdo1_3">만기일시</label>
+						</li>
+					</ul>
 
-					<!--<div class="btnArea sticky">
+					<label for="selAmt">대출금액</label>
+					<input type="number" id="selAmt" class="ipt ar" value="1000000" title="대출금액" />
+
+					<label for="selDateTerm">대출기간</label>
+					<input type="number" id="selDateTerm" class="ipt ar" value="12" title="대출기간" />
+
+					<label for="selRate">연자이율</label>
+					<input type="number" id="selRate" class="ipt ar" value="0.05" title="연자이율" />
+
+					<div class="btnArea">
 						<button type="button" id="btnCalculate" class="btn_d routeLink" data-id="1" data-route="/projects/calculator/result">계산하기</button>
-					</div>-->
+					</div>
 				</section>
 				<!-- 대출 계산 결과 -->
 				<section id="loanRateResult" class="componentView loanRateResult" data-component="/projects/calculator/result" aria-hidden="true">
@@ -220,7 +164,7 @@
 				if (location.pathname.indexOf('result') > -1) {
 					window.history.replaceState({ route: '/projects/calculator/result' }, '', window.location.origin + '/projects/calculator/result');
 				} else {
-					//window.history.replaceState(null, '', window.location.origin + '/projects/calculator');
+					window.history.replaceState(null, '', window.location.origin + '/projects/calculator');
 				}
 
 				$('.routeLink').each((index, element) => {
@@ -273,64 +217,6 @@
 				if ($(e).attr('href')) $(e).attr('href', $(e).attr('href') + `?v=${v}`);
 				if ($(e).attr('src')) $(e).attr('src', $(e).attr('src') + `?v=${v}`);
 			});*/
-
-			$('.keypadQuick button').on('click', function () {
-				let amt = $('#selAmt').val();
-				const value = $(this).val();
-				if (amt.length == 0) {
-					amt = 0;
-					amt += Number(value);
-				} else {
-					amt = Number(amt) + Number(value);
-				}
-				$('#selAmt').val(amt);
-				$('#selAmtText').text(ComUtil.mask.addComma(amt));
-				$('#selAmt').closest('.row').addClass('focus');
-				$('#selAmt').trigger('change');
-				//$('.row.focus input[type="number"]').val(amt);
-				//$('.row.focus > span').text(ComUtil.mask.addComma(amt));
-				//$('#selAmt').closest('.row').addClass('focus');
-				//$('.row.focus input[type="number"]').trigger('change');
-			});
-
-			$('.keypad button').on('click', function () {
-				const type = Number($(this).closest('.keypadWrap').attr('data-type')) - 1;
-				console.log(type);
-				let amt = $(`.calcForm input[type="text"]:eq(${type})`).val();
-				amt = amt.replaceAll(',', '');
-				let value = $(this).val();
-				if (amt.length == 0 && value == 0) return;
-				if (value == 'del') {
-					amt = amt.slice(0, -1);
-				} else {
-					amt += value;
-				}
-				const amtValue = ComUtil.mask.addComma(amt);
-				console.log(amt, amtValue);
-				//$('#selAmt').val(amt);
-				//$('#selAmtText').text(ComUtil.mask.addComma(amt));
-				//$('#selAmt').closest('.row').addClass('focus');
-				//$('#selAmt').trigger('change');
-				$(`.calcForm input[type="text"]:eq(${type})`).val(amtValue);
-				//$(`.calcForm input[type="text"]:eq(${type})`).attr('data-value', amt).val(amtValue);
-				//$(`.calcForm input[type="text"]:eq(${type})`).closest('.row').find(' > span').text(ComUtil.mask.addComma(amt));
-				$(`.calcForm input[type="text"]:eq(${type})`).closest('.row').addClass('focus');
-				//$(`.calcForm input[type="text"]:eq(${type})`).trigger('change');
-			});
-
-			// 키패드 열기
-			$('input[type="text"]').on('click', function () {
-				console.log(this.id);
-				//$('.keypadQuick').hide();
-				if (this.id == 'selAmt') {
-					$('.keypadWrap').attr('data-type', '1');
-				} else if (this.id == 'selDateTerm') {
-					$('.keypadWrap').attr('data-type', '2');
-				} else {
-					$('.keypadWrap').attr('data-type', '3');
-				}
-				$('.keypadWrap').addClass('open');
-			});
 		</script>
 	</body>
 </html>

@@ -21,7 +21,7 @@ label{color: #9e9eab; font-size: 1.4rem;}
 label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !important;}
 
 .btnArea{margin: 20px 0;}
-.btn_d{display:block;min-width: 315px; height:60px;background-color: #FFCC00;color: #060B11; box-sizing:border-box; font-size: 2rem; font-weight: 500;}
+.btn_d{display:block;min-width: 315px; height:56px; line-height: 56px; background-color: #FFEB00;color: #060B11; box-sizing:border-box; font-size: 2rem; font-weight: 500; border-radius: 16px;}
 
 
 .popup{display: block; position: fixed; top: 0; left: 50%; transform: translateX(-50%); }
@@ -157,16 +157,18 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 /*.calcForm .ipt{border: 0; border-bottom: 2px solid #dde0e2; border-radius: 0; font-size: 2.2rem !important;}*/
 .calcForm .row{position: relative;margin: 28px 0 0;}
-.calcForm .row > label{position: absolute; transform: translateY(0); font-size: 2.2rem; line-height: 56px;}
-/*.calcForm .row.focus > label{transform: translateY(-20px); transition: transform .2s; font-size: 1.3rem; color:#FFCC00; line-height: normal;}*/
+.calcForm .row[data-row="1"]{ margin-top: 0;}
+.calcForm .row > label{position: absolute; transform: translateY(0); font-size: 2.2rem; line-height: 56px; transition: transform .1s, font-size .1s;}
+/*.calcForm .row.focus > label{transform: translateY(-20px); transition: transform .2s; font-size: 1.3rem; color:#FFEB00; line-height: normal;}*/
 .calcForm .row.val > label{transform: translateY(-16px); transition: color .2s; font-size: 1.3rem; color:#9e9eab; line-height: normal;}
-.calcForm .row.focus > label{transform: translateY(-16px); transition: transform .2s, font-size .2s;; font-size: 1.3rem; color:#FFCC00; line-height: normal;}
-.calcForm .row.focus > label{color:#FFCC00;}
-.calcForm .row.focus .ipt{border-color: #FFCC00 !important; cursor: pointer;}
+.calcForm .row.focus > label{transform: translateY(-16px); transition: transform .2s, font-size .2s; font-size: 1.3rem; color:#FFEB00; line-height: normal;}
+.calcForm .row.focus > label{color:#FFEB00;}
+.calcForm .row.focus .ipt{border-color: #FFEB00 !important; cursor: pointer;}
 .calcForm .row > span{display: none; position: absolute; top: 0; left: 0; height: 56px; line-height: 56px; font-size: 3rem !important;}
 .calcForm .row.focus > span::before{position: absolute; top: 50%; right: -4px; transform: translateY(-45%); display: block; content: ''; height: 30px; width: 1px; background-color: #222; animation: blink-effect 1s step-end infinite;}
 .calcForm .iptWrap{margin: 10px 0 25px;}
-.calcForm .iptWrap .ipt.unit:not(.front){text-align: left !important; padding-left: 0; margin: 0; background-color: transparent; border: 0; border-bottom: 2px solid #dde0e2; border-radius: 0; font-size: 4rem !important;}
+.calcForm .iptWrap .ipt.unit:not(.front){text-align: left !important; padding-left: 0; margin: 0; background-color: transparent; border: 0; border-bottom: 2px solid #dde0e2; border-radius: 0; font-size: 3.2rem !important;}
+.calcForm .iptWrap .ipt.unit:not(.front):focus{border-color: #FFEB00 !important;}
 .calcForm .iptWrap span.unit{top: 50%; transform: translateY(-50%); font-size: 2.2rem;}
 
 .calcForm .iptButtonWrap{width:100%; margin:8px 0;height: 52px; padding: 6px; background: #F3F4F6; border-radius: 16px;}
@@ -192,16 +194,38 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 .calcForm .iptButton li:last-child label:after {border-radius:0 7px 7px 0;}
 .calcForm .iptButton li:first-child:last-child label:after {border-radius:7px;}*/
 
-.keypadWrap{position: fixed; left: 0; bottom: 0; right: 0; transform: translateY(100%); min-height: 200px; padding-bottom: 68px; background-color: #fff; border-top-left-radius: 24px;border-top-right-radius: 24px; box-shadow: 0 -2px 4px 0 rgb(0 0 0 / 6%); z-index: 999;}
+/*.keypadWrap{position: fixed; left: 0; bottom: 0; right: 0; transform: translateY(100%); min-height: 200px; padding-bottom: 68px; background-color: #fff; border-top-left-radius: 24px;border-top-right-radius: 24px; border-top: 1px solid #eee; z-index: 999;}
 .keypadWrap.open{transform: translateY(0);transition:transform .3s; transition-timing-function: cubic-bezier(0.2, 0.6, 0.3, 1)}
 .keypadWrap .keypad{display: block; overflow: hidden;}
 .keypadWrap .keypad > li{float: left; width: 33.3333%; padding: 0 8px;}
-.keypadWrap .keypad > li button{display: block; width: 100%; height: 40px; line-height: 40px; font-size: 2.4rem; text-align: center;}
+.keypadWrap .keypad > li button{display: block; width: 100%; height: 40px; line-height: 40px; font-size: 2.4rem; text-align: center; -webkit-tap-highlight-color:rgba(0, 0, 0, 0.1)}
 .keypadWrap .keypadQuick{display: none;}
 .keypadWrap[data-type="1"] .type1{display: block;}
 .keypadWrap[data-type="2"] .type2{display: block;}
-.keypadWrap[data-type="3"] .type3{display: block;}
+.keypadWrap[data-type="3"] .type3{display: block;}*/
 
-.keypadQuick{overflow: hidden; margin: 24px 0 16px; padding: 0 24px;}
-.keypadQuick > li {float: left; margin:0 2px;}
-.keypadQuick > li button { height: 32px; padding:0 8px; font-size: 1.4rem; border:1px solid #dde0e2; border-radius: 4px;}
+.keypadWrap{position: fixed; left: 0; bottom: 0; right: 0; transform: translateY(100%); min-height: 200px; padding-bottom: 68px; background-color: #1d2228; border-top: 0px solid #eee; z-index: 999;}
+.keypadWrap{padding-bottom: 0px; transition:transform .2s; transition-timing-function: cubic-bezier(0.2, 0.6, 0.3, 1)}
+.keypadWrap.open{transform: translateY(0);transition:transform .3s; transition-timing-function: cubic-bezier(0.2, 0.6, 0.3, 1)}
+.keypadWrap .keypad{display: block; overflow: hidden; padding: 4px;/* background-color: #F3F4F6;*/}
+.keypadWrap .keypad > li{float: left; width: 25%; padding: 4px;}
+.keypadWrap .keypad > li button{display: block; width: 100%; height: 48px; line-height: 48px; border-radius: 4px; font-size: 2.8rem; color: #fff; text-align: center; -webkit-tap-highlight-color:rgba(0, 0, 0, 0.1);}
+.keypadWrap .keypadQuick{display: none;}
+/*.keypadWrap .keypad > li button{box-shadow: 0 2px 4px 0 rgb(0 0 0 / 2%)}*/
+.keypadWrap .keypad > li button.btn2{background-color:#333c45}
+.keypadWrap .keypad > li button.btn1{ background-color:#2a3139}
+.keypadWrap .keypad > li button[value="del"] {background-image: url(../images/svg/icons-delete.svg);background-size: auto 28px;background-repeat: no-repeat;background-position: center;}
+.keypadWrap .keypad > li button[value="move"] {font-size: 2.2rem;/* background-color: #3a4b5d;*/ color: #ffeb00; /*color: #1f74f1;*/}
+.keypadWrap .keypad > li button[value="calc"] { background-color:#ffeb00; color: #000; font-size: 2.2rem; transition: background-color .1s;}
+.keypadWrap .keypad > li button[value="calc"]:disabled{background-color:#333c45; color: rgba(255, 255, 255, 0.2);}
+.keypadWrap[data-type="loanAmt"] .type1{display: block;}
+.keypadWrap[data-type="loanDateTerm"] .type2{display: block;}
+.keypadWrap[data-type="loanRate"] .type3{display: block;}
+
+.keypadQuick{overflow: hidden; padding: 12px 8px 0;}
+/*.keypadQuick{overflow: hidden; margin: 24px 0 16px; padding: 0 24px;}*/
+.keypadQuick > li {float: left; margin:0 3px;}
+.keypadQuick > li button { height: 26px; padding:0 8px; font-size: 1.3rem; color: #aaafb4; background-color: #333c45; border:0px solid #dde0e2; border-radius: 12px;}
+
+.btn_d.routeLink{ background-color: #F3F4F6; color: #888;}
+.btn_d.routeLink.active{ background-color: #FFEB00; color: #060B11;}
