@@ -118,15 +118,19 @@
 							<!--<li><button type="button" class="btn2" value=""></button></li>-->
 							<li class="col_6"><button type="button" class="btn2" value="calc" disabled>계산하기</button></li>
 						</ul>
-						<div class="btnArea sticky" style="display: none">
+						<!--<div class="btnArea sticky" style="display: none">
 							<button type="button" id="btnCalculate" class="btn_d">다음</button>
-						</div>
+						</div>-->
 					</div>
 
 					<div class="btnArea mt30">
-						<button type="button" id="btnCalculate" class="btn_d routeLink" data-id="1" data-route="/projects/calculator/result">계산하기</button>
+						<button type="button" id="btnCalculate" class="btn_d routeLink_test" data-id="1" data-route="/projects/calculator/result">계산하기</button>
 					</div>
+
+					<h3 class="titH3" id="loanDetailTitle">월별 상환금액</h3>
+					<div id="loanRateResult2"></div>
 				</section>
+
 				<!-- 대출 계산 결과 -->
 				<section id="loanRateResult" class="componentView loanRateResult" data-component="/projects/calculator/result" aria-hidden="true">
 					<div class="lrr_head">
@@ -393,6 +397,20 @@ type: ${type}
 amt: ${amt}
 amtValue: ${amtValue}
 				`);
+
+				if (type == 'loanDateTerm') {
+					if (amtValue.length > 3) {
+						amtValue = amtValue.slice(0, -1);
+						ux.toast('최대 999개월까지 가능합니다.');
+					}
+				}
+
+				if (type == 'loanRate') {
+					if (Number(amtValue) > 100) {
+						amtValue = amtValue.slice(0, -1);
+						ux.toast('최대 100%까지 가능합니다.');
+					}
+				}
 				//$('#selAmt').val(amt);
 				//$('#selAmtText').text(ComUtil.mask.addComma(amt));
 				//$('#selAmt').closest('.row').addClass('focus');

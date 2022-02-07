@@ -55,20 +55,23 @@ calculator.event = {
 		var selAmt = $('#selAmt').val(); //대출원금
 		var selDateTerm = $('#selDateTerm').val(); //기간
 		var selRate = $('#selRate').val(); //금리
+		
 
 		var vRepaymentMethod = Number(repaymentMethod[0].value); // 상환방법
-		var vSelAmt = Number(selAmt); // 대출원금
+		var vSelAmt = Number(selAmt.replaceAll(',', '')); // 대출원금
 		var vSelDateTerm = Number(selDateTerm); // 기간
 		var vSelRate = Number(selRate); // 금리
 
+		console.log(vRepaymentMethod,vSelAmt,vSelDateTerm,vSelRate)
+
 		// calcLoanInterest(상환방법(0: 원리금, 1: 원금), 대출원금, 이자율, 납입기간(월), 거치기간(월));
-		calculator.variable.loanResult = calculator.locAction.calcLoanInterest(vRepaymentMethod, vSelAmt, vSelRate, vSelDateTerm, 12);
+		calculator.variable.loanResult = calculator.locAction.calcLoanInterest(vRepaymentMethod, vSelAmt, vSelRate, vSelDateTerm, 0);
 		calculator.tempData = calculator.variable.loanResult;
 
 		calculator.locAction.drawLoanDetail(); // 상세정보 그리기
-		calculator.locAction.drawLoanInfo(repaymentMethod, vSelAmt, vSelDateTerm, vSelRate, calculator.variable.loanResult); // 요약정보 그리기
+		//calculator.locAction.drawLoanInfo(repaymentMethod, vSelAmt, vSelDateTerm, vSelRate, calculator.variable.loanResult); // 요약정보 그리기
 
-		calculator.event.loanRateResult();
+		//calculator.event.loanRateResult();
 	},
 
 	loanRateResult: function () {
@@ -209,6 +212,8 @@ calculator.locAction = {
 			<tbody id="tbody">${tbody}</tbody>
 		</table>`;
 
+		$('#loanRateResult2').html(html);
+		return;
 		// 월별 납입금액 세팅
 		$('#loanDetailTitle').html('월별 상환금액');
 		$('.lrr_foot .inner').html(html);

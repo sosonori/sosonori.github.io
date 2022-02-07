@@ -144,6 +144,7 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 .toast{position: fixed; left: 50%; bottom: 30px; opacity: 0; transform: translate(-50%, 50%); display: inline-block; min-width: 240px; height: 36px; line-height: 36px; background-color: rgba(0, 0, 0, 0.75); border-radius: 18px; font-size: 1.4rem; color: #fff; text-align: center; z-index: 9999;}
 .toast.on{opacity: 1; transform: translate(-50%, -50%); transition: transform .3s, opacity .3s;}
+.toast.bt200{bottom: 300px;}
 
 
 /* component */
@@ -222,7 +223,7 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 .keypadWrap[data-type="loanDateTerm"] .type2{display: block;}
 .keypadWrap[data-type="loanRate"] .type3{display: block;}
 
-.keypadQuick{overflow: hidden; padding: 12px 8px 0;}
+.keypadQuick{overflow: hidden; padding: 12px 8px 0; display: none !important;}
 /*.keypadQuick{overflow: hidden; margin: 24px 0 16px; padding: 0 24px;}*/
 .keypadQuick > li {float: left; margin:0 3px;}
 .keypadQuick > li button { height: 26px; padding:0 8px; font-size: 1.3rem; color: #aaafb4; background-color: #333c45; border:0px solid #dde0e2; border-radius: 12px;}
