@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<title>Calculate</title>
+		<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" href="./css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="./css/common.css" />
+		<link rel="stylesheet" type="text/css" href="./css/style.css" />
+		<script src="./js/jquery-3.4.1.min.js"></script>
+		<script src="./js/sysComm.js"></script>
+		<script src="./js/pageReadyInit.js"></script>
+		<script src="./js/comUtil.js"></script>
+		<script src="./js/cmnUtil.js"></script>
+		<script src="./js/ui.front.js"></script>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
+		<!-- <script src="./js/chart.js"></script> -->
+		<script src="./js/ux.js"></script>
+		<script src="./js/calculator.js"></script>
+	</head>
+	<body>
+		<div id="content">
+			<div class="componentHead"></div>
+			<div class="componentBody">
+				<!--<ul>
+					<li class="routeLink" data-id="1" data-route="/projects/calculator" style="display: inline-block; width: 100px; height: 40px; background-color: royalblue">01</li>
+					<li class="routeLink" data-id="2" data-route="/projects/calculator/1" style="display: inline-block; width: 100px; height: 40px; background-color: royalblue">02</li>
+					<li class="routeLink" data-id="3" data-route="/projects/calculator/2" style="display: inline-block; width: 100px; height: 40px; background-color: royalblue">03</li>
+				</ul>-->
+				<!-- 대출 이자 계산기 -->
+				<section class="componentView" data-component="/projects/calculator" aria-hidden="false">
+					<div class="titArea">
+						<h1 class="titH1" style="font-weight: 400 !important; font-size: 28px">
+							<em>연이율</em>님,<br />
+							안녕하세요!
+						</h1>
+					</div>
+					<ul class="iptGroup iptBtn">
+						<li>
+							<input name="repaymentMethod" class="ipt" id="rdo1_1" type="radio" value="0" title="원리금균등" checked="" />
+							<label for="rdo1_1">원리금균등</label>
+						</li>
+						<li>
+							<input name="repaymentMethod" class="ipt" id="rdo1_2" type="radio" value="1" title="원금균등" />
+							<label for="rdo1_2">원금균등</label>
+						</li>
+						<li>
+							<input name="repaymentMethod" class="ipt" id="rdo1_3" type="radio" value="2" title="만기일시" />
+							<label for="rdo1_3">만기일시</label>
+						</li>
+					</ul>
+
+					<label for="selAmt">대출금액</label>
+					<input type="number" id="selAmt" class="ipt ar" value="1000000" title="대출금액" />
+
+					<label for="selDateTerm">대출기간</label>
+					<input type="number" id="selDateTerm" class="ipt ar" value="12" title="대출기간" />
+
+					<label for="selRate">연자이율</label>
+					<input type="number" id="selRate" class="ipt ar" value="0.05" title="연자이율" />
+
+					<div class="btnArea">
+						<button type="button" id="btnCalculate" class="btn_d routeLink" data-id="1" data-route="/projects/calculator/result">계산하기</button>
+					</div>
+				</section>
+				<!-- 대출 계산 결과 -->
+				<section id="loanRateResult" class="componentView loanRateResult" data-component="/projects/calculator/result" aria-hidden="true">
+					<div class="lrr_head">
+						<button type="button" id="btnHistoryBack" class="btnHistoryBack routeLink" data-route="/projects/calculator" title="뒤로가기"></button>
+						<button type="button" id="btnHistory" class="btnHistory" data-route="/projects/calculator/history" title="대출내역조회">
+							<span class="notification easeOutCubic" aria-live="off" aria-hidden="false">새로운 대출내역 알림</span>
+						</button>
+						<!--<button type="button" id="btnFilter" title="필터"></button>-->
+					</div>
+					<div class="lrr_body">
+						<div class="summary ac easeOutCubic">
+							<span class="label">총 상환금액</span>
+							<span id="sum7"></span>
+							<span id="sum8"></span>
+						</div>
+
+						<ul class="info1 easeOutCubic">
+							<li>
+								<span class="tit">상환방식</span>
+								<span class="val" id="sum1"></span>
+							</li>
+							<li>
+								<span class="tit">대출기간</span>
+								<span class="val" id="sum3"></span>
+							</li>
+							<li>
+								<span class="tit">연자이율</span>
+								<span class="val" id="sum4"></span>
+							</li>
+						</ul>
+
+						<ul class="info2 easeOutCubic">
+							<li>
+								<span class="tit">대출원금</span>
+								<span class="val" id="sum2"></span>
+							</li>
+							<li>
+								<span class="tit">총대출이자</span>
+								<span class="val em" id="sum5"></span>
+							</li>
+							<li>
+								<span class="tit">총상환금액</span>
+								<span class="val" id="sum6"></span>
+							</li>
+						</ul>
+
+						<div class="btnArea">
+							<button type="button" id="btnSaveHistory" class="easeOutCubic po1" title="대출내역 저장하기"></button>
+							<button type="button" id="btnReCalculate" class="easeOutCubic po2 routeLink" data-route="/projects/calculator" title="다시 계산하기">다시 계산하기</button>
+						</div>
+					</div>
+
+					<div class="lrr_foot easeOutCubic po3">
+						<h3 class="titH3" id="loanDetailTitle">월별 상환금액</h3>
+						<button type="button" class="btnTop"></button>
+						<div class="inner">
+							<table class="tableX fixed" data-title="월별 납입금액">
+								<caption>
+									월별 납입금액 - 등으로 구성되어 있습니다.
+								</caption>
+								<colgroup>
+									<col style="width: 36px" />
+									<col style="width: auto" />
+									<col style="width: auto" />
+									<col style="width: auto" />
+									<col style="width: auto" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">회차</th>
+										<th scope="col">상환금</th>
+										<th scope="col">이자</th>
+										<th scope="col">납부원금</th>
+										<th scope="col">상환후 예정잔액</th>
+									</tr>
+								</thead>
+								<tbody id="tbody"></tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+				<!-- 대출 내역 조회 -->
+				<section id="loanHistoryPage" class="componentView loanHistoryPage loanHistory" data-component="/projects/calculator/history" aria-hidden="true">
+					<h3 class="titH3"></h3>
+					<div class="inner"></div>
+				</section>
+			</div>
+			<div class="componentFoot"></div>
+		</div>
+		<script>
+			const defaultPath = '/projects/calculator';
+			let beforePath = defaultPath;
+			let afterPath = defaultPath;
+
+			window.onload = () => {
+				console.log(location.pathname);
+				if (location.pathname.indexOf('result') > -1) {
+					window.history.replaceState({ route: '/projects/calculator/result' }, '', window.location.origin + '/projects/calculator/result');
+				} else {
+					window.history.replaceState(null, '', window.location.origin + '/projects/calculator');
+				}
+
+				$('.routeLink').each((index, element) => {
+					$(element).on('click', (event) => {
+						const data = $(event.target).data();
+						beforePath = window.location.pathname;
+						const type = beforePath == defaultPath ? 'push' : 'replace';
+
+						historyRouerPush(data, type);
+					});
+				});
+			};
+
+			const historyRouerPush = (state, type) => {
+				if (type == 'push') {
+					window.history.pushState(state, state.route, window.location.origin + state.route);
+				} else {
+					window.history.replaceState(state, state.route, window.location.origin + state.route);
+				}
+				afterPath = window.location.pathname;
+
+				console.log(window.history);
+				const component = $(`.componentView[data-component="${state.route}"]`);
+				renderHTML(component, state.route);
+			};
+
+			const renderHTML = (component, route) => {
+				$('.componentView[aria-hidden="false"]').attr('aria-hidden', true);
+				component.attr('aria-hidden', false);
+				//component.html(route);
+			};
+
+			window.onpopstate = (history) => {
+				console.log(history.state);
+				console.log(afterPath);
+				window.ReactNativeWebView.postMessage(beforePath);
+				if (history.state == null || history.state.route == afterPath) {
+					location.href = defaultPath;
+					console.log('null');
+				} else {
+					console.log('render');
+					const component = $(`.componentView[data-component="${history.state.route}"]`);
+					renderHTML(component, history.state.route);
+				}
+			};
+
+			/*var v = new Date().getTime();
+			var t = $('link,script');
+			t.each(function (i, e) {
+				if ($(e).attr('href')) $(e).attr('href', $(e).attr('href') + `?v=${v}`);
+				if ($(e).attr('src')) $(e).attr('src', $(e).attr('src') + `?v=${v}`);
+			});*/
+		</script>
+	</body>
+</html>

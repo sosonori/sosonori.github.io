@@ -4,6 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<link rel="manifest" href="./manifest.json" />
 		<title>Calculate</title>
 		<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" href="./css/reset.css" />
@@ -31,37 +33,97 @@
 				</ul>-->
 				<!-- 대출 이자 계산기 -->
 				<section class="componentView" data-component="/projects/calculator" aria-hidden="false">
-					<div class="titArea">
+					<!--<div class="titArea">
 						<h1 class="titH1" style="font-weight: 400 !important; font-size: 28px">
 							<em>연이율</em>님,<br />
 							안녕하세요!
 						</h1>
+					</div>-->
+					<div class="calcForm">
+						<div class="row" data-row="1">
+							<label for="selAmt">대출금액</label>
+							<span id="selAmtText"></span>
+							<input type="text" id="selAmt" class="ipt wrcNumberOnly" tabindex="1" value="" data-unit="만원" data-type="loanAmt" title="대출금액" />
+						</div>
+
+						<div class="row" data-row="2">
+							<label for="selDateTerm">대출기간</label>
+							<span id="selDateTermText"></span>
+							<input type="text" id="selDateTerm" class="ipt wrcNumberOnly2" tabindex="2" value="" data-unit="개월" data-type="loanDateTerm" title="대출기간" />
+						</div>
+
+						<div class="row" data-row="3">
+							<label for="selRate">연자이율</label>
+							<span id="selRateText"></span>
+							<input type="text" id="selRate" class="ipt wrcNumberOnly3" tabindex="3" value="" data-unit="%" data-type="loanRate" title="연자이율" />
+						</div>
+
+						<label>상환방법</label>
+						<div class="row iptButtonWrap">
+							<ul class="iptGroup iptButton">
+								<li>
+									<input name="repaymentMethod" class="ipt" tabindex="4" id="rdo1_1" type="radio" value="0" title="원리금균등" checked="" />
+									<label for="rdo1_1">원리금균등</label>
+								</li>
+								<li>
+									<input name="repaymentMethod" class="ipt" tabindex="4" id="rdo1_2" type="radio" value="1" title="원금균등" />
+									<label for="rdo1_2">원금균등</label>
+								</li>
+								<li>
+									<input name="repaymentMethod" class="ipt" tabindex="4" id="rdo1_3" type="radio" value="2" title="만기일시" />
+									<label for="rdo1_3">만기일시</label>
+								</li>
+							</ul>
+						</div>
 					</div>
-					<ul class="iptGroup iptBtn">
-						<li>
-							<input name="repaymentMethod" class="ipt" id="rdo1_1" type="radio" value="0" title="원리금균등" checked="" />
-							<label for="rdo1_1">원리금균등</label>
-						</li>
-						<li>
-							<input name="repaymentMethod" class="ipt" id="rdo1_2" type="radio" value="1" title="원금균등" />
-							<label for="rdo1_2">원금균등</label>
-						</li>
-						<li>
-							<input name="repaymentMethod" class="ipt" id="rdo1_3" type="radio" value="2" title="만기일시" />
-							<label for="rdo1_3">만기일시</label>
-						</li>
-					</ul>
+					<div class="keypadWrap">
+						<ul class="keypadQuick type1">
+							<li><button type="button" value="10000">1억</button></li>
+							<li><button type="button" value="5000">5000만</button></li>
+							<li><button type="button" value="1000">1000만</button></li>
+							<li><button type="button" value="500">500만</button></li>
+							<li><button type="button" value="100">100만</button></li>
+						</ul>
+						<ul class="keypadQuick type2">
+							<li><button type="button" value="360">30년</button></li>
+							<li><button type="button" value="120">10년</button></li>
+							<li><button type="button" value="60">5년</button></li>
+							<li><button type="button" value="12">1년</button></li>
+							<li><button type="button" value="6">6개월</button></li>
+							<li><button type="button" value="1">1개월</button></li>
+						</ul>
+						<ul class="keypadQuick type3">
+							<li><button type="button" value="20">20%</button></li>
+							<li><button type="button" value="10">10%</button></li>
+							<li><button type="button" value="5">5%</button></li>
+							<li><button type="button" value="3">3%</button></li>
+							<li><button type="button" value="2">2%</button></li>
+							<li><button type="button" value="1">1%</button></li>
+						</ul>
+						<ul class="keypad">
+							<li><button type="button" class="btn1" value="1">1</button></li>
+							<li><button type="button" class="btn1" value="2">2</button></li>
+							<li><button type="button" class="btn1" value="3">3</button></li>
+							<li><button type="button" class="btn2" value="del"></button></li>
+							<li><button type="button" class="btn1" value="4">4</button></li>
+							<li><button type="button" class="btn1" value="5">5</button></li>
+							<li><button type="button" class="btn1" value="6">6</button></li>
+							<li><button type="button" class="btn2" value="move">이동</button></li>
+							<li><button type="button" class="btn1" value="7">7</button></li>
+							<li><button type="button" class="btn1" value="8">8</button></li>
+							<li><button type="button" class="btn1" value="9">9</button></li>
+							<li><button type="button" class="btn2" value=".">.</button></li>
+							<li><button type="button" class="btn2" value=""></button></li>
+							<li><button type="button" class="btn1" value="0">0</button></li>
+							<!--<li><button type="button" class="btn2" value=""></button></li>-->
+							<li class="col_6"><button type="button" class="btn2" value="calc" disabled>계산하기</button></li>
+						</ul>
+						<div class="btnArea sticky" style="display: none">
+							<button type="button" id="btnCalculate" class="btn_d">다음</button>
+						</div>
+					</div>
 
-					<label for="selAmt">대출금액</label>
-					<input type="number" id="selAmt" class="ipt ar" value="1000000" title="대출금액" />
-
-					<label for="selDateTerm">대출기간</label>
-					<input type="number" id="selDateTerm" class="ipt ar" value="12" title="대출기간" />
-
-					<label for="selRate">연자이율</label>
-					<input type="number" id="selRate" class="ipt ar" value="0.05" title="연자이율" />
-
-					<div class="btnArea">
+					<div class="btnArea mt30">
 						<button type="button" id="btnCalculate" class="btn_d routeLink" data-id="1" data-route="/projects/calculator/result">계산하기</button>
 					</div>
 				</section>
@@ -155,19 +217,39 @@
 			<div class="componentFoot"></div>
 		</div>
 		<script>
+			const defaultPath = '/projects/calculator';
+			let beforePath = defaultPath;
+			let afterPath = defaultPath;
+
 			window.onload = () => {
+				console.log(location.pathname);
+				if (location.pathname.indexOf('result') > -1) {
+					window.history.replaceState({ route: '/projects/calculator/result' }, '', window.location.origin + '/projects/calculator/result');
+				} else {
+					//window.history.replaceState(null, '', window.location.origin + '/projects/calculator');
+				}
+
 				$('.routeLink').each((index, element) => {
 					$(element).on('click', (event) => {
 						const data = $(event.target).data();
-						historyRouerPush(data);
+						beforePath = window.location.pathname;
+						const type = beforePath == defaultPath ? 'push' : 'replace';
+
+						historyRouerPush(data, type);
 					});
 				});
 			};
 
-			const historyRouerPush = (state) => {
-				window.history.pushState(state, state.route, window.location.origin + state.route);
-				const component = $(`.componentView[data-component="${state.route}"]`);
+			const historyRouerPush = (state, type) => {
+				if (type == 'push') {
+					window.history.pushState(state, state.route, window.location.origin + state.route);
+				} else {
+					window.history.replaceState(state, state.route, window.location.origin + state.route);
+				}
+				afterPath = window.location.pathname;
+
 				console.log(window.history);
+				const component = $(`.componentView[data-component="${state.route}"]`);
 				renderHTML(component, state.route);
 			};
 
@@ -178,14 +260,17 @@
 			};
 
 			window.onpopstate = (history) => {
-				console.log(history);
-				if(history.state == null) {
-					alert('종료?');
+				console.log(history.state);
+				console.log(afterPath);
+				window.ReactNativeWebView.postMessage(beforePath);
+				if (history.state == null || history.state.route == afterPath) {
+					location.href = defaultPath;
+					console.log('null');
 				} else {
+					console.log('render');
 					const component = $(`.componentView[data-component="${history.state.route}"]`);
-					renderHTML(component, history.state.route);	
+					renderHTML(component, history.state.route);
 				}
-
 			};
 
 			/*var v = new Date().getTime();
@@ -194,6 +279,210 @@
 				if ($(e).attr('href')) $(e).attr('href', $(e).attr('href') + `?v=${v}`);
 				if ($(e).attr('src')) $(e).attr('src', $(e).attr('src') + `?v=${v}`);
 			});*/
+
+			// input 호출
+			/*$('.calcForm input[type="text"]').on('click', function () {
+				$(this).on('focusin', function () {
+					$(this).closest('.row').addClass('focus');
+				});
+
+				$(this).on('focusout', function () {
+					$(this).closest('.row').removeClass('focus');
+				});
+			});*/
+
+			$('body').on('click', function (e) {
+				const _this = $(e.target);
+				if (_this.attr('type') == 'text' || _this.closest('.keypadWrap').length > 0) {
+					return;
+				} else {
+					if ($('.keypadWrap.open').length > 0) {
+						$('.row.focus').removeClass('focus');
+						$('.keypadWrap.open').removeClass('open');
+					}
+				}
+			});
+
+			$('input[type="radio"]').on('click', function () {
+				$('.row.focus').removeClass('focus');
+				$('.keypadWrap.open').removeClass('open');
+			});
+
+			$('.calcForm input[type="text"]').each(function () {
+				$(this).on('focusin', function () {
+					$('.row.focus').removeClass('focus');
+					$(this).closest('.row').addClass('focus');
+					$(this).trigger('blur');
+
+					if (this.id == 'selAmt') {
+						$('.keypadWrap').attr('data-type', 'loanAmt');
+					} else if (this.id == 'selDateTerm') {
+						$('.keypadWrap').attr('data-type', 'loanDateTerm');
+					} else {
+						$('.keypadWrap').attr('data-type', 'loanRate');
+					}
+					$('.keypadWrap').addClass('open');
+				});
+
+				$(this).on('focusout', function () {
+					console.log('focusout');
+					//$(this).closest('.row').removeClass('focus');
+					//$('.row.focus').removeClass('focus');
+					//$('.keypadWrap.open').removeClass('open');
+				});
+
+				$(this).on('change', function () {
+					if ($(this).val().length > 0) {
+						$(this).closest('.row').addClass('val');
+					} else {
+						$(this).closest('.row').removeClass('val');
+					}
+				});
+			});
+
+			$('.keypadQuick button').on('click', function () {
+				let amt = $('#selAmt').val();
+				const value = $(this).val();
+				if (amt.length == 0) {
+					amt = 0;
+					amt += Number(value);
+				} else {
+					amt = Number(amt) + Number(value);
+				}
+				$('#selAmt').val(amt);
+				$('#selAmtText').text(ComUtil.mask.addComma(amt));
+				$('#selAmt').closest('.row').addClass('focus');
+				$('#selAmt').trigger('change');
+				//$('.row.focus input[type="number"]').val(amt);
+				//$('.row.focus > span').text(ComUtil.mask.addComma(amt));
+				//$('#selAmt').closest('.row').addClass('focus');
+				//$('.row.focus input[type="number"]').trigger('change');
+			});
+
+			$('.keypad button').on('click', function () {
+				const value = $(this).val();
+
+				// 이동 버튼
+				if (value == 'move') {
+					let rowNum = $('.calcForm .row.focus').attr('data-row');
+					if (rowNum == '3') rowNum = 0;
+					$(`.calcForm .row[data-row="${Number(rowNum) + 1}"] input[type="text"]`).trigger('focusin');
+					return;
+				}
+
+				const type = $(this).closest('.keypadWrap').attr('data-type');
+
+				let amt = $(`.calcForm input[data-type="${type}"]`).val();
+				amt = amt.replaceAll(',', '');
+
+				if (amt.length == 0 && value == 0) return;
+				if (value == 'del') {
+					amt = amt.slice(0, -1);
+				} else {
+					amt += value;
+				}
+				let amtValue = '';
+				if (type == 'loanAmt') {
+					amtValue = ComUtil.mask.addComma(amt);
+				} else {
+					amtValue = amt;
+				}
+
+				console.log(`
+type: ${type}
+amt: ${amt}
+amtValue: ${amtValue}
+				`);
+				//$('#selAmt').val(amt);
+				//$('#selAmtText').text(ComUtil.mask.addComma(amt));
+				//$('#selAmt').closest('.row').addClass('focus');
+				//$('#selAmt').trigger('change');
+				$(`.calcForm input[data-type="${type}"]`).val(amtValue);
+				//$(`.calcForm input[data-type="${type}"]`).attr('data-value', amt).val(amtValue);
+				//$(`.calcForm input[data-type="${type}"]`).closest('.row').find(' > span').text(ComUtil.mask.addComma(amt));
+				$(`.calcForm input[data-type="${type}"]`).closest('.row').addClass('focus');
+				$(`.calcForm input[data-type="${type}"]`).trigger('change');
+
+				if ($('.calcForm .row.val').length == 3) {
+					$('.btn_d.routeLink').addClass('active');
+					$('button[value="calc"]').attr('disabled', false);
+				} else {
+					$('.btn_d.routeLink').removeClass('active');
+					$('button[value="calc"]').attr('disabled', true);
+				}
+			});
+
+			// 키패드 열기
+			/*$('input[type="text"]').on('click', function () {
+				console.log(this.id);
+				//$('.keypadQuick').hide();
+				if (this.id == 'selAmt') {
+					$('.keypadWrap').attr('data-type', '1');
+				} else if (this.id == 'selDateTerm') {
+					$('.keypadWrap').attr('data-type', '2');
+				} else {
+					$('.keypadWrap').attr('data-type', '3');
+				}
+				$('.keypadWrap').addClass('open');
+			});*/
+		</script>
+		<script>
+			const newDate = new Date();
+			const newTime = newDate.getTime();
+			$('link').each(function () {
+				$(this).attr('href', $(this).attr('href') + `?${newTime}`);
+			});
+			$('script').each(function () {
+				$(this).attr('src', $(this).attr('src') + `?${newTime}`);
+			});
+			$('.wrcNumberOnly').on('change', function (e) {
+				var v = $(this).val();
+				$(this).val(ComUtil.mask.addComma(v.replace(/[^0-9]/gi, '')));
+			});
+			$('.wrcNumberOnly2').on('change', function (e) {
+				var v = $(this).val();
+				$(this).val(v.replace(/[^0-9]/gi, ''));
+			});
+			$('.wrcNumberOnly3').on('change', function (e) {
+				var v = $(this).val();
+				//$(this).val(v.replace(/[^0-9]/gi, ''));
+				//$(this).val(v.replace(/^[0-9]{3,}/gi, v.slice(0, -1)));
+				//var num = $(this).val();
+				//var _pattern1 = /^\d*[.]\d{1}$/;
+				//if (_pattern1.test(num)) {
+				//	return false; // 현재 value 값이 소수점 첫째 짜리 숫자라면 더 이상 입력 X
+				//}
+				//var v = $(this).val();
+				//var _pattern1 = /[^0-9]/gi;
+				//$(this).val(v.replace(_pattern1, ''));
+				//$(this).val(v.replace(/^[0-9]{1,2}(\.[0-9]{1,2})?$/gi, ''));
+				//return;
+				//var pattern = /^[0-9]{1,2}(\.[0-9]{1,2})?$/gi;
+				var pattern = /(^\d+$)|(^\d{1,}.\d{0,2}$)/;
+
+				if (pattern.test(v)) {
+					//console.log('true', v);
+				} else {
+					//console.log('false', v);
+					$(this).val(v.slice(0, -1));
+				}
+				//$(this).val(v.replace(/^[0-9]{1,2}(\.[0-9]{1,2})?$/gi, ''));
+
+				//var v = $(this).val();
+				//$(this).val(v.replace(/(^\d+$)|(^\d{1,}.\d{0,2}$)/gi, ''));
+			});
+
+			function getHour(obj) {
+				var num1 = obj.value;
+
+				var pattern = /(^\d+$)|(^\d{1,}.\d{0,2}$)/;
+
+				if (!pattern.test(num1)) {
+					obj.value = '';
+
+					return;
+				}
+			}
 		</script>
 	</body>
 </html>

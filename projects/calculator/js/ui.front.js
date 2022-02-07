@@ -968,6 +968,33 @@ var ieV;					 // IE version
 						$(this).prev('input').trigger('click');
 					}
 				});
+				$('.row .ipt[type="number"]').bind({
+					'focusin':function(){
+						$('.calcForm .row.focus').removeClass('focus')
+						$(this).closest('.row').addClass('focus')
+					},
+					'focusout':function(){
+						$(this).closest('.row').removeClass('focus')
+					},
+					'change':function(){
+						if ($(this).val().length > 0) {
+							$(this).closest('.row').addClass('val')
+						} else {
+							$(this).closest('.row').removeClass('val')
+						}
+					},
+					'keydown':function(e){
+						if(e.keyCode === 13){
+							nextMethod();
+						}
+					},
+				});
+				$('.row .ipt[type="radio"]').bind({
+					'change':function(){
+						$(this).closest('.iptButton').attr('class', 'iptGroup iptButton');
+						$(this).closest('.iptButton').addClass('col' + $(this).val());
+					}
+				});
 				// E-mail auto Complete
 				ui.emailInit();
 			},
@@ -998,7 +1025,7 @@ var ieV;					 // IE version
 					}
 				});
 				
-				if( $(target).data('unit') != '만원' ){
+				/*if( $(target).data('unit') != '만원' ){
 					$(target).bind({
 						'change paste keydown keyup':function(e){
 							if( $(this).val() != "" ){
@@ -1026,7 +1053,7 @@ var ieV;					 // IE version
 							},10);
 						}
 					});
-				}
+				}*/
 			},
 			// input has unit case
 			iptUnitInit : function( target ){
