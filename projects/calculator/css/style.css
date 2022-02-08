@@ -11,11 +11,12 @@
 html, body{font-size: 10px; font-family:'NanumSquare','Noto Sans KR',san-serif; font-weight: 400; /* overscroll-behavior: contain; */}
 body{background-color: #fff;}
 
-#content{position: relative; height: 100vh; margin: 0 auto; overflow: hidden;}
-section{ height: 100%; padding:24px; margin: 0 auto; background-color: #f9fbfc; background-color: #fff;}
+#content{position: relative; min-height: 100vh; margin: 0 auto; overflow: hidden;}
+section{ padding:24px; margin: 0 auto; background-color: #f9fbfc; background-color: #fff;}
+section.hr{padding-top: 30px;border-top: 7px solid #f1f1f1;}
 /* input{display:block;min-width: 315px; height:60px; padding: 0 20px; background:#fff;border:1px solid #dde0e2;box-sizing:border-box;border-radius:12px; font-size: 1.6rem !important;} */
 input{padding-right: 45px !important;}
-[class^='titH']{font-weight: 800 !important;}
+[class^='titH']{font-weight: 700 !important;}
 
 label{color: #9e9eab; font-size: 1.4rem;}
 label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !important;}
@@ -230,3 +231,13 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 .btn_d.routeLink{ background-color: #F3F4F6; color: #888;}
 .btn_d.routeLink.active{ background-color: #FFEB00; color: #060B11;}
+
+
+#loanDetailTitle .cnt{display: inline-block; margin-left: 8px; height: 24px; line-height: 24px; padding: 0 8px; background-color: #ddd; border-radius: 12px; font-size: 1.4rem; color: #666;}
+
+.loanRateResult2 ul{margin-top: 8px;}
+.loanRateResult2 li{position: relative; padding: 16px 0; border-bottom: 1px solid #eee;}
+.loanRateResult2 .val1{ font-size: 1.4rem; font-weight: 700; color: #333;}
+.loanRateResult2 .val2,
+.loanRateResult2 .val3{display: block; font-size: 1.4rem; font-weight: 400; color: #888;}
+.loanRateResult2 .val4{position: absolute; top: 50%; right: 0; transform: translateY(-50%); font-size: 1.8rem; font-weight: 700; color: #000;}

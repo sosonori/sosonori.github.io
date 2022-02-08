@@ -636,11 +636,11 @@ var ieV;					 // IE version
 					$('.header').addClass('sticky');
 					$('.d1bar').addClass('easeOutQuint');
 					$('.header .cateTit').fadeIn(200,function(){gnb.barMove();$('.d1bar').removeClass('easeOutQuint');});
-					if( $('.hasCrumb ').length == 0 ){
+					/*if( $('.hasCrumb ').length == 0 ){
 						$('#content').css('padding-top', gnb.contentTopPos );
 					} else {
 						$('.crumbArea').css('padding-top', gnb.contentTopPos );
-					}
+					}*/
 					$('.quick').addClass('topVisible');
 					layout.quickResize();
 				//sticky release

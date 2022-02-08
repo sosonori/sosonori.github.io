@@ -58,9 +58,9 @@ calculator.event = {
 		
 
 		var vRepaymentMethod = Number(repaymentMethod[0].value); // 상환방법
-		var vSelAmt = Number(selAmt.replaceAll(',', '')); // 대출원금
+		var vSelAmt = Number(selAmt.replaceAll(',', '')) * 10000; // 대출원금
 		var vSelDateTerm = Number(selDateTerm); // 기간
-		var vSelRate = Number(selRate); // 금리
+		var vSelRate = Number(selRate) * 0.01; // 금리
 
 		console.log(vRepaymentMethod,vSelAmt,vSelDateTerm,vSelRate)
 
@@ -68,7 +68,7 @@ calculator.event = {
 		calculator.variable.loanResult = calculator.locAction.calcLoanInterest(vRepaymentMethod, vSelAmt, vSelRate, vSelDateTerm, 0);
 		calculator.tempData = calculator.variable.loanResult;
 
-		calculator.locAction.drawLoanDetail(); // 상세정보 그리기
+		calculator.locAction.drawLoanDetail2(); // 상세정보 그리기
 		//calculator.locAction.drawLoanInfo(repaymentMethod, vSelAmt, vSelDateTerm, vSelRate, calculator.variable.loanResult); // 요약정보 그리기
 
 		//calculator.event.loanRateResult();
@@ -224,6 +224,53 @@ calculator.locAction = {
 		$('.tableX.fixed td').on('focusout', function(){
 			$(this).parent('tr').removeClass('highlight');
 		});
+	},
+
+	/**
+	 * 대출계산결과 상세 그리기
+	 */
+	drawLoanDetail2: function () {
+		if (calculator.variable.loanResult == null) return false;
+
+		// round: 회차, repayment: 월상환금, interest: 대출이자, payment: 납입원금, balance: 대출잔금
+		var tbody = '';
+		$(calculator.variable.loanResult.monthly).each(function (index, item) {
+			tbody += `
+			<ul>
+				<li data-row="${index + 1}">
+					<span class="val1">${ComUtil.mask.addComma(Math.floor(item.round))}회차</span>
+					<span class="val2">이자 ${ComUtil.mask.addComma(Math.floor(item.interest))}원</span>
+					<span class="val3">원금 ${ComUtil.mask.addComma(Math.floor(item.payment))}원</span>
+					<span class="val4">${ComUtil.mask.addComma(Math.floor(item.repayment))}원</span>
+				</li>
+			</ul>`;
+		});
+
+		var html = `
+		<table class="tableX fixed" data-title="월별 납입금액">
+			<caption>회차, 상환금, 이자, 납부원금, 상환후 예정잔액 등으로 구성되어 있습니다.</caption>
+			<colgroup>
+				<col style="width: 36px" />
+				<col style="width: auto" />
+				<col style="width: auto" />
+				<col style="width: auto" />
+				<col style="width: auto" />
+			</colgroup>
+			<thead>
+				<tr>
+					<span>회차</span>
+					<span>상환금</span>
+					<span>이자</span>
+					<span>납부원금</span>
+					<span>상환후 예정잔액</span>
+				</tr>
+			</thead>
+			<tbody id="tbody">${tbody}</tbody>
+		</table>`;
+
+		$('#loanRateResult2').html(tbody);
+		$('#loanDetailTitle .cnt').text(calculator.variable.loanResult.loansDate);
+		$('body,html').animate({ scrollTop: $('#loanDetailTitle').offset().top - 30 }, 300);
 	},
 
 	/**

@@ -126,9 +126,15 @@
 					<div class="btnArea mt30">
 						<button type="button" id="btnCalculate" class="btn_d routeLink_test" data-id="1" data-route="/projects/calculator/result">계산하기</button>
 					</div>
+				</section>
 
-					<h3 class="titH3" id="loanDetailTitle">월별 상환금액</h3>
-					<div id="loanRateResult2"></div>
+				<section class="hr">
+					<h2 class="titH2" id="loanDetailTitle">월별 상환금액<span class="cnt">0</span></h2>
+					<div id="loanRateResult2" class="loanRateResult2">
+						<ul>
+							<li style="font-size: 1.4rem">대출 정보를 입력해주세요</li>
+						</ul>
+					</div>
 				</section>
 
 				<!-- 대출 계산 결과 -->
@@ -371,6 +377,13 @@
 					let rowNum = $('.calcForm .row.focus').attr('data-row');
 					if (rowNum == '3') rowNum = 0;
 					$(`.calcForm .row[data-row="${Number(rowNum) + 1}"] input[type="text"]`).trigger('focusin');
+					return;
+				}
+
+				if (value == 'calc') {
+					$('.row.focus').removeClass('focus');
+					$('.keypadWrap.open').removeClass('open');
+					calculator.event.calculateLoanRate();
 					return;
 				}
 
