@@ -13,7 +13,7 @@ body{background-color: #fff;}
 
 #content{position: relative; min-height: 100vh; margin: 0 auto; overflow: hidden;}
 section{ padding:24px; margin: 0 auto; background-color: #f9fbfc; background-color: #fff;}
-section.hr{padding-top: 30px;border-top: 7px solid #f1f1f1;}
+section.hr{ display: none; padding-top: 30px;border-top: 7px solid #f1f1f1;}
 /* input{display:block;min-width: 315px; height:60px; padding: 0 20px; background:#fff;border:1px solid #dde0e2;box-sizing:border-box;border-radius:12px; font-size: 1.6rem !important;} */
 input{padding-right: 45px !important;}
 [class^='titH']{font-weight: 700 !important;}
@@ -68,6 +68,21 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 .lrr_foot.on .inner{max-height: calc(100% - 100px);}
 .lrr_foot .btnTop{position: absolute; top: 0; left: 0; width: 100%; height: 40px; background-color: transparent;}
 .lrr_foot .btnTop::before{position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); content: ''; width: 56px; height: 4px; background-color: #d0d0d0; border-radius: 2px;}
+
+
+
+/*.loanRateSummary{margin-bottom: 60px;}*/
+.loanRateSummary .info2{padding-top: 12px; margin-top: 12px; border-top: 1px solid #eee;}
+.loanRateSummary .info2 li{overflow: hidden; margin-top: 8px;}
+.loanRateSummary .info2 .tit{float: left; color: #888; font-size: 1.6rem; font-weight: 300;}
+.loanRateSummary .info2 .val{float: right; color: #000; font-size: 1.8rem; font-weight: 700; text-align: right;}
+/*.loanRateSummary .info2 .val.em{color: #ffdb28;}*/
+.loanRateSummary .label{margin-top: 0; font-size: 16px; color: #888; font-weight: 300; letter-spacing: -1px; text-align: left;}
+.loanRateSummary #sum7{display: block; color: #000; font-size: 3rem; font-weight: 700; text-align: left;}
+.loanRateSummary #sum8{display: block; color: #000; font-size: 1.5rem; opacity: .7; margin-top: 4px;}
+.loanRateSummary .info3{margin-top: 20px; padding: 0 24px; height: 56px; line-height: 56px; background-color: #F9F9F9; /*background-color: #FFEB00;*/ border-radius: 16px;}
+.loanRateSummary .info3 .desc{float: left; color: #888; font-size: 1.6rem;}
+.loanRateSummary .info3 .tit{float: right; color: #FFEB00; color: #1C7DFF; font-size: 2rem; font-weight: 700;}
 
 .modalPopup{position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 80%; background-color: #fff; border-radius: 24px; z-index: 9999;}
 .modalPopup .titArea{padding: 0 20px;}
@@ -126,7 +141,7 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 /* .tableX{width: 400px;} */
 .tableX th{ color: #02034A;}
-.tableX th, .tableX td{position: relative; padding: 4px 8px; background-color: #fff; white-space: nowrap; font-size: 1.3rem; z-index: 10;}
+.tableX th, .tableX td{position: relative; padding: 6px 10px; background-color: #fff; white-space: nowrap; font-size: 1.4rem; z-index: 10; border-left: 0;}
 
 .tableX.fixed{table-layout: auto; margin-top: 0; border-top: 0;}
 .tableX.fixed thead{ position: sticky; top: 0; z-index: 20;}
@@ -211,14 +226,15 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 .keypadWrap.open{transform: translateY(0);transition:transform .3s; transition-timing-function: cubic-bezier(0.2, 0.6, 0.3, 1)}
 .keypadWrap .keypad{display: block; overflow: hidden; padding: 4px;/* background-color: #F3F4F6;*/}
 .keypadWrap .keypad > li{float: left; width: 25%; padding: 4px;}
-.keypadWrap .keypad > li button{display: block; width: 100%; height: 48px; line-height: 48px; border-radius: 4px; font-size: 2.8rem; color: #fff; text-align: center; -webkit-tap-highlight-color:rgba(0, 0, 0, 0.1);}
+.keypadWrap .keypad > li button{display: block; width: 100%; height: 48px; line-height: 48px; border-radius: 4px; font-size: 2.8rem; color: #fff; text-align: center; -webkit-tap-highlight-color:rgba(0, 0, 0, 0.25);}
 .keypadWrap .keypadQuick{display: none;}
 /*.keypadWrap .keypad > li button{box-shadow: 0 2px 4px 0 rgb(0 0 0 / 2%)}*/
 .keypadWrap .keypad > li button.btn2{background-color:#333c45}
 .keypadWrap .keypad > li button.btn1{ background-color:#2a3139}
 .keypadWrap .keypad > li button[value="del"] {background-image: url(../images/svg/icons-delete.svg);background-size: auto 28px;background-repeat: no-repeat;background-position: center;}
-.keypadWrap .keypad > li button[value="move"] {font-size: 2.2rem;/* background-color: #3a4b5d;*/ color: #ffeb00; /*color: #1f74f1;*/}
-.keypadWrap .keypad > li button[value="calc"] { background-color:#ffeb00; color: #000; font-size: 2.2rem; transition: background-color .1s;}
+.keypadWrap .keypad > li button[value="move"] {font-size: 2rem;/* background-color: #3a4b5d;*/ color: #ffeb00; /*color: #1f74f1;*/}
+.keypadWrap .keypad > li button[value="reset"] {font-size: 2rem; opacity: 1;}
+.keypadWrap .keypad > li button[value="calc"] { background-color:#ffeb00; color: #000; font-size: 2rem; transition: background-color .1s;}
 .keypadWrap .keypad > li button[value="calc"]:disabled{background-color:#333c45; color: rgba(255, 255, 255, 0.2);}
 .keypadWrap[data-type="loanAmt"] .type1{display: block;}
 .keypadWrap[data-type="loanDateTerm"] .type2{display: block;}
@@ -241,3 +257,5 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 .loanRateResult2 .val2,
 .loanRateResult2 .val3{display: block; font-size: 1.4rem; font-weight: 400; color: #888;}
 .loanRateResult2 .val4{position: absolute; top: 50%; right: 0; transform: translateY(-50%); font-size: 1.8rem; font-weight: 700; color: #000;}
+
+.loanRateResult2 .inner{overflow: auto; max-height: calc(100vh - 240px);}

@@ -41,21 +41,21 @@
 					</div>-->
 					<div class="calcForm">
 						<div class="row" data-row="1">
-							<label for="selAmt">대출금액</label>
-							<span id="selAmtText"></span>
-							<input type="text" id="selAmt" class="ipt wrcNumberOnly" tabindex="1" value="" data-unit="만원" data-type="loanAmt" title="대출금액" />
+							<label for="loanAmt">대출금액</label>
+							<span id="loanAmtText"></span>
+							<input type="text" id="loanAmt" class="ipt wrcNumberOnly" tabindex="1" value="" data-unit="만원" data-type="loanAmt" title="대출금액" />
 						</div>
 
 						<div class="row" data-row="2">
-							<label for="selDateTerm">대출기간</label>
-							<span id="selDateTermText"></span>
-							<input type="text" id="selDateTerm" class="ipt wrcNumberOnly2" tabindex="2" value="" data-unit="개월" data-type="loanDateTerm" title="대출기간" />
+							<label for="loanDateTerm">대출기간</label>
+							<span id="loanDateTermText"></span>
+							<input type="text" id="loanDateTerm" class="ipt wrcNumberOnly2" tabindex="2" value="" data-unit="개월" data-type="loanDateTerm" title="대출기간" />
 						</div>
 
 						<div class="row" data-row="3">
-							<label for="selRate">연자이율</label>
-							<span id="selRateText"></span>
-							<input type="text" id="selRate" class="ipt wrcNumberOnly3" tabindex="3" value="" data-unit="%" data-type="loanRate" title="연자이율" />
+							<label for="loanRate">연자이율</label>
+							<span id="loanRateText"></span>
+							<input type="text" id="loanRate" class="ipt wrcNumberOnly3" tabindex="3" value="" data-unit="%" data-type="loanRate" title="연자이율" />
 						</div>
 
 						<label>상환방법</label>
@@ -113,7 +113,7 @@
 							<li><button type="button" class="btn1" value="8">8</button></li>
 							<li><button type="button" class="btn1" value="9">9</button></li>
 							<li><button type="button" class="btn2" value=".">.</button></li>
-							<li><button type="button" class="btn2" value=""></button></li>
+							<li><button type="button" class="btn2" value="reset">초기화</button></li>
 							<li><button type="button" class="btn1" value="0">0</button></li>
 							<!--<li><button type="button" class="btn2" value=""></button></li>-->
 							<li class="col_6"><button type="button" class="btn2" value="calc" disabled>계산하기</button></li>
@@ -129,7 +129,44 @@
 				</section>
 
 				<section class="hr">
-					<h2 class="titH2" id="loanDetailTitle">월별 상환금액<span class="cnt">0</span></h2>
+					<div class="loanRateSummary">
+						<div class="summary ac easeOutCubic">
+							<p class="label">총 상환금액</p>
+							<p id="sum7"></p>
+							<!--<span id="sum8"></span>-->
+						</div>
+
+						<ul class="info2 easeOutCubic">
+							<li>
+								<span class="tit">대출원금</span>
+								<span class="val" id="sum2"></span>
+							</li>
+							<li>
+								<span class="tit">총대출이자</span>
+								<span class="val em" id="sum5"></span>
+							</li>
+						</ul>
+
+						<div class="info3">
+							<span class="desc">월평균 상환금액</span>
+							<span class="tit" id="sum9"></span>
+						</div>
+					</div>
+				</section>
+				<section class="hr">
+					<div class="titArea">
+						<h2 class="titH2" id="loanDetailTitle">월별 상환금액<span class="cnt">0</span></h2>
+						<ul class="iptGroup goodsType" id="viewTabArea">
+							<li>
+								<input type="radio" class="ipt" checked="checked" name="setViewType" id="setListType" value="list" aria-hidden="true" />
+								<label class="list" for="setListType" role="radio" aria-checked="true">리스트형태 보기</label>
+							</li>
+							<li>
+								<input type="radio" class="ipt" name="setViewType" id="setCardType" value="card" aria-hidden="true" />
+								<label class="card" for="setCardType" role="radio" aria-checked="false">카드형태 보기</label>
+							</li>
+						</ul>
+					</div>
 					<div id="loanRateResult2" class="loanRateResult2">
 						<ul>
 							<li style="font-size: 1.4rem">대출 정보를 입력해주세요</li>
@@ -324,9 +361,9 @@
 					$(this).closest('.row').addClass('focus');
 					$(this).trigger('blur');
 
-					if (this.id == 'selAmt') {
+					if (this.id == 'loanAmt') {
 						$('.keypadWrap').attr('data-type', 'loanAmt');
-					} else if (this.id == 'selDateTerm') {
+					} else if (this.id == 'loanDateTerm') {
 						$('.keypadWrap').attr('data-type', 'loanDateTerm');
 					} else {
 						$('.keypadWrap').attr('data-type', 'loanRate');
@@ -351,7 +388,7 @@
 			});
 
 			$('.keypadQuick button').on('click', function () {
-				let amt = $('#selAmt').val();
+				let amt = $('#loanAmt').val();
 				const value = $(this).val();
 				if (amt.length == 0) {
 					amt = 0;
@@ -359,13 +396,13 @@
 				} else {
 					amt = Number(amt) + Number(value);
 				}
-				$('#selAmt').val(amt);
-				$('#selAmtText').text(ComUtil.mask.addComma(amt));
-				$('#selAmt').closest('.row').addClass('focus');
-				$('#selAmt').trigger('change');
+				$('#loanAmt').val(amt);
+				$('#loanAmtText').text(ComUtil.mask.addComma(amt));
+				$('#loanAmt').closest('.row').addClass('focus');
+				$('#loanAmt').trigger('change');
 				//$('.row.focus input[type="number"]').val(amt);
 				//$('.row.focus > span').text(ComUtil.mask.addComma(amt));
-				//$('#selAmt').closest('.row').addClass('focus');
+				//$('#loanAmt').closest('.row').addClass('focus');
 				//$('.row.focus input[type="number"]').trigger('change');
 			});
 
@@ -377,6 +414,12 @@
 					let rowNum = $('.calcForm .row.focus').attr('data-row');
 					if (rowNum == '3') rowNum = 0;
 					$(`.calcForm .row[data-row="${Number(rowNum) + 1}"] input[type="text"]`).trigger('focusin');
+					return;
+				}
+
+				if (value == 'reset') {
+					$('.calcForm .row.focus input[type="text"]').val('').trigger('change');
+					//$(`.calcForm input[data-type="${type}"]`).trigger('change');
 					return;
 				}
 
@@ -424,10 +467,10 @@ amtValue: ${amtValue}
 						ux.toast('최대 100%까지 가능합니다.');
 					}
 				}
-				//$('#selAmt').val(amt);
-				//$('#selAmtText').text(ComUtil.mask.addComma(amt));
-				//$('#selAmt').closest('.row').addClass('focus');
-				//$('#selAmt').trigger('change');
+				//$('#loanAmt').val(amt);
+				//$('#loanAmtText').text(ComUtil.mask.addComma(amt));
+				//$('#loanAmt').closest('.row').addClass('focus');
+				//$('#loanAmt').trigger('change');
 				$(`.calcForm input[data-type="${type}"]`).val(amtValue);
 				//$(`.calcForm input[data-type="${type}"]`).attr('data-value', amt).val(amtValue);
 				//$(`.calcForm input[data-type="${type}"]`).closest('.row').find(' > span').text(ComUtil.mask.addComma(amt));
@@ -447,9 +490,9 @@ amtValue: ${amtValue}
 			/*$('input[type="text"]').on('click', function () {
 				console.log(this.id);
 				//$('.keypadQuick').hide();
-				if (this.id == 'selAmt') {
+				if (this.id == 'loanAmt') {
 					$('.keypadWrap').attr('data-type', '1');
-				} else if (this.id == 'selDateTerm') {
+				} else if (this.id == 'loanDateTerm') {
 					$('.keypadWrap').attr('data-type', '2');
 				} else {
 					$('.keypadWrap').attr('data-type', '3');
@@ -514,6 +557,10 @@ amtValue: ${amtValue}
 					return;
 				}
 			}
+
+			$('#loanAmt').val(1000).trigger('change'); //대출원금
+			$('#loanDateTerm').val(12).trigger('change'); //기간
+			$('#loanRate').val(3.3).trigger('change'); //금리
 		</script>
 	</body>
 </html>

@@ -31,6 +31,11 @@ calculator.bind = function () {
 	$('#selectBankPopup .btnBank').on('click', calculator.event.selectBank); // 은행 선택
 	$('#selectBankPopup .btnConfirm').on('click', calculator.event.selectBankConfirm); // 은행 선택 확인
 	$('#selectBankPopup .btnClose').on('click', calculator.event.selectBankClose); // 은행 선택 팝업 닫기
+
+
+	$('#setListType').on('click', calculator.locAction.drawLoanDetail2); // 리스트 보기
+	$('#setCardType').on('click', calculator.locAction.drawLoanDetail); // 카드 보기
+
 };
 
 calculator.event = {
@@ -52,9 +57,9 @@ calculator.event = {
 	 */
 	calculateLoanRate: function () {
 		var repaymentMethod = $('input[name=repaymentMethod]:checked'); //상환방법
-		var selAmt = $('#selAmt').val(); //대출원금
-		var selDateTerm = $('#selDateTerm').val(); //기간
-		var selRate = $('#selRate').val(); //금리
+		var loanAmt = $('#loanAmt').val(); //대출원금
+		var loanDateTerm = $('#loanDateTerm').val(); //기간
+		var loanRate = $('#loanRate').val(); //금리
 
 		let isReturn = true;
 		$('.calcForm input[type="text"]').each(function () {
@@ -67,18 +72,21 @@ calculator.event = {
 		if (!isReturn) return false;
 		
 		var vRepaymentMethod = Number(repaymentMethod[0].value); // 상환방법
-		var vSelAmt = Number(selAmt.replaceAll(',', '')) * 10000; // 대출원금
-		var vSelDateTerm = Number(selDateTerm); // 기간
-		var vSelRate = Number(selRate) * 0.01; // 금리
+		var vloanAmt = Number(loanAmt.replaceAll(',', '')) * 10000; // 대출원금
+		var vloanDateTerm = Number(loanDateTerm); // 기간
+		var vloanRate = Number(loanRate) * 0.01; // 금리
 
-		console.log(vRepaymentMethod,vSelAmt,vSelDateTerm,vSelRate)
+		console.log(vRepaymentMethod,vloanAmt,vloanDateTerm,vloanRate)
 
 		// calcLoanInterest(상환방법(0: 원리금, 1: 원금), 대출원금, 이자율, 납입기간(월), 거치기간(월));
-		calculator.variable.loanResult = calculator.locAction.calcLoanInterest(vRepaymentMethod, vSelAmt, vSelRate, vSelDateTerm, 0);
+		calculator.variable.loanResult = calculator.locAction.calcLoanInterest(vRepaymentMethod, vloanAmt, vloanRate, vloanDateTerm, 0);
 		calculator.tempData = calculator.variable.loanResult;
 
 		calculator.locAction.drawLoanDetail2(); // 상세정보 그리기
-		//calculator.locAction.drawLoanInfo(repaymentMethod, vSelAmt, vSelDateTerm, vSelRate, calculator.variable.loanResult); // 요약정보 그리기
+		calculator.locAction.drawLoanInfo2(repaymentMethod, vloanAmt, vloanDateTerm, vloanRate, calculator.variable.loanResult); // 요약정보 그리기
+		$('section.hr').show();
+		$('#setListType').trigger('click');
+		$('body,html').animate({ scrollTop: $('.loanRateSummary').offset().top - 30 }, 300);
 
 		//calculator.event.loanRateResult();
 	},
@@ -169,15 +177,27 @@ calculator.locAction = {
 	/**
 	 * 대출계산결과 요약 그리기
 	 */
-	drawLoanInfo: function (repaymentMethod, vSelAmt, selDateTerm, selRate, loanResult) {
+	drawLoanInfo: function (repaymentMethod, vloanAmt, loanDateTerm, loanRate, loanResult) {
 		$('#sum1').html(repaymentMethod[0].title);
-		$('#sum2').html(ComUtil.mask.addComma(Math.floor(vSelAmt)) + '원');
-		$('#sum3').html(selDateTerm + '개월');
-		$('#sum4').html((selRate * 100).toFixed(1) + '%');
+		$('#sum2').html(ComUtil.mask.addComma(Math.floor(vloanAmt)) + '원');
+		$('#sum3').html(loanDateTerm + '개월');
+		$('#sum4').html((loanRate * 100).toFixed(1) + '%');
 		$('#sum5').html(ComUtil.mask.addComma(Math.floor(loanResult.totalInterest)) + '원');
 		$('#sum6').html(ComUtil.mask.addComma(Math.floor(loanResult.totalRepay)) + '원');
 		$('#sum7').html(ComUtil.mask.addComma(Math.floor(loanResult.totalRepay)) + '원');
 		$('#sum8').html(calculator.locAction.numberToKorean(loanResult.totalRepay) + '원');
+	},
+
+	drawLoanInfo2: function (repaymentMethod, vloanAmt, loanDateTerm, loanRate, loanResult) {
+		$('#sum1').html(repaymentMethod[0].title);
+		$('#sum2').html(ComUtil.mask.addComma(Math.floor(vloanAmt)) + '원');
+		$('#sum3').html(loanDateTerm + '개월');
+		$('#sum4').html((loanRate * 100).toFixed(1) + '%');
+		$('#sum5').html(ComUtil.mask.addComma(Math.floor(loanResult.totalInterest)) + '원');
+		$('#sum6').html(ComUtil.mask.addComma(Math.floor(loanResult.totalRepay)) + '원');
+		$('#sum7').html(ComUtil.mask.addComma(Math.floor(loanResult.totalRepay)) + '원');
+		$('#sum8').html(calculator.locAction.numberToKorean(loanResult.totalRepay) + '원');
+		$('#sum9').html(ComUtil.mask.addComma(Math.floor(loanResult.totalRepay/loanDateTerm)) + '원');
 	},
 
 	/**
@@ -200,26 +220,28 @@ calculator.locAction = {
 		});
 
 		var html = `
-		<table class="tableX fixed" data-title="월별 납입금액">
-			<caption>회차, 상환금, 이자, 납부원금, 상환후 예정잔액 등으로 구성되어 있습니다.</caption>
-			<colgroup>
-				<col style="width: 36px" />
-				<col style="width: auto" />
-				<col style="width: auto" />
-				<col style="width: auto" />
-				<col style="width: auto" />
-			</colgroup>
-			<thead>
-				<tr>
-					<th scope="col">회차</th>
-					<th scope="col">상환금</th>
-					<th scope="col">이자</th>
-					<th scope="col">납부원금</th>
-					<th scope="col">상환후 예정잔액</th>
-				</tr>
-			</thead>
-			<tbody id="tbody">${tbody}</tbody>
-		</table>`;
+		<div class="inner">
+			<table class="tableX fixed" data-title="월별 납입금액">
+				<caption>회차, 상환금, 이자, 납부원금, 상환후 예정잔액 등으로 구성되어 있습니다.</caption>
+				<colgroup>
+					<col style="width: 36px" />
+					<col style="width: auto" />
+					<col style="width: auto" />
+					<col style="width: auto" />
+					<col style="width: auto" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">회차</th>
+						<th scope="col">상환금</th>
+						<th scope="col">이자</th>
+						<th scope="col">납부원금</th>
+						<th scope="col">상환후 예정잔액</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">${tbody}</tbody>
+			</table>
+		</div>`;
 
 		$('#loanRateResult2').html(html);
 		return;
@@ -279,7 +301,6 @@ calculator.locAction = {
 
 		$('#loanRateResult2').html(tbody);
 		$('#loanDetailTitle .cnt').text(calculator.variable.loanResult.loansDate);
-		$('body,html').animate({ scrollTop: $('#loanDetailTitle').offset().top - 30 }, 300);
 	},
 
 	/**

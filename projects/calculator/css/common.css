@@ -1887,13 +1887,13 @@ ul.moneyTotal.top li:not(.accoItem) .block {padding:0 0 10px 0;}
 .tblInfo .goodsType {display:table-cell; width:76px;}
 
 /* goods 보기 형태 */
-.goodsType {display:inline-block; margin-left:-8px; padding-top:2px; font-size:0;}
+.goodsType {position: absolute; top: 0; right: 0; font-size: 0;}
 .goodsType li {padding:0;}
 .goodsType li + li {margin-left:0px;}
-.goodsType .ipt + label {width:36px; height:34px; padding-left:36px !important; font-size:0.1rem; border:1px solid #fff; background-size:21px auto; overflow:hidden; box-sizing:border-box; opacity:0.5;}
+.goodsType .ipt + label {width:36px; height:36px; padding-left:0px !important; font-size:0; background-size:auto 24px; overflow:hidden; box-sizing:border-box; opacity:0.4;}
 .goodsType .ipt + label:before {display:none;}
-.goodsType .card {background:url(../img/mw/content/btnIco_card.png) no-repeat center center;}
-.goodsType .list {background:url(../img/mw/content/btnIco_list.png) no-repeat center center;}
+.goodsType .card {background:url(../images/svg/icons-grid.svg) no-repeat center center;}
+.goodsType .list {background:url(../images/svg/icons-menu.svg) no-repeat center center;}
 .goodsType .ipt:checked + label {opacity:1;}
 .goodsType + .bbsSort {width:70%; vertical-align:middle;}
 
