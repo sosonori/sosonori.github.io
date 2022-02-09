@@ -55,8 +55,17 @@ calculator.event = {
 		var selAmt = $('#selAmt').val(); //대출원금
 		var selDateTerm = $('#selDateTerm').val(); //기간
 		var selRate = $('#selRate').val(); //금리
-		
 
+		let isReturn = true;
+		$('.calcForm input[type="text"]').each(function () {
+			if ($(this).val().length == 0) {
+				$(this).trigger('focusin')
+				isReturn = false;
+				return false;
+			}
+		});
+		if (!isReturn) return false;
+		
 		var vRepaymentMethod = Number(repaymentMethod[0].value); // 상환방법
 		var vSelAmt = Number(selAmt.replaceAll(',', '')) * 10000; // 대출원금
 		var vSelDateTerm = Number(selDateTerm); // 기간
