@@ -179,6 +179,7 @@ calculator.event = {
 			$(this).on('focusin', function () {
 				$('.row.focus').removeClass('focus');
 				$(this).closest('.row').addClass('focus');
+				$(this).closest('.row').find('> span').text($(this).val());
 				$(this).trigger('blur');
 
 				const iptId = $(this).attr('id');
@@ -268,11 +269,11 @@ calculator.event = {
 			$(`.calcForm input[data-type="${type}"]`).trigger('change');
 
 			if ($('.calcForm .row.val').length == 3) {
-				$('.btn_d.routeLink').addClass('active');
-				$('button[value="calc"]').attr('disabled', false);
+				$('#btnCalculate').addClass('active');
+				$('#btnCalculate, button[value="calc"]').attr('disabled', false);
 			} else {
-				$('.btn_d.routeLink').removeClass('active');
-				$('button[value="calc"]').attr('disabled', true);
+				$('#btnCalculate').removeClass('active');
+				$('#btnCalculate, button[value="calc"]').attr('disabled', true);
 			}
 		});
 	},
@@ -326,7 +327,7 @@ calculator.locAction = {
 		});
 
 		var html = `
-		<div class="inner">
+		<div class="inner mt20">
 			<table class="tableX fixed" data-title="월별 납입금액">
 				<caption>회차, 상환금, 이자, 납부원금, 상환후 예정잔액 등으로 구성되어 있습니다.</caption>
 				<colgroup>

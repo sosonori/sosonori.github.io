@@ -33,12 +33,13 @@
 				</ul>-->
 				<!-- 대출 이자 계산기 -->
 				<section class="componentView" data-component="/projects/calculator" aria-hidden="false">
-					<!--<div class="titArea">
-						<h1 class="titH1" style="font-weight: 400 !important; font-size: 28px">
-							<em>연이율</em>님,<br />
-							안녕하세요!
+					<div class="titArea">
+						<h1 class="titH1 mainTitle">
+							<!--<em>연이율</em>-->
+
+							대출이자계산기 <span class="icon-meet"></span>
 						</h1>
-					</div>-->
+					</div>
 					<div class="calcForm">
 						<div class="row" data-row="1">
 							<label for="loanAmt">대출금액</label>
@@ -124,7 +125,7 @@
 					</div>
 
 					<div class="btnArea mt30">
-						<button type="button" id="btnCalculate" class="btn_d routeLink_test" data-id="1" data-route="/projects/calculator/result">계산하기</button>
+						<button type="button" id="btnCalculate" class="btn_d routeLink_test" data-id="1" data-route="/projects/calculator/result" disabled>계산하기</button>
 					</div>
 				</section>
 
@@ -263,6 +264,7 @@
 			</div>
 			<div class="componentFoot"></div>
 		</div>
+		<aside class="quickTopBtn"><span class="blind">Top</span></aside>
 		<script>
 			const defaultPath = '/projects/calculator';
 			let beforePath = defaultPath;
@@ -338,17 +340,17 @@
 				});
 			});*/
 
-			$('body').on('click', function (e) {
-				const _this = $(e.target);
-				if (_this.attr('type') == 'text' || _this.closest('.keypadWrap').length > 0) {
-					return;
-				} else {
-					if ($('.keypadWrap.open').length > 0) {
-						$('.row.focus').removeClass('focus');
-						$('.keypadWrap.open').removeClass('open');
-					}
-				}
-			});
+			//$('body').on('click', function (e) {
+			//	const _this = $(e.target);
+			//	if (_this.attr('type') == 'text' || _this.closest('.keypadWrap').length > 0) {
+			//		return;
+			//	} else {
+			//		if ($('.keypadWrap.open').length > 0) {
+			//			$('.row.focus').removeClass('focus');
+			//			$('.keypadWrap.open').removeClass('open');
+			//		}
+			//	}
+			//});
 
 			$('input[type="radio"]').on('click', function () {
 				$('.row.focus').removeClass('focus');
@@ -373,94 +375,6 @@
 				//$('#loanAmt').closest('.row').addClass('focus');
 				//$('.row.focus input[type="number"]').trigger('change');
 			});
-
-			$('.keypad button').on('click', function () {
-				const thisVal = $(this).val();
-				const type = $(this).closest('.keypadWrap').attr('data-type');
-				let val = $(`.calcForm input[data-type="${type}"]`).val();
-				val = val.replaceAll(',', '');
-
-
-				// 이동 버튼
-				if (thisVal == 'move') {
-					let rowNum = $('.calcForm .row.focus').attr('data-row');
-					if (rowNum == '3') rowNum = 0;
-					$(`.calcForm .row[data-row="${Number(rowNum) + 1}"] input[type="text"]`).trigger('focusin');
-					return;
-				}
-
-				if (thisVal == 'reset') {
-					$('.calcForm .row.focus input[type="text"]').val('').trigger('change');
-					//$(`.calcForm input[data-type="${type}"]`).trigger('change');
-					return;
-				}
-
-				if (thisVal == 'calc') {
-					$('.row.focus').removeClass('focus');
-					$('.keypadWrap.open').removeClass('open');
-					calculator.event.calculateLoanRate();
-					return;
-				}
-
-				
-
-				
-				
-				// if (amt.length == 0 && thisVal == 0) return;
-				(thisVal == 'del') ? val = val.slice(0, -1) : val += thisVal;
-
-				let valStr = '';
-				if (type == 'loanAmt') {
-					valStr = ComUtil.mask.addComma(val);
-				} else {
-					valStr = val;
-				}
-
-				if (type == 'loanDateTerm') {
-					if (valStr.length > 3) {
-						valStr = valStr.slice(0, -1);
-						ux.toast('최대 999개월까지 가능합니다.');
-					}
-				}
-
-				if (type == 'loanRate') {
-					if (Number(valStr) > 100) {
-						valStr = valStr.slice(0, -1);
-						ux.toast('최대 100%까지 가능합니다.');
-					}
-				}
-				//$('#loanAmt').val(amt);
-				//$('#loanAmtText').text(ComUtil.mask.addComma(amt));
-				//$('#loanAmt').closest('.row').addClass('focus');
-				//$('#loanAmt').trigger('change');
-				$(`.calcForm input[data-type="${type}"]`).val(valStr);
-				//$(`.calcForm input[data-type="${type}"]`).attr('data-value', amt).val(valStr);
-				//$(`.calcForm input[data-type="${type}"]`).closest('.row').find(' > span').text(ComUtil.mask.addComma(amt));
-				$(`.calcForm input[data-type="${type}"]`).closest('.row').addClass('focus');
-				$(`.calcForm input[data-type="${type}"]`).trigger('change');
-
-				if ($('.calcForm .row.val').length == 3) {
-					$('.btn_d.routeLink').addClass('active');
-					$('button[value="calc"]').attr('disabled', false);
-				} else {
-					$('.btn_d.routeLink').removeClass('active');
-					$('button[value="calc"]').attr('disabled', true);
-				}
-			});
-
-			// 키패드 열기
-			/*$('input[type="text"]').on('click', function () {
-				console.log(this.id);
-				//$('.keypadQuick').hide();
-				if (this.id == 'loanAmt') {
-					$('.keypadWrap').attr('data-type', '1');
-				} else if (this.id == 'loanDateTerm') {
-					$('.keypadWrap').attr('data-type', '2');
-				} else {
-					$('.keypadWrap').attr('data-type', '3');
-				}
-				$('.keypadWrap').addClass('open');
-			});*/
 		</script>
 		<script>
 			const newDate = new Date();
@@ -520,9 +434,21 @@
 				}
 			}
 
-			$('#loanAmt').val(1000).trigger('change'); //대출원금
-			$('#loanDateTerm').val(12).trigger('change'); //기간
-			$('#loanRate').val(3.3).trigger('change'); //금리
+			// 스크롤 Top
+			$(window).on('scroll', function () {
+				console.log($(window).scrollTop());
+				if ($(window).scrollTop() > 800) {
+					$('.quickTopBtn').addClass('on');
+				} else {
+					$('.quickTopBtn').removeClass('on');
+				}
+			});
+
+			setTimeout(() => {
+				$('#loanAmt').val(1000).trigger('change'); //대출원금
+				$('#loanDateTerm').val(12).trigger('change'); //기간
+				$('#loanRate').val(3.3).trigger('change'); //금리
+			}, 300);
 		</script>
 	</body>
 </html>

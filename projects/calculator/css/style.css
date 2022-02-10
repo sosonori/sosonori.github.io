@@ -164,7 +164,10 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 
 
 /* component */
-.componentHead{}
+.componentView .titArea{margin: 16px 0 !important; padding-bottom: 16px;}
+.componentView .mainTitle{font-weight: 700 !important; font-size: 18px; line-height: 32px;}
+.componentView .icon-meet{display: inline-block; margin-right: 4px; width: 32px; height: 32px; background: url(../images/svg/icon-meet.svg) center center no-repeat; background-size: 24px; vertical-align: top;}
+
 .componentBody{height: 100%;}
 .componentFoot{}
 
@@ -245,8 +248,9 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 .keypadQuick > li {float: left; margin:0 3px;}
 .keypadQuick > li button { height: 26px; padding:0 8px; font-size: 1.3rem; color: #aaafb4; background-color: #333c45; border:0px solid #dde0e2; border-radius: 12px;}
 
-.btn_d.routeLink{ background-color: #F3F4F6; color: #888;}
-.btn_d.routeLink.active{ background-color: #FFEB00; color: #060B11;}
+#btnCalculate{ background-color: #F3F4F6; color: #888;}
+#btnCalculate.active{ background-color: #FFEB00; color: #060B11; transition: all .2s;}
+
 
 
 #loanDetailTitle .cnt{display: inline-block; margin-left: 8px; height: 24px; line-height: 24px; padding: 0 8px; background-color: #ddd; border-radius: 12px; font-size: 1.4rem; color: #666;}
@@ -259,3 +263,6 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 .loanRateResult2 .val4{position: absolute; top: 50%; right: 0; transform: translateY(-50%); font-size: 1.8rem; font-weight: 700; color: #000;}
 
 .loanRateResult2 .inner{overflow: auto; max-height: calc(100vh - 240px);}
+
+.quickTopBtn{position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px; transform: translateY(50%); background-color: #fff; background-image: url(../images/svg/icons-topup.svg); background-size: auto 40px;background-repeat: no-repeat;background-position: center; opacity: 0; transition: opacity .2s, transform .2s; border-radius: 50%; box-shadow: 0 4px 6px 0 rgb(0 0 0 / 12%);}
+.quickTopBtn.on{opacity: 1; transform: translateY(-50%);}
