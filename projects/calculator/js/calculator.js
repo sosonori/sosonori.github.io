@@ -13,6 +13,7 @@ calculator.init = function (data) {
 	calculator.bind();
 
 	calculator.locAction.repaymentMethodInit();
+	calculator.event.iptInit();
 };
 
 calculator.variable = {
@@ -169,7 +170,112 @@ calculator.event = {
 	selectBankClose: function () {
 		$('#selectBankPopup').hide();
 	},
-	name7: function () {},
+	/**
+	 * iptInit
+	 */
+	iptInit: function () {
+		// Input 초기화
+		$('.calcForm input[type="text"]').each(function () {
+			$(this).on('focusin', function () {
+				$('.row.focus').removeClass('focus');
+				$(this).closest('.row').addClass('focus');
+				$(this).trigger('blur');
+
+				const iptId = $(this).attr('id');
+				if (iptId.length > 0) $('.keypadWrap').attr('data-type', iptId);
+				$('.keypadWrap').addClass('open');
+				return;
+			});
+
+			$(this).on('change', function () {
+				if ($(this).val().length > 0) {
+					$(this).closest('.row').addClass('val');
+				} else {
+					$(this).closest('.row').removeClass('val');
+				}
+			});
+		});
+
+		$('.keypad button').on('click', function () {
+			const value = $(this).val();
+
+			// 이동 버튼
+			if (value == 'move') {
+				let rowNum = $('.calcForm .row.focus').attr('data-row');
+				if (rowNum == '3') rowNum = 0;
+				$(`.calcForm .row[data-row="${Number(rowNum) + 1}"] input[type="text"]`).trigger('focusin');
+				return;
+			}
+
+			if (value == 'reset') {
+				$('.calcForm .row.focus input[type="text"]').val('').trigger('change');
+				//$(`.calcForm input[data-type="${type}"]`).trigger('change');
+				return;
+			}
+
+			if (value == 'calc') {
+				$('.row.focus').removeClass('focus');
+				$('.keypadWrap.open').removeClass('open');
+				calculator.event.calculateLoanRate();
+				return;
+			}
+
+			const type = $(this).closest('.keypadWrap').attr('data-type');
+
+			let amt = $(`.calcForm input[data-type="${type}"]`).val();
+			amt = amt.replaceAll(',', '');
+
+			if (amt.length == 0 && value == 0) return;
+			if (value == 'del') {
+				amt = amt.slice(0, -1);
+			} else {
+				amt += value;
+			}
+			let valStr = '';
+			if (type == 'loanAmt') {
+				valStr = ComUtil.mask.addComma(amt);
+			} else {
+				valStr = amt;
+			}
+
+			const params = {
+				time:{
+					show:200,
+					hide:2000
+				},
+				style: { 
+					bottom:'300px'
+				}
+			};
+
+			if (type == 'loanDateTerm') {
+				if (valStr.length > 3) {
+					valStr = valStr.slice(0, -1);
+					
+					ux.toast('최대 999개월까지 가능합니다.', params);
+				}
+			}
+
+			if (type == 'loanRate') {
+				if (Number(valStr) > 100) {
+					valStr = valStr.slice(0, -1);
+					ux.toast('최대 100%까지 가능합니다.', params);
+				}
+			}
+			$(`.calcForm input[data-type="${type}"]`).val(valStr);
+			$(`.calcForm input[data-type="${type}"]`).closest('.row').find('> span').text(valStr);
+			$(`.calcForm input[data-type="${type}"]`).closest('.row').addClass('focus');
+			$(`.calcForm input[data-type="${type}"]`).trigger('change');
+
+			if ($('.calcForm .row.val').length == 3) {
+				$('.btn_d.routeLink').addClass('active');
+				$('button[value="calc"]').attr('disabled', false);
+			} else {
+				$('.btn_d.routeLink').removeClass('active');
+				$('button[value="calc"]').attr('disabled', true);
+			}
+		});
+	},
 	name8: function () {},
 };
 

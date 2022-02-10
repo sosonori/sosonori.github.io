@@ -181,7 +181,7 @@ label + .iptWrap input{margin-top: 8px; margin-bottom: 20px; font-size: 1.8rem !
 .calcForm .row.focus > label{transform: translateY(-16px); transition: transform .2s, font-size .2s; font-size: 1.3rem; color:#FFEB00; line-height: normal;}
 .calcForm .row.focus > label{color:#FFEB00;}
 .calcForm .row.focus .ipt{border-color: #FFEB00 !important; cursor: pointer;}
-.calcForm .row > span{display: none; position: absolute; top: 0; left: 0; height: 56px; line-height: 56px; font-size: 3rem !important;}
+.calcForm .row > span{position: absolute; top: 0; left: 0; height: 56px; line-height: 56px; font-size: 3rem !important; letter-spacing: 1px; color: #fff;}
 .calcForm .row.focus > span::before{position: absolute; top: 50%; right: -4px; transform: translateY(-45%); display: block; content: ''; height: 30px; width: 1px; background-color: #222; animation: blink-effect 1s step-end infinite;}
 .calcForm .iptWrap{margin: 10px 0 25px;}
 .calcForm .iptWrap .ipt.unit:not(.front){text-align: left !important; padding-left: 0; margin: 0; background-color: transparent; border: 0; border-bottom: 2px solid #dde0e2; border-radius: 0; font-size: 3.2rem !important;}

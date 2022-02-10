@@ -355,38 +355,6 @@
 				$('.keypadWrap.open').removeClass('open');
 			});
 
-			$('.calcForm input[type="text"]').each(function () {
-				$(this).on('focusin', function () {
-					$('.row.focus').removeClass('focus');
-					$(this).closest('.row').addClass('focus');
-					$(this).trigger('blur');
-
-					if (this.id == 'loanAmt') {
-						$('.keypadWrap').attr('data-type', 'loanAmt');
-					} else if (this.id == 'loanDateTerm') {
-						$('.keypadWrap').attr('data-type', 'loanDateTerm');
-					} else {
-						$('.keypadWrap').attr('data-type', 'loanRate');
-					}
-					$('.keypadWrap').addClass('open');
-				});
-
-				$(this).on('focusout', function () {
-					console.log('focusout');
-					//$(this).closest('.row').removeClass('focus');
-					//$('.row.focus').removeClass('focus');
-					//$('.keypadWrap.open').removeClass('open');
-				});
-
-				$(this).on('change', function () {
-					if ($(this).val().length > 0) {
-						$(this).closest('.row').addClass('val');
-					} else {
-						$(this).closest('.row').removeClass('val');
-					}
-				});
-			});
-
 			$('.keypadQuick button').on('click', function () {
 				let amt = $('#loanAmt').val();
 				const value = $(this).val();
@@ -407,63 +375,57 @@
 			});
 
 			$('.keypad button').on('click', function () {
-				const value = $(this).val();
+				const thisVal = $(this).val();
+				const type = $(this).closest('.keypadWrap').attr('data-type');
+				let val = $(`.calcForm input[data-type="${type}"]`).val();
+				val = val.replaceAll(',', '');
+
 
 				// 이동 버튼
-				if (value == 'move') {
+				if (thisVal == 'move') {
 					let rowNum = $('.calcForm .row.focus').attr('data-row');
 					if (rowNum == '3') rowNum = 0;
 					$(`.calcForm .row[data-row="${Number(rowNum) + 1}"] input[type="text"]`).trigger('focusin');
 					return;
 				}
 
-				if (value == 'reset') {
+				if (thisVal == 'reset') {
 					$('.calcForm .row.focus input[type="text"]').val('').trigger('change');
 					//$(`.calcForm input[data-type="${type}"]`).trigger('change');
 					return;
 				}
 
-				if (value == 'calc') {
+				if (thisVal == 'calc') {
 					$('.row.focus').removeClass('focus');
 					$('.keypadWrap.open').removeClass('open');
 					calculator.event.calculateLoanRate();
 					return;
 				}
 
-				const type = $(this).closest('.keypadWrap').attr('data-type');
+				
 
-				let amt = $(`.calcForm input[data-type="${type}"]`).val();
-				amt = amt.replaceAll(',', '');
+				
+				
+				// if (amt.length == 0 && thisVal == 0) return;
+				(thisVal == 'del') ? val = val.slice(0, -1) : val += thisVal;
 
-				if (amt.length == 0 && value == 0) return;
-				if (value == 'del') {
-					amt = amt.slice(0, -1);
-				} else {
-					amt += value;
-				}
-				let amtValue = '';
+				let valStr = '';
 				if (type == 'loanAmt') {
-					amtValue = ComUtil.mask.addComma(amt);
+					valStr = ComUtil.mask.addComma(val);
 				} else {
-					amtValue = amt;
+					valStr = val;
 				}
-
-				console.log(`
-type: ${type}
-amt: ${amt}
-amtValue: ${amtValue}
-				`);
 
 				if (type == 'loanDateTerm') {
-					if (amtValue.length > 3) {
-						amtValue = amtValue.slice(0, -1);
+					if (valStr.length > 3) {
+						valStr = valStr.slice(0, -1);
 						ux.toast('최대 999개월까지 가능합니다.');
 					}
 				}
 
 				if (type == 'loanRate') {
-					if (Number(amtValue) > 100) {
-						amtValue = amtValue.slice(0, -1);
+					if (Number(valStr) > 100) {
+						valStr = valStr.slice(0, -1);
 						ux.toast('최대 100%까지 가능합니다.');
 					}
 				}
@@ -471,8 +433,8 @@ amtValue: ${amtValue}
 				//$('#loanAmtText').text(ComUtil.mask.addComma(amt));
 				//$('#loanAmt').closest('.row').addClass('focus');
 				//$('#loanAmt').trigger('change');
-				$(`.calcForm input[data-type="${type}"]`).val(amtValue);
-				//$(`.calcForm input[data-type="${type}"]`).attr('data-value', amt).val(amtValue);
+				$(`.calcForm input[data-type="${type}"]`).val(valStr);
+				//$(`.calcForm input[data-type="${type}"]`).attr('data-value', amt).val(valStr);
 				//$(`.calcForm input[data-type="${type}"]`).closest('.row').find(' > span').text(ComUtil.mask.addComma(amt));
 				$(`.calcForm input[data-type="${type}"]`).closest('.row').addClass('focus');
 				$(`.calcForm input[data-type="${type}"]`).trigger('change');
