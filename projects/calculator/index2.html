@@ -220,3 +220,80 @@
 		</script>
 	</body>
 </html>
+
+<script>
+	$(document).ready(function () {
+		$('#btnEvt01').on('click', function () { $(this).toggleClass('on'); })
+		$('#btnEvt02').on('focus', function () { $(this).toggleClass('on'); })
+		$('#btnEvt03').on('focusin', function () { $(this).toggleClass('on'); })
+		$('#btnEvt04').on('focusout', function () { $(this).toggleClass('on'); })
+		$('#btnEvt05').on('touchstart', function () { $(this).toggleClass('on'); })
+		$('#btnEvt06').on('touchend', function () { $(this).toggleClass('on'); })
+		$('#btnEvt07').on('click', function () { $(this).toggleClass('on'); })
+		$('#btnEvt08').on('focus', function () { $(this).toggleClass('on'); })
+		$('#btnEvt09').on('touchstart', function () { $(this).toggleClass('on'); })
+	});
+	let pageInfo = {
+			totCnt: 0,
+			recordCnt: 10,
+			nowPage: 1,
+			idx: 0
+		}
+	
+		$(window).on('scroll', function () {
+			const scrollTop = $(this).scrollTop();
+			const targetTop = $('#cardListWrap').offset().top;
+			const targetHeight = $('#cardListWrap').height();
+			const lastY = (targetTop + targetHeight) - (window.innerHeight * 0.9);
+			// const lastY = (targetTop + targetHeight)
+			console.log('scroll');
+	
+			if (pageInfo.totCnt == pageInfo.idx) {
+				$(window).off('scroll');
+				console.log('off');
+			}
+	
+			console.log(scrollTop, lastY);
+	
+			if(scrollTop > lastY) {
+				loadCardList(goodsList, pageInfo.nowPage + 1);
+				console.log(pageInfo);
+			}
+		});
+	
+		function loadCardList(data, nowPage) {
+			console.log(pageInfo);
+	
+			pageInfo.totCnt = data.length;
+	
+			let index = pageInfo.idx;
+			const nowCnt = pageInfo.recordCnt * pageInfo.nowPage;
+			const maxLength = nowCnt < pageInfo.totCnt ? nowCnt : pageInfo.totCnt;
+	
+			console.log(maxLength);
+			
+			const fragment = document.createDocumentFragment();
+			for (index; index < maxLength; index++) {
+				const element = `
+				<li>
+					<div class="block">
+						<div class="goods waBtn">
+							<div class="cardImg"><img src="" alt=""></div>
+							<div class="dataInfo"><em class="tit"><span class="blind">카드명</span>_1</em>
+								<p class="desc">_1</p>
+							</div>
+						</div>
+					</div>
+				</li>`;
+	
+				$(fragment).append(element);
+			}
+	
+			$('#cardListWrap').append(fragment);
+			pageInfo.idx = maxLength;
+			pageInfo.nowPage++;
+			console.log(pageInfo);
+		}
+	
+		loadCardList(goodsList, pageInfo.nowPage);
+	</script>
